@@ -1,0 +1,75 @@
+/********** Template CSS **********/
+:root {
+    --primary: #00B074;
+    --secondary: #2B9BFF;
+    --light: #EFFDF5;
+    --dark: #2B3940;
+    --color-primary: #212529;
+    --color-primary-rgb: 33, 37, 41;
+}
+.header {
+    height: 90px;
+    transition: all 0.5s;
+    z-index: 997;
+    background: #f2f2f2;
+  }
+
+.header.sticked {
+    height: 70px;
+}
+  
+.header .logo img {
+    max-height: 40px;
+    margin-right: 6px;
+}
+/*--------------------------------------------------------------
+# Scroll top button
+--------------------------------------------------------------*/
+.scroll-top {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    right: 15px;
+    bottom: 15px;
+    z-index: 99999;
+    background: var(--color-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    transition: all 0.4s;
+  }
+  
+  .scroll-top i {
+    font-size: 24px;
+    color: #fff;
+    line-height: 0;
+  }
+  
+  .scroll-top:hover {
+    background: rgba(var(--color-primary-rgb), 0.8);
+    color: #fff;
+  }
+  
+  .scroll-top.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+@media (min-width: 1280px){
+
+}
+
+@media (min-width: 991.98px) {
+  
+}
+@media (min-width: 768px) {
+  
+}
+
+@media (min-width: 600px) {
+    .container {
+        max-width: 100% !important;
+        padding-right: 5rem!important;
+        padding-left: 5rem!important;
+    }
+}
