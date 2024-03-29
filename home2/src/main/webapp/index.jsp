@@ -25,7 +25,7 @@
                                                 <div class="filter-search-form relative filter-border">
                                                     <i class="uil uil-briefcase-alt icons"></i>
                                                     <input name="name" type="text" id="job-keyword" class="form-control"
-                                                        placeholder="Search your Keywords">
+                                                        placeholder="Nhập từ khóa">
                                                 </div>
 
                                                 <div class="filter-search-form relative filter-border">
@@ -59,8 +59,8 @@
                                                 </div>
 
                                                 <input type="submit" id="search" name="search" style=""
-                                                    class="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white searchbtn submit-btn w-100"
-                                                    value="Search">
+                                                    class="btn rounded bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white searchbtn submit-btn w-100"
+                                                    value="Lọc">
                                             </div><!--end grid-->
                                         </div><!--end container-->
                                     </form>
@@ -124,11 +124,9 @@
         <!-- Start -->
         <div class="container">
             <div class="grid grid-cols-1 pb-8 text-center">
-                <h3 class="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Popular
-                    Categories</h3>
+                <h3 class="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Các ngành nghề Hot</h3>
 
-                <p class="text-slate-400 max-w-xl mx-auto">Search all the open positions on the web. Get your own
-                    personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
+                <p class="text-slate-400 max-w-xl mx-auto">Tìm kiếm tất cả các ngành nghề hot trên hiện nay. Các cơ hội việc làm phong phú , phù hợp với mọi đối tượng . Đọc đánh giá về hơn 30000 công ty trên toàn thế giới.</p>
             </div><!--end grid-->
 
             <div class="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-8 gap-[30px]">
@@ -203,6 +201,121 @@
                 </div><!--end content-->
             </div><!--end grid-->
         </div><!--end container-->
+
+		<div class="container md:mt-24 md:pb-16 mt-16" data-aos="fade-up" data-aos-duration="1000">
+                <div class="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
+                    <div class="lg:col-span-5 md:col-span-6 md:order-2 order-1">
+                        <div class="relative">
+                            <div class="relative flex justify-end">
+                                <img src="/home/img/job.jpg" class="lg:w-[400px] w-[280px] rounded-md shadow dark:shadow-gray-700" alt="">
+                                <div class="absolute top-0 translate-y-2/4 start-0 text-center">
+                                    <a href="#!" data-type="youtube" data-id="S_CGed6E610" class="lightbox size-20 rounded-full shadow-lg dark:shadow-gray-700 inline-flex items-center justify-center bg-white dark:bg-slate-900 text-emerald-600 dark:text-white">
+                                       job now
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="absolute md:-start-5 start-0 -bottom-16">
+                                <img src="/home/img/lap.jpg" class="lg:w-[280px] w-[200px] border-8 border-white dark:border-slate-900 rounded-md shadow dark:shadow-gray-700" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 md:col-span-6 mt-14 md:mt-0 md:order-1 order-2">
+                        <div class="lg:me-5">
+                            <h3 class="mb-6 md:text-[26px] text-2xl md:leading-normal leading-normal font-semibold">Find Best Companies.</h3>
+
+                            <p class="text-slate-400 max-w-xl">Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
+
+                            <div class="grid md:grid-cols-2 grid-cols-1 gap-6 mt-8">
+                                <div class="p-3 rounded shadow dark:shadow-gray-700 bg-slate-50 dark:bg-slate-800">
+                                    <div class="flex items-center">
+                                        <div class="size-12 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                            <img src="assets/images/company/spotify.png" class="size-8" alt="">
+                                        </div>
+        
+                                        <div class="ms-3">
+                                            <a href="employer-detail.html" class="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">Spotify</a>
+                                            <span class="block text-sm text-emerald-600">5 Vacancy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-3 rounded shadow dark:shadow-gray-700 bg-slate-50 dark:bg-slate-800">
+                                    <div class="flex items-center">
+                                    <div class="size-12 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                        <img src="assets/images/company/facebook-logo.png" class="size-8" alt="">
+                                    </div>
+
+                                    <div class="ms-3">
+                                        <a href="employer-detail.html" class="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">Facebook</a>
+                                            <span class="block text-sm text-emerald-600">5 Vacancy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-3 rounded shadow dark:shadow-gray-700 bg-slate-50 dark:bg-slate-800">
+                                    <div class="flex items-center">
+                                    <div class="size-12 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                        <img src="assets/images/company/google-logo.png" class="size-8" alt="">
+                                    </div>
+
+                                    <div class="ms-3">
+                                        <a href="employer-detail.html" class="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">Google</a>
+                                            <span class="block text-sm text-emerald-600">5 Vacancy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-3 rounded shadow dark:shadow-gray-700 bg-slate-50 dark:bg-slate-800">
+                                    <div class="flex items-center">
+                                    <div class="size-12 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                        <img src="assets/images/company/android.png" class="size-8" alt="">
+                                    </div>
+
+                                    <div class="ms-3">
+                                        <a href="employer-detail.html" class="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">Android</a>
+                                            <span class="block text-sm text-emerald-600">5 Vacancy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-3 rounded shadow dark:shadow-gray-700 bg-slate-50 dark:bg-slate-800">
+                                    <div class="flex items-center">
+                                    <div class="size-12 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                        <img src="assets/images/company/lenovo-logo.png" class="size-8" alt="">
+                                    </div>
+
+                                    <div class="ms-3">
+                                        <a href="employer-detail.html" class="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">Lenovo</a>
+                                            <span class="block text-sm text-emerald-600">5 Vacancy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-3 rounded shadow dark:shadow-gray-700 bg-slate-50 dark:bg-slate-800">
+                                    <div class="flex items-center">
+                                    <div class="size-12 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                        <img src="assets/images/company/linkedin.png" class="size-8" alt="">
+                                    </div>
+
+                                    <div class="ms-3">
+                                        <a href="employer-detail.html" class="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">Linkedin</a>
+                                            <span class="block text-sm text-emerald-600">5 Vacancy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-12 grid-cols-1 mt-6">
+                                <div class="md:col-span-12">
+                                    <a href="" class="btn btn-link text-slate-400 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out">See More Companies <i class="uil uil-arrow-right align-middle"></i></a>
+                                </div>
+                            </div><!--end grid-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--end container-->
 
         <div class="container md:mt-24 md:pb-16 mt-16" data-aos="zoom-in">
             <div class="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">

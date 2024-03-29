@@ -10,6 +10,7 @@
 <%@ page import="java.util.*, org.javatuples.*"%>
 <%@ page import="jsoft.home.*"%>
 
+
 <%
 // xac dinh tap ki tu can lay
 request.setCharacterEncoding("utf-8");
