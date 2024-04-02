@@ -1,8 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./**/*.{html,js,jsp}"],
+    content: ["./**/*.{html,js,jsp,java}"],
     theme: {
       extend: {
+	 top: {
+        '-4': '-1rem',
+      },
+	 gridTemplateColumns: {
+		'2': 'repeat(2, minmax(0, 1fr))',
+		'3': 'repeat(3, minmax(0, 1fr))',
+		'4': 'repeat(4, minmax(0, 1fr))',
+        '5': 'repeat(5, minmax(0, 1fr))',
+      },
+	 spacing: {
+		'size-16': '4rem',
+		'size-14': '3.5rem',
+        'size-12': '3rem',
+        'size-8': '2rem',
+      },
 	 flex: {
         'column-md': 'column',
       },
@@ -10,8 +25,10 @@ module.exports = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      'white': '#ffffff',
-      'slate': {
+      true:'#16a34a',
+      false:'#b91c1c',
+      white: '#ffffff',
+      slate: {
           50: '#f8fafc',
           100: '#f1f5f9',
           200: '#e2e8f0',
@@ -24,7 +41,7 @@ module.exports = {
           900: '#0f172a',
           950: '#020617',
         },
-        'gray': {
+        gray: {
           50: '#f9fafb',
           100: '#f3f4f6',
           200: '#e5e7eb',
@@ -37,7 +54,7 @@ module.exports = {
           900: '#111827',
           950: '#030712',
         },
-         'neutral': {
+         neutral: {
           50: '#fafafa',
           100: '#f5f5f5',
           200: '#e5e5e5',
@@ -50,7 +67,7 @@ module.exports = {
           900: '#171717',
           950: '#0a0a0a',
         },
-        'stone': {
+        stone: {
           50: '#fafaf9',
           100: '#f5f5f4',
           200: '#e7e5e4',

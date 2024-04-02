@@ -32,10 +32,13 @@ public class ArticleObject extends CategoryObject{
 	private boolean article_focus;
 	private byte article_type;
 	private boolean article_forhome;
+	private CategoryObject categoryObject;
 	
 	public ArticleObject() {
 		
 	}
+	
+
 
 	public int getArticle_id() {
 		return article_id;
@@ -61,7 +64,9 @@ public class ArticleObject extends CategoryObject{
 		return article_last_modified;
 	}
 
-	
+	public String getArticle_image() {
+		return article_image;
+	}
 
 	public short getArticle_category_id() {
 		return article_category_id;
@@ -177,12 +182,6 @@ public class ArticleObject extends CategoryObject{
 
 	public void setArticle_last_modified(String article_last_modified) {
 		this.article_last_modified = article_last_modified;
-	}
-
-	
-
-	public String getArticle_image() {
-		return article_image;
 	}
 
 	public void setArticle_image(String article_image) {

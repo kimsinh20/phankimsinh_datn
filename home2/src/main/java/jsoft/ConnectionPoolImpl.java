@@ -22,7 +22,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
 		this.driver = "com.mysql.cj.jdbc.Driver";
 
 		// xác định đường dẫn thực thi
-		this.url = "jdbc:mysql://localhost:3306/jp210302_data?allowMultiQueries=true";
+		this.url = "jdbc:mysql://localhost:3306/web_data?allowMultiQueries=true";
 
 		// xác định tài khoản làm việc
 		this.username = "root";

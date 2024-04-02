@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-  
+
   <fmt:setLocale value="${sessionScope.lang}" />
   <fmt:setBundle basename="lang.lang" />
 <jsp:include page="data.jsp" flush="true"></jsp:include>
@@ -10,13 +10,15 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>JobEntry - Job Portal Website Template</title>
+    <title>Jobnow</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon" />
+ 
+   <link href="/home/img/logo.jpg" rel="icon">
+   <link href="/home/img/logo.jpg" rel="apple-touch-icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,7 +27,7 @@
         rel="stylesheet" />
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 
     <!-- Libraries Stylesheet -->
@@ -39,7 +41,7 @@
 
 <body>
      <div class="bg-white px-0">
-        <header class="header container flex justify-between items-center fixed w-full" data-aos="fade-in">
+        <header class="header md:container flex justify-between items-center fixed w-full" data-aos="fade-in">
             <div class=" ">
                 <a href="index.html" class="text-2xl ms-2 font-[Poppins] cursor-pointer flex items-center">
                     <img class="h-10 inline rounded"
@@ -52,23 +54,23 @@
                 <ul
                     class="flex justify-center items-center flex-col md:flex-row">
                     <li class="mx-4 my-2 md:my-0 hover:bg-emerald-600">
-                        <a href="#" class="text-md hover:text-cyan-500 duration-500"><fmt:message key="menu.home"/></a>
+                        <a href="#" class="text-md hover:text-cyan-500 duration-500"><i class="fa-solid fa-house me-2"></i><fmt:message key="menu.home"/></a>
                     </li>
                     <li class="mx-4 my-2 md:my-0 hover:bg-emerald-600">
                         <a href="#" class="text-md hover:text-cyan-500 duration-500"><fmt:message key="menu.job"/></a>
                     </li>
                     <li class="mx-4 my-2 md:my-0 hover:bg-emerald-600">
-                        <a href="#" class="text-md hover:text-cyan-500 duration-500">Công ty</a>
+                        <a href="#" class="text-md hover:text-cyan-500 duration-500"><fmt:message key="menu.companies"/></a>
                     </li>
                     <li class="mx-4 my-2 md:my-0 hover:bg-emerald-600">
-                        <a href="#" class="text-md hover:text-cyan-500 duration-500">Việc của tôi</a>
+                        <a href="#" class="text-md hover:text-cyan-500 duration-500"><fmt:message key="menu.jobofme"/></a>
                     </li>
                     <li class="mx-4 my-2 md:my-0 hover:bg-emerald-600">
-                        <a href="#" class="text-md hover:text-cyan-500 duration-500">Tin tức & Bài viết</a>
+                        <a href="#" class="text-md hover:text-cyan-500 duration-500"><fmt:message key="menu.blog"/></a>
                     </li>
                 </ul>
-               <div class="flex items-center justify-around  flex-col md:flex-row"">
-               <a href="#" class="text-md my-2 md:my-0 w-48 text-center md:text-sm rounded-md bg-emerald-600 px-3 py-2 text-white shadow-sm">Nhà tuyển dụng</a>
+               <div class="flex items-center justify-around  flex-col md:flex-row">
+               <a href="#" class="text-md my-2 md:my-0 w-48 text-center md:text-sm rounded-md bg-emerald-600 px-3 py-2 text-white shadow-sm"><fmt:message key="menu.employer"/></a>
                   
              			<%
 						  String lang = (String) session.getAttribute("lang");
@@ -85,7 +87,7 @@
 			 					 <img class="rounded h-10 w-14" id="svg1" src="<%= imageSrc %>" alt="lang">
 							</a>
          
-            			<button class="inline-flex w-48 my-2 md:my-0 justify-center rounded-md bg-rose-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-100 sm:ml-3 sm:w-auto">Đăng nhập</button>
+            			<button class="inline-flex w-48 my-2 md:my-0 justify-center rounded-md bg-rose-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-100 sm:ml-3 sm:w-auto"><fmt:message key="menu.login"/></button>
                </div>
             	</nav>
             <!-- Navbar End -->
