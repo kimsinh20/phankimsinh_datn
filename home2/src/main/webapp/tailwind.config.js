@@ -6,6 +6,14 @@ module.exports = {
 	 top: {
         '-4': '-1rem',
       },
+      spacing: {
+        '90': '90px',
+      },
+     hover: {
+        textColor: {
+          white: '#ffffff',
+        }
+        },
 	 gridTemplateColumns: {
 		'2': 'repeat(2, minmax(0, 1fr))',
 		'3': 'repeat(3, minmax(0, 1fr))',
@@ -28,6 +36,7 @@ module.exports = {
       true:'#16a34a',
       false:'#b91c1c',
       white: '#ffffff',
+      footer: '#001744',
       slate: {
           50: '#f8fafc',
           100: '#f1f5f9',

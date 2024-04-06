@@ -107,5 +107,14 @@ public class HomepageImpl extends BasicImpl implements Homepage {
 		}
 		return conds.toString();
 	}
+
+
+	@Override
+	public ArrayList<ResultSet> getDataFooter() {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * from tblfield limit 6; ");
+		return this.getMR(sql.toString());
+	}
 	
 }

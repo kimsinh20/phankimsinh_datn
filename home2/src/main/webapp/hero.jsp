@@ -1,14 +1,19 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+  <fmt:setLocale value="${sessionScope.lang}" />
+  <fmt:setBundle basename="lang.lang" />
  <!-- Start Hero -->
         <section class="relative  md:py-56 py-36 container" data-aos="fade-up">
             <div class="absolute inset-0 bg-emerald-600/5 dark:bg-emerald-600/10"></div>
             <div class="container z-1">
                 <div class="grid grid-cols-1 text-center mt-10 relative">
-                    <h4 class="lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5 font-bold">Hãy tham gia cùng chúng tôi & <span
-                            class="text-emerald-600 font-bold">Khám phá</span> <br> <span
-                            class="text-emerald-600 font-bold">hàng nghìn</span> việc làm</h4>
-                    <p class="text-slate-400 text-lg max-w-xl mx-auto">Tìm việc làm, việc làm và cơ hội nghề nghiệp. Một số công ty chúng tôi đã giúp tuyển dụng những ứng viên xuất sắc trong những năm qua.</p>
+                    <h4 class="lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5 font-bold"><fmt:message key="menu.join"/> & 
+                    <span class="text-emerald-600 font-bold"><fmt:message key="menu.explore"/></span> <br> 
+                     <span class="text-emerald-600 font-bold"><fmt:message key="menu.thousands"/></span> <fmt:message key="menu.ofjob"/> 
+                     </h4>
+               		<p class="text-slate-400 text-lg max-w-xl mx-auto"><fmt:message key="menu.des"/></p> 
 
                     <div class="d-flex" id="reserve-form">
                         <div class="md:w-5/6 mx-auto">

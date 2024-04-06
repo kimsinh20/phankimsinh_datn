@@ -36,12 +36,12 @@
     <!-- <link href="css/bootstrap.min.css" rel="stylesheet" /> -->
     <link href="/home/vendor/aos/aos.css" rel="stylesheet">
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="/home/css/style.css" rel="stylesheet" />
 </head>
 
 <body>
      <div class="bg-white px-0">
-        <header class="header md:container flex justify-between items-center fixed w-full" data-aos="fade-in">
+        <header class="header z-[5] bg-gray-100 flex justify-between items-center fixed w-full" data-aos="fade-in">
             <div class=" ">
                 <a href="index.html" class="text-2xl ms-2 font-[Poppins] cursor-pointer flex items-center">
                     <img class="h-10 inline rounded"
@@ -50,14 +50,14 @@
                 </a>
             </div>
             <!-- Navbar Start -->
-            <nav class="w-full md:flex md:items-center bg-gray-100  justify-between z-[5] md:z-auto md:static absolute w-full left-0 md:w-auto md:py-0 py-2 md:pl-0 pl-7 md:opacity-100 top-[-400px] transition-all ease-in duration-500">
+            <nav class="w-full md:flex md:items-center  justify-between z-[5] md:z-auto md:static absolute w-full left-0 md:w-auto md:py-0 py-2 md:pl-0 pl-7 md:opacity-100 top-[-400px] transition-all ease-in duration-500">
                 <ul
                     class="flex justify-center items-center flex-col md:flex-row">
                     <li class="mx-4 my-2 md:my-0 hover:bg-emerald-600">
-                        <a href="#" class="text-md hover:text-cyan-500 duration-500"><i class="fa-solid fa-house me-2"></i><fmt:message key="menu.home"/></a>
+                        <a href="/home" class="text-md hover:text-cyan-500 duration-500"><i class="fa-solid fa-house me-2"></i><fmt:message key="menu.home"/></a>
                     </li>
                     <li class="mx-4 my-2 md:my-0 hover:bg-emerald-600">
-                        <a href="#" class="text-md hover:text-cyan-500 duration-500"><fmt:message key="menu.job"/></a>
+                        <a href="/home/jobs" class="text-md hover:text-cyan-500 duration-500"><fmt:message key="menu.job"/></a>
                     </li>
                     <li class="mx-4 my-2 md:my-0 hover:bg-emerald-600">
                         <a href="#" class="text-md hover:text-cyan-500 duration-500"><fmt:message key="menu.companies"/></a>

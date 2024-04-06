@@ -51,7 +51,10 @@ public class HomepageControl {
 		rs.add(HomepageLibrary.viewListArticle(data.getValue5()));
 		return rs;
 	}
-
+	public String getFieldsInFooter() {
+		ArrayList<FieldObject> data = this.cm.getDatafooter();
+		return HomepageLibrary.viewFieldInFooter(data);
+	}
 	public static void main(String[] args) {
 	
 	}

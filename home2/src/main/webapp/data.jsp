@@ -28,9 +28,20 @@ if(cp==null) {
 CareerObject similar = new CareerObject();;
 
 Triplet<CareerObject, Integer, Byte> incareer = new Triplet<>(similar, 0, (byte)5);
-ArrayList<String> listView = cc.viewHomePage(incareer);
-if(listView.size()>0) {
-	//gui cau truc hien thi vao phien lam viec
-	session.setAttribute("listview",listView );
+
+String FieldInFooter = cc.getFieldsInFooter();
+if(FieldInFooter!=null && !FieldInFooter.equalsIgnoreCase("")) {
+	session.setAttribute("FieldsInFooter",FieldInFooter);
 }
+if(at!=-1) {
+	
+} else {
+	// data home page
+	ArrayList<String> listView = cc.viewHomePage(incareer);
+	if(listView.size()>0) {
+		//gui cau truc hien thi vao phien lam viec
+		session.setAttribute("listview",listView );
+	}
+}
+
 %>

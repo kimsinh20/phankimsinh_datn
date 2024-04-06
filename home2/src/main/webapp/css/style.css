@@ -7,11 +7,12 @@
     --color-primary: #212529;
     --color-primary-rgb: 33, 37, 41;
 }
+main {
+	padding-top: 90px;
+} 
 .header {
     height: 90px;
     transition: all 0.5s;
-    z-index: 997;
-    background: #f2f2f2;
   }
 nav {
 	flex:10;
@@ -30,6 +31,21 @@ nav {
 }
 .text-false {
 	color: #b91c1c
+}
+.article {
+	overflow: hidden;;
+}
+.article_img {
+	transform: scale(1.1, 1.1);
+}
+.article_img:hover {
+	transform: scale(1, 1);
+}
+.-top-4 {
+	top: -1rem;
+}
+#icon-save:hover {
+	color: white;
 }
 /*--------------------------------------------------------------
 # Scroll top button

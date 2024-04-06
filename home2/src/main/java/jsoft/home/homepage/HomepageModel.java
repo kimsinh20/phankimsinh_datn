@@ -58,7 +58,6 @@ public class HomepageModel {
 					f.setField_name(rs.getString("field_name"));
 					item.setField(f);
 					item.setCareer_last_modified(rs.getString("Career_last_modified"));
-				
 					item.setCareer_notes(rs.getString("Career_notes"));
 					item.setCareer_field_id(rs.getInt("career_field_id"));
 					
@@ -167,6 +166,7 @@ public class HomepageModel {
 					job.setJob_quantity(rs.getInt("job_quantity"));
 					job.setJob_work_time(rs.getByte("job_work_time"));
 					job.setJob_location(rs.getString("job_location"));
+					job.setJob_salary(rs.getByte("job_salary"));
 					job.setJob_expiration_date(jsoft.library.Utilities_date.getDateForJs(rs.getString("job_expiration_date")));
 					
 					listJob.add(job);
@@ -206,5 +206,27 @@ public class HomepageModel {
 			}
 		}
 		return new Sextet<>(items,total_field,listTopCompanies,total_job,listJob,listArticle);
+	}
+	public ArrayList<FieldObject> getDatafooter() {
+		ArrayList<ResultSet> res = this.c.getDataFooter();
+		
+		ResultSet rs = res.get(0);
+		
+		ArrayList<FieldObject> list = new ArrayList<>();
+		FieldObject item = null;
+		if(rs!=null) {
+			try {
+				while(rs.next()) {
+					item = new FieldObject();
+					item.setField_id(rs.getInt("field_id"));
+					item.setField_name(rs.getString("field_name"));
+					list.add(item);
+				}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	  } 
+		return list;
 	}
 }
