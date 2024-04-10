@@ -20,7 +20,7 @@ import jsoft.objects.UserObject;
 public class HomepageImpl extends BasicImpl implements Homepage {
 
 	public HomepageImpl(ConnectionPool cp) {
-		super(cp, "Career");
+		super(cp, "Home");
 		// TODO Auto-generated constructor stub
 	}
 

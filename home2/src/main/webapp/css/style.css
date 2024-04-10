@@ -13,24 +13,37 @@ main {
 .header {
     height: 90px;
     transition: all 0.5s;
+    top:0;
+    background-color:#4338ca;
   }
-nav {
-	flex:10;
-}  
+.header nav{
+    background-color:#71717a;
+    flex:10;
+}
 
 .header.sticked {
     height: 70px;
+    background-color: #312e81;
 }
   
 .header .logo img {
     max-height: 40px;
     margin-right: 6px;
 }
+.bg-hero {
+	/*background-image: url("/home/img/banner.jpg");
+	background-repeat: no-repeat;
+	 background-size: 100%;*/
+	 background-color: #e0f2fe;
+}
 .text-true {
 	color: #16a34a
 }
 .text-false {
 	color: #b91c1c
+}
+.text-pending {
+	color: yellow;
 }
 .article {
 	overflow: hidden;;
@@ -47,6 +60,50 @@ nav {
 #icon-save:hover {
 	color: white;
 }
+#job-item:hover {
+	 margin-top: -0.5rem;
+	 background-color:  #f4f4f5;
+	 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+ li>.parent-menu                 { transform: translatex(100%) scale(0) }
+ li:hover>.parent-menu           { transform: translatex(100.5%) scale(1) ;margin-top: 0px;left:78px;top:10px;} 
+  .parent-menu > li:hover .sub-menu { display: block; }
+  .sub-menu {
+  transform: translatex(101%) scale(1)
+  }
+  #menu-job:before {
+  content: "";
+  position: absolute;
+  width: 10rem;
+  height: 40px;
+  top: 0px;
+  left: 30px;
+  background-color: transparent;
+  z-index: -1;
+  }
+  .parent-menu .sub:before {
+  content: "";
+  position: absolute;
+  width: 3rem;
+  height: 50px;
+  top: 0;
+  right: -14px;
+  background-color: transparent;
+  z-index: -1;
+  }
+  li > button svg       { transform: rotate(-90deg) }
+  li:hover > button svg { transform: rotate(-270deg) }
+
+  /* Below styles fake what can be achieved with the tailwind config
+     you need to add the group-hover variant to scale and define your custom
+     min width style.
+  	 See https://codesandbox.io/s/tailwindcss-multilevel-dropdown-y91j7?file=/index.html
+  	 for implementation with config file
+  */
+  .group:hover .group-hover\:scale-100 { transform: scale(1) }
+  .group:hover .group-hover\:-rotate-180 { transform: rotate(180deg) }
+  .scale-0 { transform: scale(0) }
+  .min-w-32 { min-width: 14rem }
 /*--------------------------------------------------------------
 # Scroll top button
 --------------------------------------------------------------*/
@@ -80,7 +137,10 @@ nav {
     opacity: 1;
   }
 
-@media (min-width: 1280px){
+
+@media ( min-width
+	:
+	1280px){
 
 }
 
@@ -91,6 +151,13 @@ nav {
   .list-nav {
    flex-direction: column;
   }
+  .header nav{
+    background-color:transparent;
+}
+#menu-job:before {top:0px;left: 0;  width: 10rem;
+  height: 52px;}
+.min-w-32 { min-width: 18rem }
+ li:hover>.parent-menu           { transform: translatex(120.5%) scale(1);margin-top: 20px;left:0px;top:30px; } 
 }
 
 @media (min-width: 600px) {

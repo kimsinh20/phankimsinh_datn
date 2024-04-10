@@ -1,3 +1,5 @@
+<%@page import="jsoft.home.job.JOB_SOFT"%>
+<%@page import="jsoft.home.job.JobControl"%>
 <%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="java.net.URLEncoder"%>
@@ -34,6 +36,9 @@ if(FieldInFooter!=null && !FieldInFooter.equalsIgnoreCase("")) {
 	session.setAttribute("FieldsInFooter",FieldInFooter);
 }
 if(at!=-1) {
+	if(uri.contains("jobs")) {
+		
+	}
 	
 } else {
 	// data home page

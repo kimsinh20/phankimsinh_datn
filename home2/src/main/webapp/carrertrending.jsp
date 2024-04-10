@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <!-- Start -->
-        <div class="container">
+        <div class="container mt-6">
             <div class="grid grid-cols-1 pb-8 text-center">
                 <h3 class="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Các lĩnh vực Hot</h3>
 
