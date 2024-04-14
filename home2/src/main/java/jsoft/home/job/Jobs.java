@@ -47,7 +47,49 @@ public class Jobs extends HttpServlet {
 		}
 		return false;
 	}
+	public boolean[] checkbool(int id[],String arr[]) {
+		boolean[] selectedList = new boolean[arr.length + 1];
+		selectedList[0] = true;
 
+		if (id != null) {
+			if (id.length <= 1 && id[0] == 0) {
+				selectedList[0] = true;
+			} else {
+				for (int i = 1; i < arr.length + 1; i++) {
+					if (isCheck(i, id)) {
+						selectedList[i] = true;
+					} else {
+						selectedList[i] = false;
+					}
+				}
+				boolean allChecked = true;
+
+				for (int i = 1; i < arr.length + 1; i++) {
+					if (!isCheck(i, id)) {
+						allChecked = false;
+						break;
+					}
+				}
+
+				if (allChecked) {
+					selectedList[0] = true;
+				} else {
+					selectedList[0] = false;
+				}
+			}
+		}
+		return selectedList;
+	}
+	public int [] convertToArray(String listSlr[]) {
+		int[] slr = null;
+		if (listSlr != null) {
+			slr = new int[listSlr.length];
+			for (int i = 0; i < listSlr.length; i++) {
+				slr[i] = Integer.parseInt(listSlr[i]);
+			}
+		}
+		return slr;
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -69,88 +111,18 @@ public class Jobs extends HttpServlet {
 		}
 
 		String[] tw = request.getParameterValues("type");
-		int[] id = null;
-		if (tw != null) {
-			id = new int[tw.length];
-			for (int i = 0; i < tw.length; i++) {
-				id[i] = Integer.parseInt(tw[i]);
-			}
-		}
+		int[] id = convertToArray(tw);
 		String[] jobWorkTimeArray = { "Fulltime", "PartTime", "Intern", "Remote", "Freelance", "Seasonal contracts",
 				"other" };
-		boolean[] selectedList = new boolean[jobWorkTimeArray.length + 1];
-		selectedList[0] = true;
-
-		if (id != null) {
-			if (id.length <= 1 && id[0] == 0) {
-				selectedList[0] = true;
-			} else {
-				for (int i = 1; i < jobWorkTimeArray.length + 1; i++) {
-					if (isCheck(i, id)) {
-						selectedList[i] = true;
-					} else {
-						selectedList[i] = false;
-					}
-				}
-				boolean allChecked = true;
-
-				for (int i = 1; i < jobWorkTimeArray.length + 1; i++) {
-					if (!isCheck(i, id)) {
-						allChecked = false;
-						break;
-					}
-				}
-
-				if (allChecked) {
-					selectedList[0] = true;
-				} else {
-					selectedList[0] = false;
-				}
-			}
-		}
-
+		boolean[] selectedList = checkbool(id, jobWorkTimeArray);
+				
+				
 		String[] listSlr = request.getParameterValues("salary");
-		int[] slr = null;
-		if (listSlr != null) {
-			slr = new int[listSlr.length];
-			for (int i = 0; i < listSlr.length; i++) {
-				slr[i] = Integer.parseInt(listSlr[i]);
-			}
-		}
+		int[] slr = convertToArray(listSlr);
 		String[] salaries = { "3 triệu đến 5 triệu", "5 triệu đến 7 triệu", "7 triệu đến 10 triệu",
 				"10 triệu đến 15 triệu", "15 triệu đến 30 triệu", "Trên 30 triệu", "Trên 50 triệu", "Không lương",
 				"Thương lượng" };
-		boolean[] selectedSlr = new boolean[salaries.length + 1];
-		selectedSlr[0] = true;
-
-		if (slr != null) {
-			if (slr.length <= 1 && slr[0] == 0) {
-				selectedSlr[0] = true;
-			} else {
-				for (int i = 1; i < salaries.length + 1; i++) {
-					if (isCheck(i, slr)) {
-						selectedSlr[i] = true;
-					} else {
-						selectedSlr[i] = false;
-					}
-				}
-				boolean allCheckedSlr = true;
-
-				for (int i = 1; i < salaries.length + 1; i++) {
-					if (!isCheck(i, slr)) {
-						allCheckedSlr = false;
-						break;
-					}
-				}
-
-				if (allCheckedSlr) {
-					selectedSlr[0] = true;
-				} else {
-					selectedSlr[0] = false;
-				}
-			}
-
-		}
+		boolean[] selectedSlr =checkbool(slr, salaries);
 
 		String url = "";
 		String queryString = request.getQueryString();
@@ -173,10 +145,10 @@ public class Jobs extends HttpServlet {
 				sorting = new Pair<JOB_SOFT, ORDER>(JOB_SOFT.DATE, ORDER.ASC);
 				break;
 			case "atoz":
-				sorting = new Pair<JOB_SOFT, ORDER>(JOB_SOFT.GENERAL, ORDER.ASC);
+				sorting = new Pair<JOB_SOFT, ORDER>(JOB_SOFT.TITLE, ORDER.ASC);
 				break;
 			case "ztoa":
-				sorting = new Pair<JOB_SOFT, ORDER>(JOB_SOFT.GENERAL, ORDER.DESC);
+				sorting = new Pair<JOB_SOFT, ORDER>(JOB_SOFT.TITLE, ORDER.DESC);
 				break;
 			default:
 				sorting = new Pair<JOB_SOFT, ORDER>(JOB_SOFT.GENERAL, ORDER.DESC);
@@ -187,12 +159,12 @@ public class Jobs extends HttpServlet {
 
 		// lay tu khoa tim kiem
 		int cr = jsoft.library.Utilities.getIntParam(request, "cr");
+		int f = jsoft.library.Utilities.getIntParam(request, "f");
 
 		String key = request.getParameter("key");
-		String saveKey = (key != null && !key.equalsIgnoreCase("")) ? key.trim() : "";
+		String saveKey = (key != null && !key.equalsIgnoreCase("")) ? jsoft.library.Utilities.encode(key.trim()) : "";
 		String lc = request.getParameter("lc");
 		lc = (lc != null && !lc.equalsIgnoreCase("")) ? lc : "";
-		System.out.println(lc);
 		// tìm bộ quản lý kết nối
 		ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("CPool");
 
@@ -208,6 +180,7 @@ public class Jobs extends HttpServlet {
 		similar.setJob_location(lc);
 		CareerObject newC = new CareerObject();
 		newC.setCareer_id(cr);
+		newC.setCareer_field_id(f);
 		similar.setJob_career(newC);
 		if (id != null) {
 			StringBuilder sb = new StringBuilder();
@@ -236,7 +209,7 @@ public class Jobs extends HttpServlet {
 			similar.setJob_responsibility(sb.toString());
 		}
 
-		byte pageSize = 4;
+		byte pageSize = 10;
 
 		Triplet<JobObject, Integer, Byte> infos = new Triplet<>(similar, pageSize * (page - 1), pageSize);
 

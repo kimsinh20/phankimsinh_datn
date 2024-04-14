@@ -33,6 +33,9 @@ public class HomepageControl {
 	public void releaseConnection() {
 		this.cm.releaseConnection();
 	}
+	public ArrayList<JobObject> getSearchRS(String key ) {
+	 return	this.cm.getSearch(key);
+	}
 
 //	---------------------------------------------
 	public Triplet<CareerObject, HashMap<Integer, String>,ArrayList<FieldObject>> getCareerObject(short id, UserObject userLogin) {

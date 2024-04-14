@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
     <!-- Footer container -->
-    <footer class="bg-footer text-center container text-white dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
+    <footer class="bg-footer mt-14 text-center container text-white dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
         <div
             class="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-neutral-500 lg:justify-between">
             <div class="mr-12 hidden lg:block">
@@ -131,22 +131,22 @@
                         Việc làm theo khu vực
                     </h6>
                     <p class="mb-4">
-                        <a href="#!" class="text-blue-300">Hồ Chí Minh</a>
+                        <a href="/home/jobs/?lc=Hồ Chí Minh" class="text-blue-300">Hồ Chí Minh</a>
                     </p>
                     <p class="mb-4">
-                        <a href="#!" class="text-blue-300">Hà Nội</a>
+                        <a href="/home/jobs/?lc=Hà Nội" class="text-blue-300">Hà Nội</a>
                     </p>
                     <p class="mb-4">
-                        <a href="#!" class="text-blue-300">Hải Phòng</a>
+                        <a href="/home/jobs/?lc=Hải Phòng" class="text-blue-300">Hải Phòng</a>
                     </p>
                     <p class="mb-4">
-                        <a href="#!" class="text-blue-300">Đà Nẵng</a>
+                        <a href="/home/jobs/?lc=Đà Nẵng" class="text-blue-300">Đà Nẵng</a>
                     </p >
                      <p class="mb-4">
-                        <a href="#!" class="text-blue-300">Cần Thơ</a>
+                        <a href="/home/jobs/?lc=Cần Thơ" class="text-blue-300">Cần Thơ</a>
                     </p>
                     <p class="mb-6">
-                    <a href="#!" class="text-blue-300">
+                    <a href="/home/jobs" class="text-blue-300">
                     Xem tất cả khu vực<i class="fa-solid fa-chevron-right ms-2"></i>
                     </a>
                     </p>

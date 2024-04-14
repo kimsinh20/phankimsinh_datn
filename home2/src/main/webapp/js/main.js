@@ -110,6 +110,73 @@ function setCheck2(obj) {
 	}
 	 document.getElementById('fn_filter').submit();
 }
+function submitForm() {
+	document.getElementById('fn_filter').submit();
+}
+function submitFormInCompany() {
+	document.getElementById('fn_company').submit();
+}
+function displayResultSearch(f) {
+	
+	
+	
+	fetch(`http://localhost:8080/home/api/search?key=${f.value}`)
+		.then(response => response.json())
+		.then(data => {
+			// Lấy tham chiếu đến phần tử <ul>
+  			let resultList = document.getElementById("result_search");
+  			 // Xóa nội dung hiện tại của phần tử <ul>
+ 			 resultList.innerHTML = '';
+  			resultList.classList.remove("p-3");
+  			let a = data;
+  			  // Nếu có thay đổi trong kết quả tìm kiếm
+	 	 if (a.length > 0 ) {
+			    let title = document.createElement("h2");
+			    title.textContent = "Kết quả tìm kiếm";
+			    resultList.appendChild(title);
+			    resultList.classList.add("p-3");
+    
+		    a.forEach((item)=> {
+		      let li = document.createElement("li");
+		      li.classList.add("hover:bg-sky-200", "text-sm", "font-normal", "mt-2");
+		     li.textContent = item.job_title;
+		     li.addEventListener("click", () => {
+		        document.getElementById("job-keyword").value = item.job_title;
+		         resultList.innerHTML = '';
+		         resultList.classList.remove("p-3");
+		      });
+		      resultList.appendChild(li);
+		    });
+		      let btn = document.createElement("button");
+			  btn.textContent = "Hủy";
+			  btn.classList="inline-flex justify-center rounded-md bg-rose-600 px-2 mt-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-red-400";
+			  btn.addEventListener("click", () => {
+		        document.getElementById("job-keyword").value = '';
+		         resultList.innerHTML = '';
+		         resultList.classList.remove("p-3");
+		      });
+			  resultList.appendChild(btn);
+		  }
+			
+		})
+		.catch(error => {
+			console.error('L?i khi g?i API:', error);
+		});
+		
+}
+  function showDialog() {
+            let bg_dialog = document.getElementById("bg_dialog");
+            let dialog = document.getElementById("dialog");
+            bg_dialog.classList.remove("hidden");
+            dialog.classList.remove("hidden");
+        }
+        function hideDialog() {
+            let bg_dialog = document.getElementById("bg_dialog");
+            let dialog = document.getElementById("dialog");
+            bg_dialog.classList.add("hidden");
+            dialog.classList.add("hidden");
+        }
+
 
 
 

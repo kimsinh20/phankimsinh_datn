@@ -1,4 +1,4 @@
-package jsoft.home.job;
+package jsoft.home.company;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,11 +21,11 @@ import jsoft.objects.ProvinceObject;
 import jsoft.objects.SkillObject;
 import jsoft.objects.UserObject;
 
-public class JobModel {
-	private Job c;
+public class CompanyModel {
+	private company c;
 
-	public JobModel(ConnectionPool cp) {
-		this.c = new JobImpl(cp);
+	public CompanyModel(ConnectionPool cp) {
+		this.c = new CompanyImpl(cp);
 	}
 
 	public ConnectionPool getCP() {
@@ -40,39 +40,37 @@ public class JobModel {
 
 //	----------------------------------------
 
-	public Quintet<ArrayList<JobObject>, ArrayList<ProvinceObject>, Integer, HashMap<Integer, String>, ArrayList<CareerObject>> getdataJob(
-			Triplet<JobObject, Integer, Byte> infos, Pair<JOB_SOFT, ORDER> so) {
-		ArrayList<ResultSet> res = this.c.getJobs(infos, so);
-		ArrayList<JobObject> listJob = new ArrayList<>();
-		JobObject job = null;
+	public Triplet<ArrayList<CompanyObject>,  Integer, ArrayList<FieldObject>> getCompanies(
+			Triplet<CompanyObject, Integer, Byte> infos, Pair<COMPANY_SOFT, ORDER> so) {
+		ArrayList<ResultSet> res = this.c.getCompanies(infos, so);
+		ArrayList<CompanyObject> companies = new ArrayList<>();
+		CompanyObject company = null;
+		
 		ResultSet rs = res.get(0);
-		if (rs != null) {
+		if(rs!=null) {
 			try {
-				while (rs.next()) {
-					job = new JobObject();
-					job.setJob_id(rs.getInt("job_id"));
-					job.setJob_title(rs.getString("job_title"));
-					CompanyObject com = new CompanyObject();
-					com.setCompany_id(rs.getInt("job_company_id"));
-					com.setCompany_name(rs.getString("company_name"));
-					com.setCompany_logo(rs.getString("company_logo"));
-					job.setCompany(com);
-					CareerObject career = new CareerObject();
-					career.setCareer_id(rs.getInt("job_career_id"));
-					career.setCareer_name(rs.getString("career_name"));
-					job.setJob_career(career);
-					job.setJob_quantity(rs.getInt("job_quantity"));
-					job.setJob_status(rs.getInt("job_status"));
-					job.setJob_skills(rs.getString("job_skills"));
-					job.setJob_degree(rs.getInt("job_degree"));
-					job.setJob_work_time(rs.getByte("job_work_time"));
-					job.setJob_location(rs.getString("job_location"));
-					job.setJob_salary(rs.getByte("job_salary"));
-
-					job.setJob_expiration_date(
-							jsoft.library.Utilities_date.getDateForJs(rs.getString("job_expiration_date")));
-
-					listJob.add(job);
+				while(rs.next()) {
+					company = new CompanyObject();
+					company.setCompany_id(rs.getShort("company_id"));
+					company.setCompany_name(rs.getString("company_name"));
+					company.setCompany_about(rs.getString("company_about"));
+					company.setCompany_author_id(rs.getInt("company_author_id"));
+					company.setCompany_created_date(rs.getString("company_created_date"));
+					company.setCompany_delete(rs.getBoolean("company_delete"));
+					FieldObject f = new FieldObject();
+					f.setField_id(rs.getInt("field_id"));
+					f.setField_name(rs.getString("field_name"));
+					company.setField(f);
+					company.setCompany_email(rs.getString("company_email"));
+					company.setCompany_location(rs.getString("company_location"));
+					company.setCompany_nationality(rs.getInt("company_nationality"));
+					company.setCompany_officephone(rs.getString("company_officephone"));
+					company.setCompany_homephone(rs.getString("company_homephone"));
+					company.setCompany_mobilephone(rs.getString("company_mobilephone"));
+					company.setCompany_establish_date(rs.getString("company_establish_date"));
+					company.setCompany_logo(rs.getString("company_logo"));
+					company.setCompany_banner(rs.getString("company_banner"));
+					companies.add(company);
 				}
 				rs.close();
 			} catch (SQLException e) {
@@ -81,25 +79,7 @@ public class JobModel {
 			}
 		}
 
-		ArrayList<ProvinceObject> listProvice = new ArrayList<>();
-		ProvinceObject provice = null;
 		rs = res.get(1);
-		if (rs != null) {
-			try {
-				while (rs.next()) {
-					provice = new ProvinceObject();
-					provice.setCode(rs.getString("code"));
-					provice.setName(rs.getString("name"));
-					listProvice.add(provice);
-				}
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		rs = res.get(2);
 		Integer total = 0;
 		if (rs != null) {
 			try {
@@ -113,12 +93,18 @@ public class JobModel {
 			}
 		}
 
-		HashMap<Integer, String> listSkill = new HashMap<>();
-		rs = res.get(3);
+	
+
+		ArrayList<FieldObject> listField = new ArrayList<>();
+		FieldObject f = null;
+		rs = res.get(2);
 		if (rs != null) {
 			try {
 				while (rs.next()) {
-					listSkill.put(rs.getInt("skill_id"), rs.getString("skill_name"));
+					f = new FieldObject();
+					f.setField_id(rs.getInt("field_id"));
+					f.setField_name(rs.getString("field_name"));
+					listField.add(f);
 				}
 				rs.close();
 			} catch (SQLException e) {
@@ -127,25 +113,7 @@ public class JobModel {
 			}
 		}
 
-		ArrayList<CareerObject> listCareer = new ArrayList<>();
-		CareerObject career = null;
-		rs = res.get(4);
-		if (rs != null) {
-			try {
-				while (rs.next()) {
-					career = new CareerObject();
-					career.setCareer_id(rs.getInt("career_id"));
-					career.setCareer_name(rs.getString("career_name"));
-					listCareer.add(career);
-				}
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		return new Quintet<>(listJob, listProvice, total, listSkill, listCareer);
+		return new Triplet<>(companies, total, listField);
 	}
 	
 	public Quintet<ArrayList<FieldObject>, ArrayList<CareerObject>, HashMap<Integer, Integer>,ArrayList<JobObject>,ArrayList<ArticleObject>> getFields(){
@@ -248,9 +216,9 @@ public class JobModel {
 		return new Quintet<>(listFields, listCareer, totalJob,listJob,listArticle);
 	}	
 	
-public Quartet<JobObject,HashMap<Integer, String>,ArrayList<JobObject>,ArrayList<ArticleObject>> getJobObject(short id) {
+public Quartet<JobObject,HashMap<Integer, String>,ArrayList<JobObject>,ArrayList<ArticleObject>> getCompanybObject(short id) {
 		
-		ArrayList<ResultSet> res = this.c.getJob(id);
+		ArrayList<ResultSet> res = this.c.getCompany(id);
 		//  Job
 		JobObject Job = null;
 		ResultSet rs = res.get(0);

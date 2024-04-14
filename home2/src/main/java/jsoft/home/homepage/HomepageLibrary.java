@@ -24,7 +24,7 @@ public class HomepageLibrary {
 			tmp.append("</div>");
 
 			tmp.append("<div class=\"content mt-6\">");
-			tmp.append("<a href=\"#\" class=\"title text-lg font-semibold hover:text-emerald-600\">"+item.getCareer_name()+"");
+			tmp.append("<a href=\"/home/fields\" class=\"title text-lg font-semibold hover:text-emerald-600\">"+item.getCareer_name()+"");
 			tmp.append("</a>");
 			tmp.append("<p class=\"text-slate-400 mt-3\">"+total.get(item.getCareer_id())+" ngành nghề</p>");
 			tmp.append("</div>");
@@ -37,14 +37,14 @@ public class HomepageLibrary {
 		StringBuffer out = new StringBuffer();
 	
 	    items.forEach(item -> {
-	    	out.append("<div class=\"p-3 rounded shadow dark:shadow-gray-700 bg-slate-50 dark:bg-slate-800\">");
+	    	out.append("<div class=\"p-3 rounded shadow dark:shadow-gray-700 bg-slate-50 dark:bg-slate-800\" data-aos=\"fade-up\">");
 	    	out.append("<div class=\"flex items-center\">");
 	    	out.append("<div class=\"size-12 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md me-2\">");
 	    	out.append("<img src=\""+item.getCompany_logo()+"\" class=\"size-8\" alt=\"\">");
 	    	out.append("</div>");
 	    	out.append("");
 	    	out.append("<div class=\"ms-3\">");
-	    	out.append("<a href=\"employer-detail.html\" class=\"block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500\">"+jsoft.library.Utilities.decode(item.getCompany_name())+"</a>");
+	    	out.append("<a href=\"/home/company/detail?id="+item.getCompany_id()+"\" class=\"block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500\">"+jsoft.library.Utilities.decode(item.getCompany_name())+"</a>");
 	    	out.append("<span class=\"block text-sm text-emerald-600\">");
 	    	out.append(total.get(item.getCompany_id()) == null ? "0" : total.get(item.getCompany_id()));
 	    	out.append(" công việc</span>");
@@ -151,7 +151,7 @@ public class HomepageLibrary {
 	    	out.append("</div>");
 	    	out.append("");
 	    	out.append("<div class=\"ms-2\">");
-	    	out.append("<a href=\"employer-detail.html\"");
+	    	out.append("<a href=\"/home/jobs/detail?id="+item.getJob_id()+"\"");
 	    	out.append("class=\"block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500\">"+item.getCompany().getCompany_name()+"</a>");
 	    	out.append(date);
 	    	out.append("</div>");
@@ -162,7 +162,7 @@ public class HomepageLibrary {
 	    	out.append("</div>");
 	    	out.append("");
 	    	out.append("<div class=\"mt-6\">");
-	    	out.append("<a href=\"job-detail-two.html\" ");
+	    	out.append("<a href=\"/home/jobs/detail?id="+item.getJob_id()+"\" ");
 	    	out.append("class=\"text-lg hover:text-emerald-600 font-semibold transition-all duration-500\">");
 	    	out.append(""+item.getJob_title()+"</a>");
 	    	out.append("<h6 class=\"text-base font-normal\">");
@@ -184,7 +184,7 @@ public class HomepageLibrary {
 	    	out.append("</div>");
 	    	out.append("<div class=\"mt-6 flex justify-between items-center\">");
 	    	out.append("<a href=\"\" class=\"rounded-full px-3 py-2 text-2xl bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600\" id=\"icon-save\"><i class=\"fa-regular fa-heart\"></i></a>");
-	    	out.append("<a href=\"job-apply.html\" class=\"btn btn-sm px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 lg:w-[200px] w-48 text-center \">Ứng tuyển ngay</a>");
+	    	out.append("<a href=\"/home/jobs/detail?id="+item.getJob_id()+"\" class=\"btn btn-sm px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 lg:w-[200px] w-48 text-center \">Ứng tuyển ngay</a>");
 	    	out.append("</div>");
 	    	out.append("</div>");
 	    	out.append("</div>");
@@ -219,11 +219,11 @@ public class HomepageLibrary {
 			out.append("<i class=\"fa-solid ms-2 fa-eye text-slate-900 dark:text-white me-2\"></i>"+item.getArticle_visited()+" lượt xem</span>");
 			out.append("</div>");
 			out.append("");
-			out.append("<a href=\"blog-detail.html\" class=\"title text-xl font-semibold hover:text-emerald-600 duration-500 ease-in-out\">");
+			out.append("<a href=\"/home/bolog/detail?id="+item.getArticle_id()+"\" class=\"title text-xl font-semibold hover:text-emerald-600 duration-500 ease-in-out\">");
 			out.append(""+item.getArticle_title()+"</a>");
 			out.append("<p class=\"text-small\">"+jsoft.library.Utilities_text.shortenText(item.getArticle_summary(), 20)+"</p>");
 			out.append("<div class=\"flex justify-between items-center mt-3\">");
-			out.append("<a href=\"blog-detail.html\" ");
+			out.append("<a href=\"/home/bolog/detail?id="+item.getArticle_id()+"\" ");
 			out.append("class=\"btn btn-link hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out\">Read");
 			out.append("More <i class=\"uil uil-arrow-right\"></i></a>");
 			out.append("<span class=\"text-slate-400 text-sm\">by ");
@@ -242,7 +242,7 @@ public class HomepageLibrary {
 		StringBuffer out = new StringBuffer();
 		items.forEach(item -> {
 			out.append("<p class=\"mb-4\">");
-			   out.append("<a href=\"/home/field/"+item.getField_id()+"\" class=\"text-blue-300\">"+item.getField_name()+"</a>");
+			   out.append("<a href=\"/home/jobs?f="+item.getField_id()+"\" class=\"text-blue-300\">"+item.getField_name()+"</a>");
 			   out.append("</p>");
 		}); 
 		return out.toString();

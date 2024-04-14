@@ -19,7 +19,7 @@ import jsoft.objects.UserObject;
 public class JobLibrary {
 	
 
-	public static String viewListJob(ArrayList<JobObject> items,HashMap<Integer, String> skills,int page,int total,String url) {
+	public static String viewListJob(ArrayList<JobObject> items,HashMap<Integer, String> skills,int page,int total,String url,byte pagesize) {
 		StringBuffer out = new StringBuffer();
 		out.append("<div class=\"grid grid-cols-1 gap-[30px] mt-6\" data-aos=\"fade-up\" data-aos-duration=\"1000\">");
 		if(items.size()<=0) {
@@ -182,7 +182,7 @@ public class JobLibrary {
 	    	 out.append("</div>");
 	    	 out.append("");
 	    	 out.append("<div class=\"ms-3\">");
-	    	 out.append("<a href=\"job-detail-three.html\" class=\"inline-block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500 me-1\">");
+	    	 out.append("<a href=\"/home/jobs/detail?id="+item.getJob_id()+"\" class=\"inline-block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500 me-1\">");
 	    	 out.append(item.getJob_title());
 	    	 out.append("</a> ");
 	    	 out.append(date);
@@ -237,7 +237,7 @@ public class JobLibrary {
 	    	 out.append("</span>");
 	    	 out.append("</div>");
 	    	 out.append("");
-	    	 out.append("<a href=\"job-apply.html\" class=\"btn btn-sm font-semibold px-3 py-2 me-6 rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white w-48 text-center lg:w-auto lg:mt-0\">");
+	    	 out.append("<a href=\"/home/jobs/detail?id="+item.getJob_id()+"\" class=\"btn btn-sm font-semibold px-3 py-2 me-6 rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white w-48 text-center lg:w-auto lg:mt-0\">");
 	    	 out.append("Apply Now");
 	    	 out.append("</a>");
 	    	 out.append("</div>");
@@ -256,7 +256,7 @@ public class JobLibrary {
 			out.append("<div class=\"grid md:grid-cols-12 grid-cols-1 mt-8\">");
 			out.append("<div class=\"md:col-span-12 text-center\">");
 			if(items.size()>0) {
-				out.append(pagination(total, (byte)4, page, url));
+				out.append(pagination(total, pagesize, page, url));
 			}
 			out.append("</div>");
 			out.append("<!--end col-->");
@@ -293,7 +293,7 @@ public class JobLibrary {
 	}
 	public static String SearchInput(String key) {
 		StringBuilder out = new StringBuilder();
-		out.append("<input name=\"key\" id=\"searchname\" value=\""+key+"\" type=\"text\" class=\"form-input w-full border border-slate-100 dark:border-slate-800 ps-10\" placeholder=\"Search\">");
+		out.append("<input onblur=\"submitForm()\" name=\"key\" id=\"searchname\" value=\""+key+"\" type=\"text\" class=\"form-input w-full border border-slate-100 dark:border-slate-800 ps-10\" placeholder=\"Search\">");
 		return out.toString();
 	}
 	public static String countJob(int count,String key) {

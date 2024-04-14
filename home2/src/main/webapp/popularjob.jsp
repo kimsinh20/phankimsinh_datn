@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  <section class="container relative bg-slate-50 dark:bg-slate-800 md:py-24 py-16" data-aos="flip-up">
+  <section class="container relative bg-slate-50 dark:bg-slate-800 md:py-24 py-16" data-aos="fade-up">
                 <div class="grid grid-cols-1 pb-8 text-center">
                     <h3 class="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
                         Popular Jobs

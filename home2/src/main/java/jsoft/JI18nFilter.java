@@ -21,6 +21,11 @@ public class JI18nFilter implements JHttpFilter
 			
 			req.getSession().setAttribute("lang", lang);
 		}
+		String url = req.getServletPath();
+		System.out.println(url);
+//		if(url.endsWith(".jsp") && !url.contains("index.jsp")) {
+//			resp.sendRedirect("/home/");
+//		}
 		// TODO Auto-generated method stub
 		chain.doFilter(req, resp);
 	}

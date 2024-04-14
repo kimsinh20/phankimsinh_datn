@@ -37,13 +37,17 @@ public class JobControl {
 	}
 
 //	---------------------------------------------
-
-
+	public Quintet<ArrayList<FieldObject>, ArrayList<CareerObject>, HashMap<Integer, Integer>,ArrayList<JobObject>,ArrayList<ArticleObject>> getFields(){ 
+		return this.cm.getFields();
+	}
+	public Quartet<JobObject,HashMap<Integer, String>,ArrayList<JobObject>,ArrayList<ArticleObject>> getJobObject(short id) {
+		return this.cm.getJobObject(id);
+	}
 //	----------------------------------------------
 	public ArrayList<String> viewJobPage(Triplet<JobObject, Integer, Byte> infos,Pair<JOB_SOFT, ORDER> so,String url,int page) {
 		Quintet<ArrayList<JobObject>, ArrayList<ProvinceObject>,Integer,HashMap<Integer, String>,ArrayList<CareerObject>> data = this.cm.getdataJob(infos,so );
 		ArrayList<String> rs = new ArrayList<>();
-		rs.add(JobLibrary.viewListJob(data.getValue0(),data.getValue3(),page,data.getValue2(),url));
+		rs.add(JobLibrary.viewListJob(data.getValue0(),data.getValue3(),page,data.getValue2(),url,infos.getValue2()));
 		rs.add(JobLibrary.provicesOption(data.getValue1(),infos.getValue0().getJob_location()));
 		if(infos.getValue0().getJob_career()!=null) {
 			rs.add(JobLibrary.careerOption(data.getValue4(),infos.getValue0().getJob_career().getCareer_id()));

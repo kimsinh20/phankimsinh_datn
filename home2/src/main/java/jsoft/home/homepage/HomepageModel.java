@@ -39,6 +39,31 @@ public class HomepageModel {
 	
 //	----------------------------------------
 	
+	public ArrayList<JobObject> getSearch(String key) {
+		ArrayList<JobObject> items = new ArrayList<>();
+		JobObject item = null;
+		
+		ArrayList<ResultSet> res = this.c.getCareerSearch(key);
+		
+		ResultSet rs = res.get(0);
+		if(rs!=null) {
+			try {
+				while(rs.next()) {
+					item = new JobObject();
+					item.setJob_id(rs.getShort("job_id"));
+					 item.setJob_title(jsoft.library.Utilities.decode(rs.getString("job_title")));
+					items.add(item);
+					
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return items;
+	}
+	
 	public Triplet<CareerObject, HashMap<Integer, String>,ArrayList<FieldObject>> getCareerObject(short id, UserObject userLogined) {
 		CareerObject item = null;
 		HashMap<Integer, String> author_name = new HashMap<>();

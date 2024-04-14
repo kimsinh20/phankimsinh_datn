@@ -20,4 +20,6 @@ public interface Homepage extends ShareControl {
 	public ArrayList<ResultSet> getCategories(Triplet<CareerObject, Integer, Byte> infos);
 	
 	public ArrayList<ResultSet> getDataFooter();
+	public ArrayList<ResultSet> getCareerSearch(String key);
+	
 }

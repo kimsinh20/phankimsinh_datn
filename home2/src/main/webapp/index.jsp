@@ -7,7 +7,7 @@
 <!-- ======= Header ======= -->
 <jsp:include page="header.jsp" flush="true"></jsp:include>
 
-<main id="main">
+<main id="main" class="bg-slate-50">
       
 	<!-- ======= Hero Slider Section ======= -->
 	<jsp:include page="hero.jsp" flush="true"></jsp:include>
@@ -184,6 +184,23 @@
    <!-- ======= Hero Slider Section ======= -->
 	<jsp:include page="news.jsp" flush="true"></jsp:include>
 	<!-- End Hero Slider Section -->
+	
+	 <div class="container" data-aos="zoom-in">
+         <div class="grid md:grid-cols-12 grid-cols-1 bg-white rounded shadow items-center gap-[30px]">
+         	 <div class="lg:col-span-3 md:col-span-4 px-4">
+         	 		
+				<h2 class="text-xl font-bold"><span style="color: #d34127;"><strong>Hơn 3.500 khách hàng tin dùng</strong></span></h2>
+				<p class="font-medium text-lg text-slate-900">Cả các công ty Việt Nam, FDI và đa quốc gia, trải rộng tất cả các ngành từ ngân hàng, fintech đến gia công phần mềm (outsourcing), thương mại điện tử, truyền thông, quảng cáo, v.v.</p>
+         	 		
+         	 </div>
+
+         	 
+         	  <div class="lg:col-span-9 md:col-span-8">
+         	    	<img class="w-full" alt="companies" src="/home/img/com.png">
+         	 </div>
+         </div>
+     </div>
+	
 </main>
 <!-- End #main -->
 

@@ -1,4 +1,4 @@
-package jsoft.home.job;
+package jsoft.home.company;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -9,19 +9,20 @@ import org.javatuples.Triplet;
 import jsoft.ConnectionPool;
 import jsoft.home.basic.BasicImpl;
 import jsoft.library.ORDER;
+import jsoft.objects.CompanyObject;
 import jsoft.objects.JobObject;
 import jsoft.objects.UserObject;
 
-public class JobImpl extends BasicImpl implements Job {
+public class CompanyImpl extends BasicImpl implements company {
 
-	public JobImpl(ConnectionPool cp) {
+	public CompanyImpl(ConnectionPool cp) {
 		super(cp, "Job");
 		// TODO Auto-generated constructor stub
 	}
 
 
 	@Override
-	public ArrayList<ResultSet> getJob(short id) {
+	public ArrayList<ResultSet> getCompany(short id) {
 		// TODO Auto-generated method stub
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT * FROM tblJob j "); // cate la con cua section
@@ -49,9 +50,9 @@ public class JobImpl extends BasicImpl implements Job {
 	}
 
 	@Override
-	public ArrayList<ResultSet> getJobs(Triplet<JobObject, Integer, Byte> infos,Pair<JOB_SOFT, ORDER> so) {
+	public ArrayList<ResultSet> getCompanies(Triplet<CompanyObject, Integer, Byte> infos,Pair<COMPANY_SOFT, ORDER> so) {
 		// TODO Auto-generated method stub
-		JobObject similar = infos.getValue0();
+		CompanyObject similar = infos.getValue0();
 
 		// vị trí bắt đầu lấy bản ghi
 		int at = infos.getValue1();
@@ -62,87 +63,56 @@ public class JobImpl extends BasicImpl implements Job {
 		StringBuffer sql = new StringBuffer();
 
 		
-		sql.append("SELECT * FROM tblJob AS j ");
-		sql.append("LEFT JOIN tbluser AS u ON u.user_id = j.job_author_id ");
-		sql.append("LEFT JOIN tblcompany AS c ON c.company_id = j.job_company_id ");
-		sql.append("LEFT JOIN tblcareer AS a ON a.career_id = j.job_career_id ");
+		sql.append("SELECT * FROM tblcompany AS c ");
+		sql.append("LEFT JOIN tblfield AS f ON f.field_id = c.company_field_id ");
 		sql.append(this.createConditions(similar));
 		switch (so.getValue0()) {
 		case GENERAL:
-			sql.append("ORDER BY j.job_visited ").append(so.getValue1().name());
+			sql.append("ORDER BY c.company_visited ").append(so.getValue1().name());
 			break;
 		case DATE:
-			sql.append("ORDER BY j.job_id ").append(so.getValue1().name());
+			sql.append("ORDER BY c.company_id ").append(so.getValue1().name());
 			break;
 		case TITLE:
-			sql.append("ORDER BY j.job_title ").append(so.getValue1().name());
+			sql.append("ORDER BY c.company_name ").append(so.getValue1().name());
 			break;
 		default:
-			sql.append("ORDER BY j.job_id ").append(so.getValue1().name());
+			sql.append("ORDER BY c.company_id ").append(so.getValue1().name());
 
 		}
 		
 		sql.append(" LIMIT ").append(at).append(", ").append(total).append(";");
-
-        sql.append("SELECT * FROM provinces ORDER BY name ASC ;");
 		
-		sql.append("SELECT COUNT(job_id) AS total FROM tbljob as j ");
-		sql.append("LEFT JOIN tblcompany AS c ON c.company_id = j.job_company_id ");
-		sql.append("LEFT JOIN tblcareer AS a ON a.career_id = j.job_career_id ");
+		sql.append("SELECT COUNT(company_id) AS total FROM tblcompany as c ");
+		sql.append("LEFT JOIN tblfield AS f ON f.field_id = c.company_field_id ");
 		sql.append(createConditions(similar));
 		sql.append(";");
 		
-		sql.append(" SELECT * FROM tblskill; ");
-		
-		sql.append(" SELECT * FROM tblcareer ORDER by career_name ASC ; ");
+		sql.append(" SELECT * FROM tblfield where field_delete=0 ; ");
 		
 		System.out.println(sql.toString());
 		return this.getMR(sql.toString());
 	}
 
-	private String createConditions(JobObject similar) {
+	private String createConditions(CompanyObject similar) {
 		StringBuffer conds = new StringBuffer();
-		conds.append(" (job_status>0) AND ");
-		if (similar != null) {
-			if (similar.isJob_delete()) {
-				conds.append(" (job_delete=1)");
+				if (similar != null) {
+			if (similar.isCompany_delete()) {
+				conds.append(" (company_delete=1)");
 			} else {
-				conds.append(" (job_delete=0) ");
+				conds.append(" (company_delete=0) ");
 			}
 			// tu khoa tim kiem
-			String key = similar.getJob_title();
+			String key = similar.getCompany_name();
 			if (key != null && !key.equalsIgnoreCase("")) {
-				conds.append(" AND ((job_title LIKE '%" + key + "%') OR ");
+				conds.append(" AND ((company_about LIKE '%" + key + "%') OR ");
 				conds.append("(company_name LIKE '%" + key + "%') ");
 				conds.append(") ");
 			}
-			
-			String location = similar.getJob_location();
-			if (location != null && !location.equalsIgnoreCase("")) {
-				conds.append(" AND (job_location LIKE '%" + location + "%')");
-			}
-			
-			if(similar.getJob_career()!= null) {
-				if(similar.getJob_career().getCareer_id()>0) {
-					conds.append(" AND (company_field_id = "+similar.getJob_career().getCareer_id()+" )");
-				}
-			}
-			
-			if(similar.getJob_career()!= null) {
-				if(similar.getJob_career().getCareer_field_id()>0) {
-					conds.append(" AND (career_field_id = "+similar.getJob_career().getCareer_field_id()+" )");
-				}
-			}
-			
-			// worktime
-			if(similar.getJob_purpose()!= null && !similar.getJob_purpose().equalsIgnoreCase("")) {
-					conds.append(" AND (job_work_time IN ("+similar.getJob_purpose()+") ) ");
-			}
-			// salary
-			if(similar.getJob_responsibility()!= null && !similar.getJob_responsibility().equalsIgnoreCase("")) {
-				conds.append(" AND (job_salary IN ("+similar.getJob_responsibility()+") ) ");
-		}
-			
+				
+				if(similar.getCompany_field_id()>0) {
+					conds.append(" AND (company_field_id = "+similar.getCompany_field_id()+" )");
+				}	
 		}
 		if (!conds.toString().equalsIgnoreCase("")) {
 			conds.insert(0, " WHERE ");

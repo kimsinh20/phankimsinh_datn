@@ -116,5 +116,15 @@ public class HomepageImpl extends BasicImpl implements Homepage {
 		sql.append("SELECT * from tblfield limit 6; ");
 		return this.getMR(sql.toString());
 	}
+
+
+	@Override
+	public ArrayList<ResultSet> getCareerSearch(String key) {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * from tbljob  WHERE job_delete=0 AND job_title LIKE '%"+key+"%' limit 5; ");
+		
+		return this.getMR(sql.toString());
+	}
 	
 }
