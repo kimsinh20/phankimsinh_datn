@@ -116,7 +116,12 @@ public class HomepageImpl extends BasicImpl implements Homepage {
 		sql.append("SELECT * from tblfield limit 6; ");
 		return this.getMR(sql.toString());
 	}
-
+	
+	@Override
+	public ArrayList<ResultSet> getJobSave(int user_id) {
+		String sql = "SELECT * FROM tblsavejob WHERE (`user_id`='"+user_id+"');";
+		return this.getMR(sql.toString());
+	}
 
 	@Override
 	public ArrayList<ResultSet> getCareerSearch(String key) {

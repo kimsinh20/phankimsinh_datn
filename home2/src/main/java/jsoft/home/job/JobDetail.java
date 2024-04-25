@@ -25,6 +25,7 @@ import jsoft.objects.CompanyObject;
 import jsoft.objects.FieldObject;
 import jsoft.objects.JobObject;
 import jsoft.objects.SkillObject;
+import jsoft.objects.UserObject;
 
 /**
  * Servlet implementation class JobFields
@@ -60,7 +61,7 @@ public class JobDetail extends HttpServlet {
 			response.sendRedirect("/home/err");
 		}
 		
-		System.out.println("id"+id);
+		
 		if (id > 0) {
 			// tìm bộ quản lý kết nối
 			ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("CPool");
@@ -71,6 +72,10 @@ public class JobDetail extends HttpServlet {
 			// tạo đối tượng thực thi chức năng
 
 			JobControl jc = new JobControl(cp);
+			
+			UserObject user = (UserObject) request.getSession().getAttribute("clientLogined");
+			
+			String saveActive = "";
 			Quartet<JobObject, HashMap<Integer, String>,ArrayList<JobObject>,ArrayList<ArticleObject>> data = jc.getJobObject(id);
 			
 			JobObject job = data.getValue0();
@@ -81,6 +86,16 @@ public class JobDetail extends HttpServlet {
 			AddressObject location=null;
 			String date="";
 			if (job != null) {
+				if(user!=null) {
+				 	Boolean isSave = jc.isExits(job.getJob_id(), user.getUser_id());
+				 	if(isSave) {
+				 		saveActive = "save-active";
+				 	} else {
+				 		saveActive = "";
+				 	}
+				} else {
+					System.out.println("user null");
+				}
 				long date_count = jsoft.library.Utilities_date.getminusDay(jsoft.library.Utilities_date.getDateForJs(job.getJob_expiration_date()));
 				 if(date_count<0) {
 		    		 date = "<span class=\"inline-block text-md text-false\">Hết hạn "+Math.abs(date_count)+" ngày</span>";
@@ -327,13 +342,19 @@ public class JobDetail extends HttpServlet {
 			request.setAttribute("job_status", job_status);
 			request.setAttribute("job_skills", job_skills);
 			request.setAttribute("job_degree", job_degree);
+			if(user!=null) {
+				request.setAttribute("user",user.getUser_id());
+			} else {
+				request.setAttribute("user","null");	
+			}
 			request.setAttribute("date_count", date);
+			request.setAttribute("isSave",saveActive );
 			request.setAttribute("company_size", company_size);
 			
 			// trả về kết nối
 			// trả về kết nối
 			jc.releaseConnection();
-			request.getRequestDispatcher("/jobs/detail.jsp").forward(request, response);
+			request.getRequestDispatcher("/jobs/jobdetail.jsp").forward(request, response);
 		} else {
 			response.sendRedirect("/home/err");
 		}

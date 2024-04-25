@@ -19,7 +19,7 @@
 								viewBox="0 0 20 20">
                                     <path
 									d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                                </svg> Home
+                                </svg> Trang chủ
 					</a></li>
 					<li>
 						<div class="flex items-center">
@@ -30,8 +30,9 @@
 									stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 									d="m1 9 4-4-4-4" />
                                 </svg>
-							<a href="/home/jobs"
-								class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">jobs</a>
+							<a href="/home/company"
+								class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">công
+								ty</a>
 						</div>
 					</li>
 					<li aria-current="page">
@@ -44,92 +45,97 @@
 									d="m1 9 4-4-4-4" />
                                 </svg>
 							<span
-								class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">detail</span>
+								class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">chi
+								tiết</span>
 						</div>
 					</li>
 				</ol>
 			</nav>
 		</div>
-	
-	  <div class="grid md:grid-cols-12 grid-cols-1 mt-6 gap-[30px]">
-                <div class="lg:col-span-8 md:col-span-6">
-                    <div class="md:flex items-center p-6 shadow dark:shadow-gray-700 rounded-md bg-white dark:bg-slate-900">
-                        <img src="${job.company.company_logo }" class="rounded size-28 p-4 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700" alt="">
 
-                        <div class="md:ms-4 md:mt-0 mt-6">
-                            <h5 class="text-xl font-semibold">${job.job_title}<span>(${date_count})</span></h5>
-                            <div class="mt-2">
-                                <span class="text-slate-400 font-medium me-2 inline-block"><i class="fa-solid fa-building text-[18px] text-emerald-600 me-1"></i>${job.company.company_name }</span>
-                                <span class="text-slate-400 font-medium me-2 inline-block"><i class="fa-solid fa-location-dot text-[18px] text-emerald-600 me-1"></i> ${job_province}</span>
-                          		<span class="text-slate-400 font-medium me-2 inline-block"><i class="fa-solid fa-clock text-[18px] text-emerald-600 me-1"></i>Hạn nộp hồ sơ : ${job.job_expiration_date}</span>
-                            </div>
-                            <div class="flex mt-4 justify-between">
-                            <a href="/home/jobs/detail?id=69" class="btn items-center flex justify-center btn-sm font-semibold px-3 py-2 w-3/4 rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white lg:mt-0">Ứng tuyển ngay</a>
-                            <a href="" class="btn btn-icon px-3 py-2 flex justify-center items-center border-2 border-green-400  rounded bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark size-4"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-                           <span class="ms-2">Lưu tin</span>
-                            </a>
-                            </div>
-                        </div>
-                    </div>
+		<div class="bg-white rounded shadow mt-4  overflow-hidden bg-linear" style="">
+			<div class="">
+				<img draggable="false"
+					src="${com.company_banner}"
+					width="100%" class="w-full h-[230px]">
+			</div>
+		
+			<div class="company-detail-overview relative text-white flex lg:flex-row flex-col items-center gap-[30px] py-[30px] pl-0 md:pl-[20%] pr-[20px] md:pr-[40px]">
+					<div class="company-logo absolute lg:left-[30px] left-auto top-[-64px] ">
+					<img draggable="false"
+						src="${com.company_logo}"
+						alt="${com.company_name}" class="object-cover size-32 rounded-full shadow" style="">
+					</div>
+				<div class="box-detail block w-full flex-1 lg:mt-0 mt-16">
+					<h1 data-toggle="tooltip" title=""
+						class="text-lg font-bold mb-4 text-center lg:text-start"
+						data-original-title="Công ty Cổ phần Solazu">${com.company_name}</h1>
+					<div class=" flex gap-[30px] flex-col md:flex-row items-center lg:justify-start	 justify-center ">
+						<div data-toggle="tooltip" title=""
+							class=""
+							data-original-title="https://solazu.com/">
+							<span class=""> <i
+								class="fa-solid fa-globe"></i>
+							</span> <a class="company-subdetail-info-text"
+								href="https://solazu.com/" target="_blank">${com.company_website}</a>
+						</div>
+						<div class="">
+							<span class=""> <i
+								class="fa-solid fa-building"></i>
+							</span> <span class="">${company_size }</span>
+						</div>
+					</div>
+				</div>
+				<div class="box-follow">
+					<a href="javascript:showLoginPopup(null, null);"
+						class="btn btn-follow bg-white font-bold py-2 px-2 text-sm rounded shadow text-green-400"> <span><i
+							class="fa-regular fa-plus"></i></span> Theo dõi công ty
+					</a>
+				</div>
+			</div>
+		</div>
 
-                  <div class="bg-white p-6 mt-4 rounded shadow-lg">
-                  	<h5 class="text-lg font-semibold mt-6">Mô tả công việc :</h5>
+		<div class="grid md:grid-cols-12 grid-cols-1 mt-6 gap-[30px]">
+			<div class="lg:col-span-8 md:col-span-6">
+				<h5 class="text-lg font-semibold py-3 bg-linear rounded-t-lg shadow-lg text-white px-3">Giới thiệu công ty</h5>
+				<div class="bg-white p-6 orverflow-hidden rounded shadow-lg">
 
-                    <p class="text-slate-400 mt-4">${job.job_responsibility}</p>
-                
-            
+					<p class="text-slate-400 mt-4">${com.company_about}</p>
 
-                    <h5 class="text-lg font-semibold mt-6">Yêu cầu công việc : </h5>
-                    <p class="text-slate-400 mt-4">${job.job_purpose}</p>
+ 					<c:if test="${not empty com.company_remuneration}">
+					  <h5 class="text-lg font-semibold mt-6">Phúc lợi :</h5>
+					  <p class="text-slate-400 mt-4">${com.company_remuneration}</p>
+					</c:if>
 
-					    
-                    <h5 class="text-lg font-semibold mt-6">Phúc lợi : </h5>
-                    <p class="text-slate-400 mt-4">${job.job_Welfare}</p>
-                    
-                    <div class="mt-4">
-                    	<h3 class="text-lg font-semibold mt-6">
-                    		Quy trình phỏng vấn
-                    	</h3>
-                    	<div>
-                    		<ul class="">
-                    			<li class="mb-1 text-md ">
-                    				Vòng 1: Làm bài test
-                    			</li>
-                    			<li class="mb-1 text-md ">
-                    				Vòng 2: Phỏng vấn Tech Lead(online)
-                    			</li>
-                    				<li class="mb-1 text-md ">
-                    			Vòng 3: Deal lương
-                    			</li>
-                    		</ul>
-                    	</div>
-                    </div>
-                    
-                     <div class="mt-5 flex justify-between items-center">
-                     	<div class="flex justify-between items-center">
-                     			 <a href="" class="btn btn-icon me-3 px-3 py-2 flex justify-center items-center border-2 border-green-400  rounded bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark size-4"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-                           <span class="ms-2">Lưu tin</span>
-                            </a>
-                             <a href="https://www.facebook.com/share_channel/?link=https%3A%2F%2Fcareerviet.vn%2Fvi%2Ftim-viec-lam%2Fpho-phong-nhan-su-nha-may-lam-viec-tai-yen-bai-cach-ha-noi-160km.35C0281A.html&app_id=966242223397117&source_surface=external_reshare&display&hashtag" class="btn btn-icon me-3 px-3 py-2 flex justify-center items-center border-2 border-green-400  rounded bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white">
-                           <i class="fa-solid fa-square-share-nodes"></i>
-                           <span class="ms-2">Chia sẻ</span>
-                            </a>
-                             <a href="" class="btn btn-icon px-3 py-2 flex justify-center items-center border-2 border-green-400  rounded bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white">
-                           <i class="fa-solid fa-flag"></i>
-                           <span class="ms-2">Báo cáo</span>
-                            </a>
-                     	</div>
-                        <a href="job-apply.html" class="btn btn-icon px-3 py-2 flex justify-center items-center border-2 border-green-400  rounded bg-emerald-600/3 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white">Nộp hồ sơ ngay</a>
-                    </div>
-                    
-                  </div>
-                   
-                   <div class="bg-white shadow rounded p-6 mt-10">
-					<h2 class="font-medium text-xl text-blue-900 ms-4">
-						Việc làm liên quan
-					</h2>
+
+					<div class="mt-5 flex justify-between items-center">
+						<div class="flex justify-between items-center">
+							<a href=""
+								class="btn btn-icon me-3 px-3 py-2 flex justify-center items-center border-2 border-green-400  rounded bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+									class="feather feather-bookmark size-4">
+									<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+								<span class="ms-2">Theo dõi</span>
+							</a> <a
+								href="https://www.facebook.com/share_channel/?link=https%3A%2F%2Fcareerviet.vn%2Fvi%2Ftim-viec-lam%2Fpho-phong-nhan-su-nha-may-lam-viec-tai-yen-bai-cach-ha-noi-160km.35C0281A.html&app_id=966242223397117&source_surface=external_reshare&display&hashtag"
+								class="btn btn-icon me-3 px-3 py-2 flex justify-center items-center border-2 border-green-400  rounded bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white">
+								<i class="fa-solid fa-square-share-nodes"></i> <span
+								class="ms-2">Chia sẻ</span>
+							</a> <a href=""
+								class="btn btn-icon px-3 py-2 flex justify-center items-center border-2 border-green-400  rounded bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white">
+								<i class="fa-solid fa-flag"></i> <span class="ms-2">Báo
+									cáo</span>
+							</a>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="bg-white shadow rounded p-6 mt-10">
+					<h2 class="font-medium text-xl text-blue-900 ms-4">Việc làm
+						liên quan</h2>
 					<c:forEach items="${jobs}" var="i" varStatus="loop">
 						<div
 							class="group shadow dark:shadow-gray-700 mt-4 p-6 rounded-md bg-white dark:bg-slate-900">
@@ -167,190 +173,207 @@
 						</div>
 					</c:forEach>
 				</div>
-                   
-                </div><!--end col-->
 
-                <div class="lg:col-span-4 md:col-span-6  sticky top-20">
-	                <div class="shadow-lg dark:shadow-gray-700 p-6 rounded-md bg-white dark:bg-slate-900">
-	               		 <div class="md:flex items-center">
-	               		  <img src="${job.company.company_logo }" class="rounded size-28 p-4 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700" alt="">
-	                        <div class="md:ms-4 md:mt-0 mt-6">
-	                            <h5 class="text-xl font-semibold">${job.company.company_name }</h5>
-	                        </div>
-	               		 </div>
-	               		 <div class="mt-2">
-	               		 	<span class="text-slate-600 font-medium me-2 block"><span class="font-bold text-lg text-slate-400"><i class="fa-solid fa-users me-2"></i>Quy mô :</span> ${company_size}</span>
-	               		 	<span class="text-slate-600 font-medium py-2 me-2 block"><span class="font-bold text-lg text-slate-400"><i class="fa-regular fa-clone me-2"></i>Lĩnh vực :</span> ${job.company.field.field_name} </span>
-	               		 </div>
-	               		 <div class="md:flex items-center justify-center mt-6 hover:underline">
-	               		 <a class="text-center bg-emerald-600 text-white hover:bg-blue-800 rounded px-3 py-2" href="/home/company?id=2">Xem trang công ty <i class="fa-solid ms-2 fa-arrow-up-right-from-square"></i></a>
-	               		 </div>
-	               		
-	                </div>
-	                
-                    <div class="shadow-lg dark:shadow-gray-700 rounded-md bg-white dark:bg-slate-900 mt-6">
-                        <div class="p-6">
-                            <h5 class="text-lg font-semibold">Thông tin công việc</h5>
-                        </div>
-                        <div class="p-6 border-t border-slate-100 dark:border-t-gray-700">
-                            <ul class="list-none">
-                                <li class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check size-5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+			</div>
+			<!--end col-->
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Thời gian làm việc:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job_work_time}</span>
-                                    </div>
-                                </li>
+			<div class="lg:col-span-4 md:col-span-6  sticky top-20">
+				<h5 class="text-lg font-semibold py-3 bg-linear rounded-t-lg shadow-lg text-white px-3">Giới thiệu chung</h5>
+				<div
+					class="shadow-lg dark:shadow-gray-700 p-6 rounded-md bg-white dark:bg-slate-900">
+					<div class="mt-2">
+						<span class="text-slate-600 font-medium me-2 block"><span
+							class="font-bold text-md text-slate-400"><i
+								class="fa-solid fa-users me-2"></i>Mô tả :</span> ${com.company_summary}</span> <span
+							class="text-slate-600 font-medium py-2 me-2 block">
+							<span
+							class="font-bold text-md text-slate-400"><i
+								class="fa-regular fa-clone me-2"></i>Địa chỉ công ty :</span>
+						  </span>
+						 <c:forEach items="${location}" var="i" varStatus="loop">
+						  <div class="font-normal text-sm flex flex-col text-gray-900">
+						  <span>
+						   + ${i.addressDetail}, ${i.wards}, ${i.districts}, ${i.provinces}. 
+						  </span>    
+						  </div>
+						</c:forEach>
+					</div>
+					<div
+						class="md:flex items-center justify-center mt-6 hover:underline">
+						<a target="_blank"
+							class="text-center bg-emerald-600 text-white hover:bg-blue-800 rounded px-3 py-2"
+							href="https://www.google.com/maps/search/${location[0].addressDetail}+${location[0].wards}+${location[0].districts}+${ilocation[0].provinces}/@21.0345169,105.8247409,17z/data=!3m1!4b1?entry=ttu">Xem bản đồ <i
+							class="fa-solid ms-2 fa-arrow-up-right-from-square"></i></a>
+					</div>
 
-                                <li class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin size-5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+				</div>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Địa chỉ làm việc:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job_location}</span>
-                                    </div>
-                                </li>
+				<div
+					class="shadow-lg dark:shadow-gray-700 rounded-md bg-white dark:bg-slate-900 mt-6">
+					<h5 class="text-lg font-semibold py-3 bg-linear rounded-t-lg shadow-lg text-white px-3">Thông tin liên hệ</h5>
+					<div class="p-6 border-t border-slate-100 dark:border-t-gray-700">
+						<ul class="list-none">
+							<li class="flex items-center"><svg
+									xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+									class="feather feather-user-check size-5">
+									<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+									<circle cx="8.5" cy="7" r="4"></circle>
+									<polyline points="17 11 19 13 23 9"></polyline></svg>
 
-								  <li class="flex items-center mt-3">
-                                    <i class="fa-solid fa-user-doctor me-1"></i>
+								<div class="ms-4">
+									<p class="font-medium">Quốc gia:</p>
+									<span class="text-emerald-600 font-medium text-sm">${company_nationality}</span>
+								</div></li>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Ngành nghề:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job.job_career.career_name}</span>
-                                    </div>
-                                </li>
-			
-                                <li class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor size-5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+							<li class="flex items-center mt-3"><svg
+									xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+									class="feather feather-map-pin size-5">
+									<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+									<circle cx="12" cy="10" r="3"></circle></svg>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Vị trí:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job_level}</span>
-                                    </div>
-                                </li>
+								<div class="ms-4">
+									<p class="font-medium">Điên thoại:</p>
+									<span class="text-emerald-600 font-medium text-sm">${com.company_homephone}</span>
+								</div></li>
 
-                                <li class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase size-5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+							<li class="flex items-center mt-3"><i
+								class="fa-solid fa-user-doctor me-1"></i>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Kinh nghiệm:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job_experience }</span>
-                                    </div>
-                                </li>
+								<div class="ms-4">
+									<p class="font-medium">Lĩnh vực:</p>
+									<span class="text-emerald-600 font-medium text-sm">${com.field.field_name}</span>
+								</div></li>
 
-                                <li class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book size-5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+							<li class="flex items-center mt-3"><svg
+									xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+									class="feather feather-monitor size-5">
+									<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+									<line x1="8" y1="21" x2="16" y2="21"></line>
+									<line x1="12" y1="17" x2="12" y2="21"></line></svg>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Bằng cấp:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job_degree}</span>
-                                    </div>
-                                </li>
-                                
-                                 <li class="flex items-center mt-3">
-                                   <i class="fa-solid fa-venus-double"></i>
+								<div class="ms-4">
+									<p class="font-medium">Hộp thư:</p>
+									<span class="text-emerald-600 font-medium text-sm">${com.company_email}</span>
+								</div></li>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Giới tính:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job_gender}</span>
-                                    </div>
-                                </li>
-                                
-                                 <li class="flex items-center mt-3">
-                                   <i class="fa-regular fa-address-book"></i>
+							<li class="flex items-center mt-3"><svg
+									xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+									class="feather feather-briefcase size-5">
+									<rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+									<path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Số lượng tuyển:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job.job_quantity}</span>
-                                    </div>
-                                </li>
-                                
-                                 <li class="flex items-center mt-3">
-                                   <i class="fa-solid fa-book-skull"></i>
+								<div class="ms-4">
+									<p class="font-medium">Website:</p>
+									<span class="text-emerald-600 font-medium text-sm">${com.company_website }</span>
+								</div></li>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Kỹ năng yêu cầu:</p>
-                   					   
-                   					   ${job_skills}
-                                      
-                                    </div>
-                                </li>
+							<li class="flex items-center mt-3"><svg
+									xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+									class="feather feather-book size-5">
+									<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+									<path
+										d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
 
-                                <li class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign size-5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+								<div class="ms-4">
+									<p class="font-medium">Làm thêm giờ:</p>
+									<span class="text-emerald-600 font-medium text-sm">
+									<c:if test="${com.company_isOT}">
+										có
+									</c:if>
+									<c:if test="${!com.company_isOT}">
+										không
+									</c:if>
+									</span>
+								</div></li>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Lương:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job_salary}</span>
-                                    </div>
-                                </li>
+							<li class="flex items-center mt-3"><i
+								class="fa-solid fa-venus-double"></i>
 
-                                <li class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock size-5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+								<div class="ms-4">
+									<p class="font-medium">Quy mô:</p>
+									<span class="text-emerald-600 font-medium text-sm">${company_size}</span>
+								</div></li>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Ngày đăng tin:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job.job_created_date}</span>
-                                    </div>
-                                </li>
-                                   <li class="flex items-center mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock size-5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+							<li class="flex items-center mt-3"><i
+								class="fa-regular fa-address-book"></i>
 
-                                    <div class="ms-4">
-                                        <p class="font-medium">Ngày hết hạn:</p>
-                                        <span class="text-emerald-600 font-medium text-sm">${job.job_expiration_date}</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-            
+								<div class="ms-4">
+									<p class="font-medium">Đánh giá:</p>
+									<span class="text-emerald-600 font-medium text-sm">4.5<i class="fa-solid fa-star" style="color: yellow;"></i></span>
+								</div></li>
+
+
+							<li class="flex items-center mt-3"><svg
+									xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+									class="feather feather-dollar-sign size-5">
+									<line x1="12" y1="1" x2="12" y2="23"></line>
+									<path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+
+								<div class="ms-4">
+									<p class="font-medium">Lượt theo dõi:</p>
+									<span class="text-emerald-600 font-medium text-sm">20</span>
+								</div></li>
+
+						</ul>
+					</div>
+				</div>
+
+
 				<div class="mt-6 bg-white">
 					<h2 class="font-medium text-xl text-blue-900">Bài viết nổi bật</h2>
 					<c:forEach items="${articles}" var="i" varStatus="loop">
-					<div
-						class="group relative article mt-6 overflow-hidden bg-white dark:bg-slate-900 rounded-md shadow dark:shadow-gray-700">
-						<div class="relative overflow-hidden article">
-							<img src="${i.article_image}"
-								class="scale-110 article_img group-hover:scale-100 transition-all duration-500"
-								alt="" />
-						</div>
-						<div class="relative p-6">
-							<div class="absolute start-6 -top-4">
-								<span
-									class="bg-emerald-600 px-3 text-white text-[12px] px-2.5 py-1 font-semibold rounded-full h-5">${i.category_name}</span>
+						<div
+							class="group relative article mt-6 overflow-hidden bg-white dark:bg-slate-900 rounded-md shadow dark:shadow-gray-700">
+							<div class="relative overflow-hidden article">
+								<img src="${i.article_image}"
+									class="scale-110 article_img group-hover:scale-100 transition-all duration-500"
+									alt="" />
 							</div>
-							<div class="">
-								<div class="flex mb-4 justify-between">
-									<span class="text-slate-400 text-sm me-2"><i
-										class="fa-solid fa-calendar text-slate-900 dark:text-white me-2"></i>${i.article_created_date}</span><span
-										class="text-slate-400 text-sm ms-3"><i
-										class="fa-solid ms-2 fa-eye text-slate-900 dark:text-white me-2"></i>${i.article_visited}
-										lượt xem</span>
+							<div class="relative p-6">
+								<div class="absolute start-6 -top-4">
+									<span
+										class="bg-emerald-600 px-3 text-white text-[12px] px-2.5 py-1 font-semibold rounded-full h-5">${i.category_name}</span>
 								</div>
-								<a href="blog-detail.html"
-									class="title text-md font-semibold hover:text-emerald-600 duration-500 ease-in-out">${i.article_title }</a>
-								<p class="text-small">
-									${i.article_summary}
-								</p>
-								<div class="flex justify-between items-center mt-3">
-									<a href="/home/blogs/?id=${i.article_id}"
-										class="btn btn-link hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out">ReadMore
-										<i class="uil uil-arrow-right"></i>
-									</a><span class="text-slate-400 text-sm">by <a href="#"
-										class="text-slate-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-600 font-medium">admin</a></span>
+								<div class="">
+									<div class="flex mb-4 justify-between">
+										<span class="text-slate-400 text-sm me-2"><i
+											class="fa-solid fa-calendar text-slate-900 dark:text-white me-2"></i>${i.article_created_date}</span><span
+											class="text-slate-400 text-sm ms-3"><i
+											class="fa-solid ms-2 fa-eye text-slate-900 dark:text-white me-2"></i>${i.article_visited}
+											lượt xem</span>
+									</div>
+									<a href="blog-detail.html"
+										class="title text-md font-semibold hover:text-emerald-600 duration-500 ease-in-out">${i.article_title }</a>
+									<p class="text-small">${i.article_summary}</p>
+									<div class="flex justify-between items-center mt-3">
+										<a href="/home/blogs/?id=${i.article_id}"
+											class="btn btn-link hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out">ReadMore
+											<i class="uil uil-arrow-right"></i>
+										</a><span class="text-slate-400 text-sm">by <a href="#"
+											class="text-slate-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-600 font-medium">admin</a></span>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 					</c:forEach>
 				</div>
 			</div>
-                    
-                </div><!--end col-->
-            </div>
+
+		</div>
+		<!--end col-->
+	</div>
 	`
 	<div class="container md:mt-24 mt-16">
 		<div class="grid grid-cols-1 pb-8 text-center">
@@ -532,22 +555,29 @@
 		<!--end grid-->
 	</div>
 	<!--end container-->
-	
-	 <div class="container mt-6" data-aos="zoom-in">
-         <div class="grid md:grid-cols-12 grid-cols-1 bg-white rounded shadow items-center gap-[30px]">
-         	 <div class="lg:col-span-3 md:col-span-4 px-4">
-         	 		
-				<h2 class="text-xl font-bold"><span style="color: #d34127;"><strong>Hơn 3.500 khách hàng tin dùng</strong></span></h2>
-				<p class="font-medium text-lg text-slate-900">Cả các công ty Việt Nam, FDI và đa quốc gia, trải rộng tất cả các ngành từ ngân hàng, fintech đến gia công phần mềm (outsourcing), thương mại điện tử, truyền thông, quảng cáo, v.v.</p>
-         	 		
-         	 </div>
 
-         	 
-         	  <div class="lg:col-span-9 md:col-span-8">
-         	    	<img class="w-full" alt="companies" src="/home/img/com.png">
-         	 </div>
-         </div>
-     </div>
+	<div class="container mt-6" data-aos="zoom-in">
+		<div
+			class="grid md:grid-cols-12 grid-cols-1 bg-white rounded shadow items-center gap-[30px]">
+			<div class="lg:col-span-3 md:col-span-4 px-4">
+
+				<h2 class="text-xl font-bold">
+					<span style="color: #d34127;"><strong>Hơn 3.500
+							khách hàng tin dùng</strong></span>
+				</h2>
+				<p class="font-medium text-lg text-slate-900">Cả các công ty
+					Việt Nam, FDI và đa quốc gia, trải rộng tất cả các ngành từ ngân
+					hàng, fintech đến gia công phần mềm (outsourcing), thương mại điện
+					tử, truyền thông, quảng cáo, v.v.</p>
+
+			</div>
+
+
+			<div class="lg:col-span-9 md:col-span-8">
+				<img class="w-full" alt="companies" src="/home/img/com.png">
+			</div>
+		</div>
+	</div>
 
 
 </main>

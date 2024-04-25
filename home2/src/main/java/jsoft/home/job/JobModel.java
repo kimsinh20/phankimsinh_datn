@@ -35,11 +35,40 @@ public class JobModel {
 	public void releaseConnection() {
 		this.c.releaseConnection();
 	}
-
+	
+	public boolean saveJob(int job_id,int user_id) {
+		return this.c.saveJob(job_id, user_id);
+	}
+	public boolean delJob(int job_id, int user_id) {
+		return this.c.delJob(job_id, user_id);
+	}
+	public boolean isExits(int job_id, int user_id) {
+		return this.c.isExisting(job_id, user_id);
+	}
 //	---------------------------------------
 
 //	----------------------------------------
-
+	public ArrayList<JobObject> JobSave( int user_id) {
+		ArrayList<ResultSet> res = this.c.getJobSave( user_id);
+		ArrayList<JobObject> listJob = new ArrayList<>();
+		JobObject job = null;
+		ResultSet rs = res.get(0);
+		if (rs != null) {
+			try {
+				while (rs.next()) {
+					job = new JobObject();
+					job.setJob_id(rs.getInt("job_id"));
+					listJob.add(job);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return listJob;
+	}
+	
 	public Quintet<ArrayList<JobObject>, ArrayList<ProvinceObject>, Integer, HashMap<Integer, String>, ArrayList<CareerObject>> getdataJob(
 			Triplet<JobObject, Integer, Byte> infos, Pair<JOB_SOFT, ORDER> so) {
 		ArrayList<ResultSet> res = this.c.getJobs(infos, so);

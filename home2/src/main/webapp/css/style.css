@@ -136,7 +136,30 @@ main {
     visibility: visible;
     opacity: 1;
   }
-
+  .bg-linear {
+  background:  linear-gradient(90deg, #212f3f, #00b14f);
+  }
+  .save-active {
+  background: #16a34a;
+  color: white;
+  }
+  #article_content img{
+  width: 100% !important;
+  }
+   #article_content p em {
+    display: block;
+    text-align: center;
+   }
+   #article_content p a {
+    color: #155e75;
+    font-size: 14px;
+   }
+     #article_content p h2{
+    font-size: 20px;
+   }
+     #article_content p h3{
+    font-size: 20px;
+   }
 
 @media ( min-width
 	:

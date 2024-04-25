@@ -40,7 +40,7 @@ public class CompanyControl {
 	public Quintet<ArrayList<FieldObject>, ArrayList<CareerObject>, HashMap<Integer, Integer>,ArrayList<JobObject>,ArrayList<ArticleObject>> getFields(){ 
 		return this.cm.getFields();
 	}
-	public Quartet<JobObject,HashMap<Integer, String>,ArrayList<JobObject>,ArrayList<ArticleObject>> getCompanyObject(short id) {
+	public Quartet<CompanyObject,HashMap<Integer, String>,ArrayList<JobObject>,ArrayList<ArticleObject>> getCompanyObject(short id) {
 		return this.cm.getCompanybObject(id);
 	}
 //	----------------------------------------------

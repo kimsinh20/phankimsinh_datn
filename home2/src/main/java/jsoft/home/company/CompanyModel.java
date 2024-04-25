@@ -216,100 +216,41 @@ public class CompanyModel {
 		return new Quintet<>(listFields, listCareer, totalJob,listJob,listArticle);
 	}	
 	
-public Quartet<JobObject,HashMap<Integer, String>,ArrayList<JobObject>,ArrayList<ArticleObject>> getCompanybObject(short id) {
+public Quartet<CompanyObject,HashMap<Integer, String>,ArrayList<JobObject>,ArrayList<ArticleObject>> getCompanybObject(short id) {
 		
 		ArrayList<ResultSet> res = this.c.getCompany(id);
 		//  Job
-		JobObject Job = null;
+		CompanyObject company = null;
 		ResultSet rs = res.get(0);
 		if(rs!=null) {
 			try {
 				if(rs.next()) {
-					Job = new JobObject();
-					Job.setJob_id(rs.getShort("job_id"));
-				    Job.setJob_title(jsoft.library.Utilities.decode(rs.getString("job_title")));
-				    
-				    CompanyObject company = new CompanyObject();
-				    company.setCompany_id(rs.getInt("job_company_id"));
-					company.setCompany_name(jsoft.library.Utilities.decode(rs.getString("company_name")));
-					company.setCompany_field_id(rs.getInt("company_field_id"));
+					company = new CompanyObject();
+					company.setCompany_id(rs.getShort("company_id"));
+					company.setCompany_name(rs.getString("company_name"));
+					company.setCompany_about(jsoft.library.Utilities.decode(rs.getString("company_about")));
+					company.setCompany_summary(rs.getString("company_summary"));
+					company.setCompany_remuneration(jsoft.library.Utilities.decode(rs.getString("company_remuneration")));
+					company.setCompany_author_id(rs.getInt("company_author_id"));
+					company.setCompany_created_date(rs.getString("company_created_date"));
+					company.setCompany_last_modified(rs.getString("company_last_modified"));
+					company.setCompany_delete(rs.getBoolean("company_delete"));
+					company.setCompany_size(rs.getInt("company_size"));
+					company.setCompany_email(rs.getString("company_email"));
+					company.setCompany_nationality(rs.getInt("company_nationality"));
+					company.setCompany_website(rs.getString("company_website"));
+					// get field
+					FieldObject field = new FieldObject();
+					field.setField_id(rs.getInt("company_field_id"));
+					field.setField_name(rs.getString("field_name"));
+					company.setField(field);
+					company.setCompany_location(rs.getString("company_location"));
+					company.setCompany_officephone(rs.getString("company_officephone"));
+					company.setCompany_homephone(rs.getString("company_homephone"));
+					company.setCompany_mobilephone(rs.getString("company_mobilephone"));
+					company.setCompany_establish_date(rs.getString("company_establish_date"));
 					company.setCompany_logo(rs.getString("company_logo"));
 					company.setCompany_banner(rs.getString("company_banner"));
-					company.setCompany_size(rs.getInt("company_size"));
-					FieldObject f = new FieldObject();
-					f.setField_id(rs.getInt("field_id"));
-					f.setField_name(rs.getString("field_name"));
-					company.setField(f);
-				    Job.setCompany(company);
-				    
-				    CareerObject career =  new CareerObject();
-				    career.setCareer_id(rs.getInt("job_career_id"));
-				    career.setCareer_name(rs.getString("career_name"));
-				    Job.setJob_career(career);
-				
-				    
-				    
-				    Job.setJob_skills(rs.getString("job_skills"));
-				    Job.setJob_quantity(rs.getInt("job_quantity"));
-				    // job_purpose
-				    Job.setJob_purpose(jsoft.library.Utilities.decode(rs.getString("job_purpose")));
-
-				    // job_responsibility
-				    Job.setJob_responsibility(jsoft.library.Utilities.decode(rs.getString("job_responsibility")));
-
-				    // job_Welfare
-				    Job.setJob_Welfare(jsoft.library.Utilities.decode(rs.getString("job_Welfare")));
-
-				    // job_salary
-				    Job.setJob_salary(rs.getByte("job_salary"));
-
-				    // job_work_time
-				    Job.setJob_work_time(rs.getByte("job_work_time"));
-
-				    // job_gender
-				    Job.setJob_gender(rs.getInt("job_gender"));
-
-				    // job_level
-				    Job.setJob_level(rs.getInt("job_level"));
-
-				    // job_location
-				    Job.setJob_location(rs.getString("job_location"));
-
-				    // job_degree
-				    Job.setJob_degree(rs.getInt("job_degree"));
-
-				    // job_experience_id
-				    Job.setJob_experience_id(rs.getInt("job_experience_id"));
-
-				    // job_visited
-				    Job.setJob_visited(rs.getInt("job_visited"));
-
-				    // job_created_date
-				    Job.setJob_created_date(rs.getString("job_created_date"));
-
-				    // job_expiration_date
-				    Job.setJob_expiration_date(rs.getString("job_expiration_date"));
-
-				    // job_delete
-				    Job.setJob_delete(rs.getBoolean("job_delete"));
-
-				    // job_enable
-				    Job.setJob_enable(rs.getBoolean("job_enable"));
-
-				    // job_interview_process_id
-				    Job.setJob_interview_process_id(rs.getInt("job_interview_process_id"));
-
-				    // job_company_id
-				    Job.setJob_company_id(rs.getInt("job_company_id"));
-
-				    // job_last_modified
-				    Job.setJob_last_modified(rs.getString("job_last_modified"));
-
-				    // job_author_id
-				    Job.setJob_author_id(rs.getInt("job_author_id"));
-
-				    // job_status
-				    Job.setJob_status(rs.getInt("job_status"));
 				}
 				rs.close();
 			} catch (SQLException e) {
@@ -388,7 +329,7 @@ public Quartet<JobObject,HashMap<Integer, String>,ArrayList<JobObject>,ArrayList
 				e.printStackTrace();
 			}
 		}		
-		return new Quartet<>(Job,skills,listJob,listArticle);
+		return new Quartet<>(company,skills,listJob,listArticle);
 	}
 	
 }

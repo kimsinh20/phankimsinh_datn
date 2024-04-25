@@ -15,6 +15,18 @@ import jsoft.objects.JobObject;
 import jsoft.objects.UserObject;
 
 public class HomepageLibrary {
+	public static boolean isCheck(int d, ArrayList<JobObject> list) {
+		if (list == null) {
+			return false;
+		} else {
+			for (JobObject i : list) {
+			    if (i.getJob_id() == d) {
+			        return true;
+			    }
+			}
+		}
+		return false;
+	}
 	public static String viewCareer(ArrayList<CareerObject> items,HashMap<Integer, Integer> total) {
 		StringBuffer tmp = new StringBuffer();
 	    items.forEach(item -> {
@@ -55,7 +67,7 @@ public class HomepageLibrary {
 		return out.toString();
 	}
 	
-	public static String viewListJob(ArrayList<JobObject> items) {
+	public static String viewListJob(ArrayList<JobObject> items,UserObject user,ArrayList<JobObject> JobSave) {
 		StringBuffer out = new StringBuffer();
 	    items.forEach(item -> {
 	    	
@@ -161,7 +173,7 @@ public class HomepageLibrary {
 	    	out.append(" class=\"bg-sky-300 px-3 group-hover:bg-emerald-600 inline-block text-emerald-600 group-hover:text-white text-xs px-2.5 py-0.5 font-semibold rounded-full transition-all duration-500\">"+job_work_time+"</span>");
 	    	out.append("</div>");
 	    	out.append("");
-	    	out.append("<div class=\"mt-6\">");
+	    	out.append("<div class=\"mt-6 h-[80px]\">");
 	    	out.append("<a href=\"/home/jobs/detail?id="+item.getJob_id()+"\" ");
 	    	out.append("class=\"text-lg hover:text-emerald-600 font-semibold transition-all duration-500\">");
 	    	out.append(""+item.getJob_title()+"</a>");
@@ -183,7 +195,11 @@ public class HomepageLibrary {
 	    	out.append("</span>");
 	    	out.append("</div>");
 	    	out.append("<div class=\"mt-6 flex justify-between items-center\">");
-	    	out.append("<a href=\"\" class=\"rounded-full px-3 py-2 text-2xl bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600\" id=\"icon-save\"><i class=\"fa-regular fa-heart\"></i></a>");
+	    	 out.append("<button href=\"#\" type=\"button\" onclick=\"saveJobv2("+item.getJob_id()+", "+(user!=null?user.getUser_id():null)+")\" id=\"save-"+item.getJob_id()+"\" class=\"btn "+(isCheck(item.getJob_id(), JobSave)?"save-active":"")+" btn-icon px-2 py-2 rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white\">");
+	    	 out.append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-bookmark size-4\">");
+	    	 out.append("<path d=\"M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z\"></path>");
+	    	 out.append("</svg>");
+	    	 out.append("</button>");
 	    	out.append("<a href=\"/home/jobs/detail?id="+item.getJob_id()+"\" class=\"btn btn-sm px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 lg:w-[200px] w-48 text-center \">Ứng tuyển ngay</a>");
 	    	out.append("</div>");
 	    	out.append("</div>");
@@ -219,13 +235,13 @@ public class HomepageLibrary {
 			out.append("<i class=\"fa-solid ms-2 fa-eye text-slate-900 dark:text-white me-2\"></i>"+item.getArticle_visited()+" lượt xem</span>");
 			out.append("</div>");
 			out.append("");
-			out.append("<a href=\"/home/bolog/detail?id="+item.getArticle_id()+"\" class=\"title text-xl font-semibold hover:text-emerald-600 duration-500 ease-in-out\">");
+			out.append("<a href=\"/home/blogs/detail?id="+item.getArticle_id()+"\" class=\"title text-xl font-semibold hover:text-emerald-600 duration-500 ease-in-out\">");
 			out.append(""+item.getArticle_title()+"</a>");
 			out.append("<p class=\"text-small\">"+jsoft.library.Utilities_text.shortenText(item.getArticle_summary(), 20)+"</p>");
 			out.append("<div class=\"flex justify-between items-center mt-3\">");
-			out.append("<a href=\"/home/bolog/detail?id="+item.getArticle_id()+"\" ");
-			out.append("class=\"btn btn-link hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out\">Read");
-			out.append("More <i class=\"uil uil-arrow-right\"></i></a>");
+			out.append("<a href=\"/home/blogs/detail?id="+item.getArticle_id()+"\" ");
+			out.append("class=\"btn btn-link hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out\">Đọc thêm");
+			out.append("<i class=\"uil uil-arrow-right\"></i></a>");
 			out.append("<span class=\"text-slate-400 text-sm\">by ");
 			out.append("<a href=\"\"");
 			out.append(" class=\"text-slate-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-600 font-medium\">"+item.getArticle_author_name()+"</a></span>");

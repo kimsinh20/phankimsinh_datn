@@ -2,7 +2,6 @@ package jsoft.home.job;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +16,7 @@ import jsoft.ConnectionPool;
 import jsoft.library.ORDER;
 import jsoft.objects.CareerObject;
 import jsoft.objects.JobObject;
+import jsoft.objects.UserObject;
 
 /**
  * Servlet implementation class Jobs
@@ -90,6 +90,20 @@ public class Jobs extends HttpServlet {
 		}
 		return slr;
 	}
+	public String condsFilter(int arr[],JobObject similar) {
+		StringBuilder sb = new StringBuilder();
+		if (arr != null) {
+			for (int i = 0; i < arr.length; i++) {
+				if (arr[i] != 0) {
+					sb.append(arr[i]);
+					if (i < arr.length - 1) {
+						sb.append(",");
+					}
+				}
+			}
+		}
+		return sb.toString();
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -123,6 +137,13 @@ public class Jobs extends HttpServlet {
 				"10 triệu đến 15 triệu", "15 triệu đến 30 triệu", "Trên 30 triệu", "Trên 50 triệu", "Không lương",
 				"Thương lượng" };
 		boolean[] selectedSlr =checkbool(slr, salaries);
+		
+		String[] listLevel = request.getParameterValues("level");
+		int[] level = convertToArray(listLevel);
+		String[] levels = { "Nhân viên chính thức", "Nhân viên thử việc", "Quản lí",
+				"Thực tập sinh/Sinh viên", "Trưởng nhóm", "Trưởng phòng", "Giám đốc và cấp cao hơn", "Mới tốt nghiệp",
+				"Khác" };
+		boolean[] selectedLevel =checkbool(level, levels);
 
 		String url = "";
 		String queryString = request.getQueryString();
@@ -182,42 +203,22 @@ public class Jobs extends HttpServlet {
 		newC.setCareer_id(cr);
 		newC.setCareer_field_id(f);
 		similar.setJob_career(newC);
-		if (id != null) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < id.length; i++) {
-				if (id[i] != 0) {
-					sb.append(id[i]);
-					if (i < id.length - 1) {
-						sb.append(",");
-					}
-				}
-			}
-
-			similar.setJob_purpose(sb.toString());
-		}
-		if (slr != null) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < slr.length; i++) {
-				if (slr[i] != 0) {
-					sb.append(slr[i]);
-					if (i < slr.length - 1) {
-						sb.append(",");
-					}
-				}
-			}
-
-			similar.setJob_responsibility(sb.toString());
-		}
+		
+		similar.setJob_purpose(condsFilter(id, similar));
+		similar.setJob_responsibility(condsFilter(slr, similar));
+		similar.setJob_expiration_date(condsFilter(level,similar));
 
 		byte pageSize = 10;
-
+		UserObject user = (UserObject) request.getSession().getAttribute("clientLogined");
 		Triplet<JobObject, Integer, Byte> infos = new Triplet<>(similar, pageSize * (page - 1), pageSize);
-
-		ArrayList<String> viewList = jc.viewJobPage(infos, sorting, url, page);
+//        boolean checkExits = jc.isExits(f, pageSize);
+		ArrayList<String> viewList = jc.viewJobPage(infos, sorting, url, page,user);
 		request.setAttribute("jobtime", jobWorkTimeArray);
 		request.setAttribute("selected", selectedList);
 		request.setAttribute("salaries", salaries);
 		request.setAttribute("selectedSlr", selectedSlr);
+		request.setAttribute("levels", levels);
+		request.setAttribute("selectedLevel", selectedLevel);
 		request.setAttribute("viewJobs", viewList);
 		// trả về kết nối
 		jc.releaseConnection();

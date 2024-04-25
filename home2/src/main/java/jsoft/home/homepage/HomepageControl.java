@@ -43,14 +43,19 @@ public class HomepageControl {
 	}
 
 //	----------------------------------------------
-	public ArrayList<String> viewHomePage(Triplet<CareerObject, Integer, Byte> infos) {
+	public ArrayList<String> viewHomePage(Triplet<CareerObject, Integer, Byte> infos,UserObject u) {
 		Sextet<ArrayList<CareerObject>, HashMap<Integer, Integer>,ArrayList<CompanyObject>,HashMap<Integer, Integer>,ArrayList<JobObject>,ArrayList<ArticleObject>> data = this.cm.getdataHomePage(infos);
+		ArrayList<JobObject> jobSave = null;
+		if(u!=null) {
+		 jobSave = new ArrayList<JobObject>();
+		 jobSave = this.cm.JobSave(u.getUser_id());
+		}
 		String viewcareer = HomepageLibrary.viewCareer(data.getValue0(), data.getValue1());
 		String viewcompanies = HomepageLibrary.viewListCompanies(data.getValue2(), data.getValue3());
 		ArrayList<String> rs = new ArrayList<>();
 		rs.add(viewcareer);
 		rs.add(viewcompanies);
-		rs.add(HomepageLibrary.viewListJob(data.getValue4()));
+		rs.add(HomepageLibrary.viewListJob(data.getValue4(),u,jobSave));
 		rs.add(HomepageLibrary.viewListArticle(data.getValue5()));
 		return rs;
 	}

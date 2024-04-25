@@ -39,7 +39,7 @@ public class CompanyLibrary {
 	    	 out.append("</div>");
 	    	 out.append("");
 	    	 out.append("<div class=\"ms-3\">");
-	    	 out.append("<a href=\"/home/jobs/detail?id="+item.getCompany_id()+"\" class=\"inline-block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500 me-1\">");
+	    	 out.append("<a href=\"/home/company/detail?id="+item.getCompany_id()+"\" class=\"inline-block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500 me-1\">");
 	    	 out.append(item.getCompany_name());
 	    	 out.append("</a> ");
 	    	 out.append("<div>");

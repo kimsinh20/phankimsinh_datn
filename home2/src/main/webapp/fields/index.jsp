@@ -20,7 +20,7 @@
 								viewBox="0 0 20 20">
                                     <path
 									d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                                </svg> Home
+                                </svg> Trang chủ
 					</a></li>
 					<li>
 						<div class="flex items-center">
@@ -32,7 +32,7 @@
 									d="m1 9 4-4-4-4" />
                                 </svg>
 							<a href="/home/fields"
-								class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">fields</a>
+								class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">lĩnh v</a>
 						</div>
 					</li>
 					<li aria-current="page">
@@ -45,7 +45,7 @@
 									d="m1 9 4-4-4-4" />
                                 </svg>
 							<span
-								class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">list</span>
+								class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">danh sách</span>
 						</div>
 					</li>
 				</ol>
@@ -112,9 +112,7 @@
 							</div>
 							<div class="mt-6">
 								<div class="mt-6 flex justify-between items-center">
-									<a href=""
-										class="rounded-full px-3 py-2 text-2xl bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600"
-										id="icon-save"><i class="fa-regular fa-heart"></i></a><a
+									<a
 										href="job-apply.html"
 										class="btn btn-sm px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 lg:w-[200px] w-48 text-center ">Ứng
 										tuyển ngay</a>

@@ -10,8 +10,14 @@ import org.javatuples.Sextet;
 import org.javatuples.Triplet;
 
 import jsoft.ConnectionPool;
+import jsoft.home.company.COMPANY_SOFT;
+import jsoft.home.company.CompanyLibrary;
+import jsoft.library.ORDER;
 import jsoft.objects.ArticleObject;
 import jsoft.objects.CategoryObject;
+import jsoft.objects.CompanyObject;
+import jsoft.objects.FieldObject;
+import jsoft.objects.SectionObject;
 
 public class ArticleControl {
 	private ArticleModel am;
@@ -31,24 +37,28 @@ public class ArticleControl {
 //	------------------------------------------
 	
 //	---------------------------------------------
-	public ArticleObject getArticleObject(int id) {
+	public Quartet<ArticleObject, ArrayList<ArticleObject>, ArrayList<SectionObject>,HashMap<String,Integer>> getArticleObject(int id) {
 		return this.am.getArticleObject(id);
 	}
 //	----------------------------------------------
-	public ArrayList<String> viewPostGrid(Triplet<ArticleObject, Integer, Byte> infos) {
-		Pair<ArrayList<ArticleObject>, ArrayList<ArticleObject>> datas = this.am.getArticleObjects(infos);
-		return ArticleLibrary.viewPostGrid(datas);
+	
+	public Triplet<ArrayList<ArticleObject>, ArrayList<ArticleObject>,ArrayList<SectionObject>> viewArticleBolg(Triplet<ArticleObject, Integer, Byte> infos) {
+		Triplet<ArrayList<ArticleObject>,ArrayList<ArticleObject>,ArrayList<SectionObject>> datas = this.am.getArticleBolg(infos);
+		return datas;
 	}
-	public ArrayList<String> viewNews(Quartet<ArticleObject, Integer, Byte,Boolean> infos) {
-		Sextet<ArrayList<ArticleObject>, ArrayList<ArticleObject>,ArrayList<CategoryObject>,HashMap<String, Integer>,Integer,ArrayList<ArticleObject>> datas = this.am.getNewsArticleObjects(infos);
-		return ArticleLibrary.viewNews(datas,infos);
-	}
-	public ArrayList<String> viewNewsDetail(Quartet<ArticleObject, Integer, Byte,Boolean> infos) {
-		Sextet<ArrayList<ArticleObject>, ArrayList<ArticleObject>,ArrayList<CategoryObject>,HashMap<String, Integer>,Integer,ArrayList<ArticleObject>> datas = this.am.getNewsArticleObjects(infos);
-		return ArticleLibrary.viewDetail(datas,infos);
-	}
-	public String viewFooter(Triplet<ArticleObject, Integer, Byte> infos) {
-		Pair<ArrayList<ArticleObject>,ArrayList<CategoryObject>> datas = this.am.getFooter(infos);
-		return ArticleLibrary.ViewFooter(datas).toString();
+	public ArrayList<String> ViewBlogsList(Triplet<ArticleObject, Integer, Byte> infos,Pair<ARTICLE_SOFT, ORDER> so,String url,int page) {
+		Triplet<ArrayList<ArticleObject>,Integer,ArrayList<CategoryObject>> data = this.am.getArticleObjects(infos,so );
+		ArrayList<String> rs = new ArrayList<>();
+		rs.add(ArticleLibrary.viewList(data.getValue0(),page,data.getValue1(),url,infos.getValue2()));
+		
+		if(infos.getValue0().getArticle_category_id()>0) {
+			rs.add(ArticleLibrary.cateOption(data.getValue2(),infos.getValue0().getArticle_category_id()));
+		} else {
+			rs.add(ArticleLibrary.cateOption(data.getValue2(),0));
+		}
+		rs.add(ArticleLibrary.sortView(url));
+		rs.add(data.getValue2().get(0).getSection_name());
+	   
+		return rs;
 	}
 }

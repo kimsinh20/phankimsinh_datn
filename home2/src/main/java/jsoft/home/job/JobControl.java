@@ -36,6 +36,16 @@ public class JobControl {
 		this.cm.releaseConnection();
 	}
 
+	public boolean saveJob(int job_id,int user_id) {
+		return this.cm.saveJob(job_id, user_id);
+	}
+	public boolean delJob(int job_id, int user_id) {
+		return this.cm.delJob(job_id, user_id);
+	}
+	public boolean isExits(int job_id, int user_id) {
+		return this.cm.isExits(job_id, user_id);
+	}
+	
 //	---------------------------------------------
 	public Quintet<ArrayList<FieldObject>, ArrayList<CareerObject>, HashMap<Integer, Integer>,ArrayList<JobObject>,ArrayList<ArticleObject>> getFields(){ 
 		return this.cm.getFields();
@@ -44,10 +54,16 @@ public class JobControl {
 		return this.cm.getJobObject(id);
 	}
 //	----------------------------------------------
-	public ArrayList<String> viewJobPage(Triplet<JobObject, Integer, Byte> infos,Pair<JOB_SOFT, ORDER> so,String url,int page) {
+	public ArrayList<String> viewJobPage(Triplet<JobObject, Integer, Byte> infos,Pair<JOB_SOFT, ORDER> so,String url,int page,UserObject user) {
 		Quintet<ArrayList<JobObject>, ArrayList<ProvinceObject>,Integer,HashMap<Integer, String>,ArrayList<CareerObject>> data = this.cm.getdataJob(infos,so );
+		ArrayList<JobObject> jobSave = null;
+		if(user!=null) {
+		 jobSave = new ArrayList<JobObject>();
+		 jobSave = this.cm.JobSave(user.getUser_id());
+		}
+		
 		ArrayList<String> rs = new ArrayList<>();
-		rs.add(JobLibrary.viewListJob(data.getValue0(),data.getValue3(),page,data.getValue2(),url,infos.getValue2()));
+		rs.add(JobLibrary.viewListJob(data.getValue0(),data.getValue3(),page,data.getValue2(),url,infos.getValue2(),user,jobSave));
 		rs.add(JobLibrary.provicesOption(data.getValue1(),infos.getValue0().getJob_location()));
 		if(infos.getValue0().getJob_career()!=null) {
 			rs.add(JobLibrary.careerOption(data.getValue4(),infos.getValue0().getJob_career().getCareer_id()));

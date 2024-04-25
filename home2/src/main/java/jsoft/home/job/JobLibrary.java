@@ -5,22 +5,29 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 
-import jsoft.library.Utilities;
 import jsoft.objects.AddressObject;
-import jsoft.objects.ArticleObject;
 import jsoft.objects.CareerObject;
-import jsoft.objects.CompanyObject;
-import jsoft.objects.FieldObject;
 import jsoft.objects.JobObject;
 import jsoft.objects.ProvinceObject;
-import jsoft.objects.SkillObject;
 import jsoft.objects.UserObject;
 
 public class JobLibrary {
 	
-
-	public static String viewListJob(ArrayList<JobObject> items,HashMap<Integer, String> skills,int page,int total,String url,byte pagesize) {
+	public static boolean isCheck(int d, ArrayList<JobObject> list) {
+		if (list == null) {
+			return false;
+		} else {
+			for (JobObject i : list) {
+			    if (i.getJob_id() == d) {
+			        return true;
+			    }
+			}
+		}
+		return false;
+	}
+	public static String viewListJob(ArrayList<JobObject> items,HashMap<Integer, String> skills,int page,int total,String url,byte pagesize,UserObject user,ArrayList<JobObject> JobSave) {
 		StringBuffer out = new StringBuffer();
+      
 		out.append("<div class=\"grid grid-cols-1 gap-[30px] mt-6\" data-aos=\"fade-up\" data-aos-duration=\"1000\">");
 		if(items.size()<=0) {
 			out.append("<h1 class=\"text-2xl text-center\">Không có tin tuyển dụng nào</h1>");
@@ -242,11 +249,14 @@ public class JobLibrary {
 	    	 out.append("</a>");
 	    	 out.append("</div>");
 	    	 out.append("");
-	    	 out.append("<a href=\"\" class=\"btn btn-icon px-2 py-2 rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white absolute top-0 end-0 m-3\">");
+	    	 
+	    	 
+	    	 
+	    	 out.append("<button href=\"#\" type=\"button\" onclick=\"saveJobv2("+item.getJob_id()+", "+(user!=null?user.getUser_id():null)+")\" id=\"save-"+item.getJob_id()+"\" class=\"btn "+(isCheck(item.getJob_id(), JobSave)?"save-active":"")+" btn-icon px-2 py-2 rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white absolute top-0 end-0 m-3\">");
 	    	 out.append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-bookmark size-4\">");
 	    	 out.append("<path d=\"M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z\"></path>");
 	    	 out.append("</svg>");
-	    	 out.append("</a>");
+	    	 out.append("</button>");
 	    	 out.append("</div>");
 	    	 out.append("<!--end content-->");
 	    	

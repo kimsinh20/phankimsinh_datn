@@ -16,7 +16,7 @@ import jsoft.objects.UserObject;
 public class CompanyImpl extends BasicImpl implements company {
 
 	public CompanyImpl(ConnectionPool cp) {
-		super(cp, "Job");
+		super(cp, "Company");
 		// TODO Auto-generated constructor stub
 	}
 
@@ -25,11 +25,9 @@ public class CompanyImpl extends BasicImpl implements company {
 	public ArrayList<ResultSet> getCompany(short id) {
 		// TODO Auto-generated method stub
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM tblJob j "); // cate la con cua section
-		sql.append("LEFT JOIN tblcareer f ON j.job_career_id = f.career_id ");
-		sql.append("LEFT JOIN tblcompany p ON p.company_id = j.job_company_id ");
-		sql.append("LEFT JOIN tblfield a ON a.field_id = f.career_field_id ");
-		sql.append("WHERE (j.job_status>0) AND (j.job_delete=0) AND (j.job_id=" + id + ");");
+		sql.append("SELECT * FROM tblcompany c "); // cate la con cua section
+		sql.append("LEFT JOIN tblfield f ON c.company_field_id = f.field_id ");
+		sql.append("WHERE (c.company_delete=0) AND (c.company_id=" + id + ");");
 
 		sql.append("SELECT * FROM tblskill WHERE skill_delete = 0;");
 		

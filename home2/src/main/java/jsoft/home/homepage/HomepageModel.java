@@ -34,7 +34,26 @@ public class HomepageModel {
 	public void releaseConnection() {
 		this.c.releaseConnection();
 	}
-	
+	public ArrayList<JobObject> JobSave( int user_id) {
+		ArrayList<ResultSet> res = this.c.getJobSave( user_id);
+		ArrayList<JobObject> listJob = new ArrayList<>();
+		JobObject job = null;
+		ResultSet rs = res.get(0);
+		if (rs != null) {
+			try {
+				while (rs.next()) {
+					job = new JobObject();
+					job.setJob_id(rs.getInt("job_id"));
+					listJob.add(job);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return listJob;
+	}
 //	---------------------------------------
 	
 //	----------------------------------------

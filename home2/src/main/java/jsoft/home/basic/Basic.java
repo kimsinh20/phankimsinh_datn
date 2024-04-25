@@ -15,8 +15,15 @@ public interface Basic extends ShareControl {
 	
 	public ResultSet gets(String sql);
 	
+	public ResultSet get(ArrayList<String> sql, String name, String pass);
+	
 	public ResultSet[] gets(String[] sql);
 	
+	public boolean logined(PreparedStatement pre);
+	
+	public boolean add(PreparedStatement pre);
+	
+	public boolean del(PreparedStatement pre);
 	// thuc hien nhieu SELECT trong 1 lan bien dich
 	public ArrayList<ResultSet> getMR(String multiSelect);
 	

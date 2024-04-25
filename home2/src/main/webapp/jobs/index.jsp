@@ -19,7 +19,7 @@
 								viewBox="0 0 20 20">
                                     <path
 									d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                                </svg> Home
+                                </svg> Trang chủ
 					</a></li>
 					<li>
 						<div class="flex items-center">
@@ -31,7 +31,7 @@
 									d="m1 9 4-4-4-4" />
                                 </svg>
 							<a href="/home/jobs"
-								class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">jobs</a>
+								class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">công việc</a>
 						</div>
 					</li>
 					<li aria-current="page">
@@ -44,7 +44,7 @@
 									d="m1 9 4-4-4-4" />
                                 </svg>
 							<span
-								class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">list</span>
+								class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">danh sách</span>
 						</div>
 					</li>
 				</ol>
@@ -56,7 +56,7 @@
 			<div class="lg:col-span-4 md:col-span-6">
 				<div
 					class="shadow dark:shadow-gray-700 p-6 rounded-md bg-white dark:bg-slate-900 sticky top-20">
-					<form id="fn_filter" method="get">
+					<form id="fn_filter" method="post">
 						<div class="grid grid-cols-1 gap-3">
 							<div>
 								<label for="searchname" class="font-semibold">
@@ -72,14 +72,14 @@
 							<div>
 								<label class="font-semibold">Ngành nghề</label> <select
 									class="form-select outline-none form-input border border-slate-100 dark:border-slate-800 block w-full mt-1"
-									name="cr" onchange="submitForm()"> ${viewJobs[2]}
+									name="cr" onchange="submitForm('fn_filter')"> ${viewJobs[2]}
 								</select>
 							</div>
 
 							<div>
 								<label class="font-semibold">Địa chỉ</label> <select
 									class="form-select outline-none form-input border border-slate-100 dark:border-slate-800 block w-full mt-1"
-									name=lc onchange="submitForm()"> ${viewJobs[1]}
+									name=lc onchange="submitForm('fn_filter')"> ${viewJobs[1]}
 								</select>
 							</div>
 
@@ -90,7 +90,7 @@
 										<div class="inline-flex items-center mb-0">
 											<input
 												class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-emerald-600 focus:border-emerald-300 focus:ring focus:ring-offset-0 focus:ring-emerald-200 focus:ring-opacity-50 me-2"
-												type="checkbox" value="0" onchange="setCheck(this)"
+												type="checkbox" value="0" onchange="setCheck(this,'type','c0')"
 												name="type" id="c0" ${selected[0]?"checked":""}> <label
 												class="form-checkbox-label text-slate-400" for="fulltime">ALL</label>
 										</div>
@@ -105,7 +105,7 @@
 													type="checkbox" value="${loop.index+1}" name="type"
 													id="fulltime${loop.index+1}"
 													${selected[loop.index+1] ? 'checked' : ''}
-													onchange="setCheck(this)"> <label
+													onchange="setCheck(this,'type','c0')"> <label
 													class="form-checkbox-label text-slate-400"
 													for="fulltime${loop.index}">${i}</label>
 											</div>
@@ -123,7 +123,7 @@
 										<div class="inline-flex items-center mb-0">
 											<input
 												class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-emerald-600 focus:border-emerald-300 focus:ring focus:ring-offset-0 focus:ring-emerald-200 focus:ring-opacity-50 me-2"
-												type="checkbox" value="0" onchange="setCheck2(this)"
+												type="checkbox" value="0" onchange="setCheck(this,'salary','s0')"
 												name="salary" id="s0" ${selectedSlr[0]?"checked":""}> <label
 												class="form-checkbox-label text-slate-400" for="fulltime">ALL</label>
 										</div>
@@ -138,7 +138,7 @@
 													type="checkbox" value="${count.index+1}" name="salary"
 													id="salary${count.index+1}"
 													${selectedSlr[count.index+1] ? 'checked' : ''}
-													onchange="setCheck2(this)"> <label
+													onchange="setCheck(this,'salary','s0')"> <label
 													class="form-checkbox-label text-slate-400"
 													for="fulltime${count.index}">${i}</label>
 											</div>
@@ -147,7 +147,39 @@
 								
 								</div>
 							</div>
+							
+							<div>
+								<label class="font-semibold">Cấp bậc</label>
+								<div class="block mt-2">
+									<div class="flex justify-between">
+										<div class="inline-flex items-center mb-0">
+											<input
+												class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-emerald-600 focus:border-emerald-300 focus:ring focus:ring-offset-0 focus:ring-emerald-200 focus:ring-opacity-50 me-2"
+												type="checkbox" value="0" onchange="setCheck(this,'level','l0')"
+												name="level" id="l0" ${selectedLevel[0]?"checked":""}> <label
+												class="form-checkbox-label text-slate-400" for="fulltime">ALL</label>
+										</div>
 
+										<span
+											class="bg-emerald-600/10 text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">${viewJobs[6]}</span>
+									</div>
+									<c:forEach items="${levels}" var="i" varStatus="c">
+										<div class="flex justify-between">
+											<div class="inline-flex items-center mb-0">
+												<input	class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-emerald-600 focus:border-emerald-300 focus:ring focus:ring-offset-0 focus:ring-emerald-200 focus:ring-opacity-50 me-2"
+													type="checkbox" value="${c.index+1}" name="level"
+													id="level${c.index+1}"
+													${selectedLevel[c.index+1] ? 'checked' : ''}
+													onchange="setCheck(this,'level','l0')"> <label
+													class="form-checkbox-label text-slate-400"
+													for="fulltime${c.index}">${i}</label>
+											</div>
+										</div>
+									</c:forEach>
+								
+								</div>
+							</div> 
+				
 							<div>
 							
 								<button type="submit"

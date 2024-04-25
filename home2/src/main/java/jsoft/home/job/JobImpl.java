@@ -1,6 +1,8 @@
 package jsoft.home.job;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.javatuples.Pair;
@@ -124,7 +126,7 @@ public class JobImpl extends BasicImpl implements Job {
 			
 			if(similar.getJob_career()!= null) {
 				if(similar.getJob_career().getCareer_id()>0) {
-					conds.append(" AND (company_field_id = "+similar.getJob_career().getCareer_id()+" )");
+					conds.append(" AND (job_career_id = "+similar.getJob_career().getCareer_id()+" )");
 				}
 			}
 			
@@ -142,6 +144,10 @@ public class JobImpl extends BasicImpl implements Job {
 			if(similar.getJob_responsibility()!= null && !similar.getJob_responsibility().equalsIgnoreCase("")) {
 				conds.append(" AND (job_salary IN ("+similar.getJob_responsibility()+") ) ");
 		}
+			// level
+						if(similar.getJob_expiration_date()!= null && !similar.getJob_expiration_date().equalsIgnoreCase("")) {
+							conds.append(" AND (job_level IN ("+similar.getJob_expiration_date()+") ) ");
+					}
 			
 		}
 		if (!conds.toString().equalsIgnoreCase("")) {
@@ -182,7 +188,75 @@ public class JobImpl extends BasicImpl implements Job {
 		return this.getMR(sql.toString());
 	}
 
+	@Override
+	public boolean saveJob(int job_id, int user_id) {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer();
+		sql.append("INSERT INTO tblsavejob(");
+		sql.append("job_id, user_id ) ");
+		sql.append("VALUE(?, ?)");
 
-	
-	
+		try {
+			PreparedStatement pre = this.con.prepareStatement(sql.toString());
+			pre.setInt(1, job_id);
+			pre.setInt(2, user_id);
+			return this.add(pre);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			try {
+				this.con.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		return false;
+	}
+	@Override
+	public boolean delJob(int job_id, int user_id) {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer();
+		sql.append("DELETE FROM `tblsavejob` WHERE (`job_id` = '"+job_id+"' AND `user_id`='"+user_id+"');");
+
+		try {
+			PreparedStatement pre = this.con.prepareStatement(sql.toString());
+			return this.del(pre);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			try {
+				this.con.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public boolean isExisting(int job_id,int user_id) {
+		boolean flag = false;
+		String sql = "SELECT * FROM tblsavejob WHERE (`job_id` = '"+job_id+"' AND `user_id`='"+user_id+"');";
+		ArrayList<ResultSet> listrs = this.getMR(sql);
+		ResultSet rs = listrs.get(0);
+		if (rs != null) {
+			try {
+				if (rs.next()) {
+					flag = true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return flag;
+	}
+	@Override
+	public ArrayList<ResultSet> getJobSave(int user_id) {
+		String sql = "SELECT * FROM tblsavejob WHERE (`user_id`='"+user_id+"');";
+		return this.getMR(sql.toString());
+	}
 }

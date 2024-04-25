@@ -32,7 +32,7 @@ CareerObject similar = new CareerObject();
 ;
 
 Triplet<CareerObject, Integer, Byte> incareer = new Triplet<>(similar, 0, (byte) 5);
-
+UserObject user = (UserObject) request.getSession().getAttribute("clientLogined");
 String FieldInFooter = cc.getFieldsInFooter();
 if (FieldInFooter != null && !FieldInFooter.equalsIgnoreCase("")) {
 	session.setAttribute("FieldsInFooter", FieldInFooter);
@@ -63,7 +63,7 @@ if (at != -1) {
 
 } else {
 	// data home page
-	ArrayList<String> listView = cc.viewHomePage(incareer);
+	ArrayList<String> listView = cc.viewHomePage(incareer,user);
 	if (listView.size() > 0) {
 		//gui cau truc hien thi vao phien lam viec
 		session.setAttribute("listview", listView);

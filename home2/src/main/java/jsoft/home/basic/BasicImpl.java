@@ -151,7 +151,70 @@ public class BasicImpl implements Basic {
 		
 		return null;
 	}
-
+	
+	@Override
+	public synchronized ResultSet get(ArrayList<String> sql, String name, String pass) {
+		// TODO Auto-generated method stub
+		try {
+			String sql_select = sql.get(0);
+			PreparedStatement pre = this.con.prepareStatement(sql_select);
+			
+			pre.setString(1, name);
+			pre.setString(2, pass);
+			ResultSet rs = pre.executeQuery();
+			if(rs!=null) {
+				String str_update = sql.get(1);
+				PreparedStatement preU = this.con.prepareStatement(str_update);
+				
+				preU.setString(1, name);
+				preU.setString(2, pass);
+				int result = preU.executeUpdate();
+				if(result==0) {
+					this.con.rollback();
+					return null;
+				} else {
+					if(!this.con.getAutoCommit()) {
+						this.con.commit();
+					}
+					return rs;
+				}
+			}
+//			return pre.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			try {
+				this.con.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally {
+			sql = null;
+		}
+		
+		return null;
+	}
+	
+	
+	@Override
+	public boolean logined(PreparedStatement pre) {
+		
+		return this.exe(pre);
+	}
+	
+	@Override
+	public synchronized boolean add(PreparedStatement pre) {
+		// TODO Auto-generated method stub
+		return this.exe(pre);
+	}
+	@Override
+	public synchronized boolean del(PreparedStatement pre) {
+		// TODO Auto-generated method stub
+		return this.exe(pre);
+	}
+	
 	@Override
 	public synchronized ResultSet get(String sql, int id, String pass) {
 		// TODO Auto-generated method stub
