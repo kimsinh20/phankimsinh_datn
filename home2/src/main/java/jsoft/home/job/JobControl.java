@@ -46,12 +46,16 @@ public class JobControl {
 		return this.cm.isExits(job_id, user_id);
 	}
 	
+	
 //	---------------------------------------------
 	public Quintet<ArrayList<FieldObject>, ArrayList<CareerObject>, HashMap<Integer, Integer>,ArrayList<JobObject>,ArrayList<ArticleObject>> getFields(){ 
 		return this.cm.getFields();
 	}
 	public Quartet<JobObject,HashMap<Integer, String>,ArrayList<JobObject>,ArrayList<ArticleObject>> getJobObject(short id) {
 		return this.cm.getJobObject(id);
+	}
+	public ArrayList<JobObject> JobSave( int user_id) {
+		return this.cm.JobSave(user_id);
 	}
 //	----------------------------------------------
 	public ArrayList<String> viewJobPage(Triplet<JobObject, Integer, Byte> infos,Pair<JOB_SOFT, ORDER> so,String url,int page,UserObject user) {

@@ -1,6 +1,8 @@
 package jsoft.home.company;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.javatuples.Pair;
@@ -43,6 +45,9 @@ public class CompanyImpl extends BasicImpl implements company {
 		sql.append("LEFT JOIN tblsection s ON c.category_section_id = s.section_id ");
 		sql.append("ORDER BY article_visited DESC ");
 		sql.append("LIMIT 3; ");
+		
+		sql.append("SELECT company_id,COUNT(user_id) AS total FROM tblcompanyfollow WHERE company_id = "+id);
+		sql.append(";");
 		
 		return this.getMR(sql.toString());
 	}
@@ -150,6 +155,93 @@ public class CompanyImpl extends BasicImpl implements company {
 		return this.getMR(sql.toString());
 	}
 
+
+	@Override
+	public boolean follow(int com_id, int user_id) {
+		// TODO Auto-generated method stub
+				StringBuffer sql = new StringBuffer();
+				sql.append("INSERT INTO tblcompanyfollow(");
+				sql.append("company_id, user_id ) ");
+				sql.append("VALUE(?, ?)");
+
+				try {
+					PreparedStatement pre = this.con.prepareStatement(sql.toString());
+					pre.setInt(1, com_id);
+					pre.setInt(2, user_id);
+					return this.add(pre);
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					try {
+						this.con.rollback();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					e.printStackTrace();
+				}
+				return false;
+	}
+
+
+	@Override
+	public boolean unFollow(int com_id, int user_id) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("DELETE FROM `tblcompanyfollow` WHERE (`company_id` = '"+com_id+"' AND `user_id`='"+user_id+"');");
+
+		try {
+			PreparedStatement pre = this.con.prepareStatement(sql.toString());
+			return this.del(pre);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			try {
+				this.con.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean isExisting(int com_id, int user_id) {
+		// TODO Auto-generated method stub
+		boolean flag = false;
+		String sql = "SELECT * FROM tblcompanyfollow WHERE (`company_id` = '"+com_id+"' AND `user_id`='"+user_id+"');";
+		ArrayList<ResultSet> listrs = this.getMR(sql);
+		ResultSet rs = listrs.get(0);
+		if (rs != null) {
+			try {
+				if (rs.next()) {
+					flag = true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return flag;
+	}
+	@Override
+	public ArrayList<ResultSet> getCompanyFollow(int user_id) {
+		String sql = "SELECT * FROM tblcompanyfollow WHERE (`user_id`='"+user_id+"');";
+		return this.getMR(sql.toString());
+	}
+
+
+	@Override
+	public ArrayList<ResultSet> totalFollow(int com_id) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT company_id,COUNT(user_id) AS total FROM tblcompanyfollow WHERE company_id = "+com_id);
+		sql.append(";");
+		return this.getMR(sql.toString());
+		
+	}
 
 	
 	

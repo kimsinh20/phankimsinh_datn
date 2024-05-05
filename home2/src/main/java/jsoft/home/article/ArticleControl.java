@@ -57,7 +57,12 @@ public class ArticleControl {
 			rs.add(ArticleLibrary.cateOption(data.getValue2(),0));
 		}
 		rs.add(ArticleLibrary.sortView(url));
-		rs.add(data.getValue2().get(0).getSection_name());
+		if(data.getValue2().size()>0) {
+			rs.add(data.getValue2().get(0).getSection_name());
+		} else {
+			rs.add("");
+		}
+		
 	   
 		return rs;
 	}

@@ -25,6 +25,7 @@ import jsoft.objects.CompanyObject;
 import jsoft.objects.FieldObject;
 import jsoft.objects.JobObject;
 import jsoft.objects.SkillObject;
+import jsoft.objects.UserObject;
 
 /**
  * Servlet implementation class JobFields
@@ -51,6 +52,7 @@ public class CompanyDetail extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType(CONTENT_TYPE);
 		request.setCharacterEncoding("UTF-8");
+		UserObject user = (UserObject) request.getSession().getAttribute("clientLogined");
 		short id = -1;
 		try {
 			if (jsoft.library.Utilities.getShortParam(request, "id") > 0) {
@@ -131,7 +133,11 @@ public class CompanyDetail extends HttpServlet {
 			request.setAttribute("company_size", company_size);
 			request.setAttribute("company_nationality", company_nationality);
 			request.setAttribute("location", addressList);
-		
+			if(user!=null) {
+				request.setAttribute("user",user.getUser_id());
+			} else {
+				request.setAttribute("user","null");	
+			}
 			
 			// trả về kết nối
 			// trả về kết nối

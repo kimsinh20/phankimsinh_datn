@@ -197,7 +197,7 @@
 							class="parent-menu text-gray-500 bg-slate-100 border rounded shadow transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
 							<li
 								class="rounded-sm px-3 py-1 hover:bg-emerald-600 hover:text-white">
-								<a href="/home/profile">Việc đã lưu </a>
+								<a href="/home/profile?act=savejob">Việc đã lưu </a>
 							</li>
 							<li
 								class="rounded-sm px-3 py-1 hover:bg-emerald-600 hover:text-white">
@@ -264,13 +264,13 @@
 							<li class="py-1 hover:bg-gray-100">
 							
 							<a class=" flex items-center"
-								href="users-profile.html"><i class="fa-solid fa-address-card me-1"></i><span>My
+								href="/home/profile?act=home"><i class="fa-solid fa-address-card me-1"></i><span>My
 										Profile</span></a></li>
 							<li class="py-1 hover:bg-gray-100"><a class=" flex items-center"
-								href="users-profile.html"><i class="fa-solid fa-gear me-1"></i><span >Account
+								href="/home/profile?act=setting"><i class="fa-solid fa-gear me-1"></i><span >Account
 										Settings</span></a></li>
 							<li class="py-1 hover:bg-gray-100"><a class=" flex items-center"
-								href="pages-faq.html"><i class="fa-solid fa-handshake-angle me-1"></i><span>Need
+								href="/home/profile?act=need"><i class="fa-solid fa-handshake-angle me-1"></i><span>Need
 										Help?</span></a></li>
 							<li class="py-1 hover:bg-gray-100"><a class=" flex items-center"
 								href="/home/logout"><i class="fa-solid fa-right-from-bracket me-1"></i><span>Sign

@@ -115,7 +115,10 @@ public class Blogs extends HttpServlet {
 		
 		ArrayList<String> view = jc.ViewBlogsList(infos,sorting,url,page);
 		request.setAttribute("view", view);
-		request.setAttribute("section_id", section);
+		if(section>0) {
+			request.setAttribute("section_id", section);
+		}
+		
 		request.setAttribute("q", saveKey);
 		
 //		

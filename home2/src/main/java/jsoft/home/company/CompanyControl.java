@@ -35,7 +35,18 @@ public class CompanyControl {
 	public void releaseConnection() {
 		this.cm.releaseConnection();
 	}
-
+	public boolean follow(int com_id,int user_id) {
+		return this.cm.follow(com_id, user_id);
+	}
+	public boolean unFollow(int com_id, int user_id) {
+		return this.cm.unFollow(com_id, user_id);
+	}
+	public boolean isExits(int com_id, int user_id) {
+		return this.cm.isExits(com_id, user_id);
+	}
+	public ArrayList<CompanyObject> getCompanyFollow( int user_id) {
+		return this.cm.getCompanyFollow(user_id);
+	}
 //	---------------------------------------------
 	public Quintet<ArrayList<FieldObject>, ArrayList<CareerObject>, HashMap<Integer, Integer>,ArrayList<JobObject>,ArrayList<ArticleObject>> getFields(){ 
 		return this.cm.getFields();
@@ -44,10 +55,21 @@ public class CompanyControl {
 		return this.cm.getCompanybObject(id);
 	}
 //	----------------------------------------------
-	public ArrayList<String> viewCompanyPage(Triplet<CompanyObject, Integer, Byte> infos,Pair<COMPANY_SOFT, ORDER> so,String url,int page) {
+	public ArrayList<String> viewCompanyPage(Triplet<CompanyObject, Integer, Byte> infos,Pair<COMPANY_SOFT, ORDER> so,String url,int page,UserObject user) {
 		Triplet<ArrayList<CompanyObject>,Integer,ArrayList<FieldObject>> data = this.cm.getCompanies(infos,so );
 		ArrayList<String> rs = new ArrayList<>();
-		rs.add(CompanyLibrary.viewListJob(data.getValue0(),page,data.getValue1(),url,infos.getValue2()));
+		ArrayList<CompanyObject> listFollow = null;
+		if(user!=null) {
+			listFollow = new ArrayList<CompanyObject>();
+			listFollow = this.cm.getCompanyFollow(user.getUser_id());
+		}
+		if(data.getValue0().size()>0) {
+			rs.add(CompanyLibrary.viewListJob(data.getValue0(),page,data.getValue1(),url,infos.getValue2(),user,listFollow));
+		} else {
+			rs.add(CompanyLibrary.viewListJob(data.getValue0(),page,data.getValue1(),url,infos.getValue2(),user,listFollow));
+		}
+	
+		
 		if(infos.getValue0().getCompany_field_id()>0) {
 			rs.add(CompanyLibrary.fieldOption(data.getValue2(),infos.getValue0().getCompany_field_id()));
 		} else {

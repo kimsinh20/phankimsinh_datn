@@ -18,6 +18,7 @@ import jsoft.library.ORDER;
 import jsoft.objects.CareerObject;
 import jsoft.objects.CompanyObject;
 import jsoft.objects.JobObject;
+import jsoft.objects.UserObject;
 
 /**
  * Servlet implementation class Jobs
@@ -57,7 +58,7 @@ public class CompanyList extends HttpServlet {
 		} else {
 			page = 1;
 		}
-
+		UserObject user = (UserObject) request.getSession().getAttribute("clientLogined");
 		String url = "";
 		String queryString = request.getQueryString();
 		String uri = request.getRequestURI();
@@ -117,7 +118,7 @@ public class CompanyList extends HttpServlet {
 
 		Triplet<CompanyObject, Integer, Byte> infos = new Triplet<>(similar, pageSize * (page - 1), pageSize);
 
-		ArrayList<String> viewList = jc.viewCompanyPage(infos, sorting, url, page);
+		ArrayList<String> viewList = jc.viewCompanyPage(infos, sorting, url, page,user);
 		request.setAttribute("viewJobs", viewList);
 		// trả về kết nối
 		jc.releaseConnection();

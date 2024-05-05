@@ -1,3 +1,4 @@
+<%@page import="jsoft.objects.UserObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,12 +6,12 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Quản trị hệ thống</title>
+<title>Nhà tuyển dụng</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 <!-- Favicons -->
-<link href="/adv/adimgs/logo.jpg" rel="icon">
-<link href="/adv/adimgs/logo.jpg" rel="apple-touch-icon">
+<link href="/home/img/logo.jpg" rel="icon">
+<link href="/home/img/logo.jpg" rel="apple-touch-icon">
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
 <link
@@ -20,10 +21,7 @@
 <link href="/adv/adcss/bootstrap.min.css" rel="stylesheet">
 <link href="/adv/adcss/bootstrap-icons/bootstrap-icons.css"
 	rel="stylesheet">
-<link href="/adv/adcss/datatables.css" rel="stylesheet">
 <link href="/adv/adcss/all.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-	type="text/javascript"></script>
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <link rel="stylesheet" type="text/css"
@@ -43,7 +41,7 @@
 	<!-- ======= Header ======= -->
 	<header id="header" class="header fixed-top d-flex align-items-center">
 		<div class="d-flex align-items-center justify-content-between">
-			<a href="/adv/view" class="logo d-flex align-items-center"><img
+			<a href="/home/recruiter" class="logo d-flex align-items-center"><img
 				src="/adv/adimgs/logo.jpg" alt=""><span
 				class="d-none d-lg-block">JOBNOW</span></a>
 		</div>
@@ -154,7 +152,13 @@
 					</ul>
 					<!-- End Messages Dropdown Items --></li>
 				<!-- End Messages Nav -->
-				<li class="nav-item dropdown pe-3"><a
+				<%
+					UserObject user = (UserObject) request.getSession().getAttribute("clientLogined");
+					%>
+					<%
+					if (user != null) {
+					%>
+					<li class="nav-item dropdown pe-3"><a
 					class="nav-link nav-profile d-flex align-items-center pe-0"
 					href="#" data-bs-toggle="dropdown"><img
 						src="/adv/adimgs/WIN_20220924_14_32_07_Pro.jpg" alt="Profile"
@@ -183,6 +187,19 @@
 									Out</span></a></li>
 					</ul>
 					<!-- End Profile Dropdown Items --></li>
+					<!-- End Profile Image Icon -->
+
+					<!-- End Profile Dropdown Items -->
+					<%
+					} else {
+					%>
+					<li class="nav-item dropdown pe-3">
+					<a href="#">login</a>
+					</li>
+					<%
+					}
+					%>
+				
 				<!-- End Profile Nav -->
 			</ul>
 		</nav>

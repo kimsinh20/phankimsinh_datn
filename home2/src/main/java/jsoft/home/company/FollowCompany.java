@@ -1,4 +1,4 @@
-package jsoft.home.job;
+package jsoft.home.company;
 
 import java.io.IOException;
 
@@ -17,8 +17,8 @@ import jsoft.home.user.UserControl;
 /**
  * Servlet implementation class UserLogin
  */
-@WebServlet("/save")
-public class SaveJob extends HttpServlet {
+@WebServlet("/follow")
+public class FollowCompany extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// định nghĩa kiểu nội dung xuất về trình khách
@@ -27,7 +27,7 @@ public class SaveJob extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SaveJob() {
+	public FollowCompany() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -66,10 +66,10 @@ public class SaveJob extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
-		int job_id = Integer.parseInt(request.getParameter("job_id"));
+		int com_id = Integer.parseInt(request.getParameter("com_id"));
 		int user_id = Integer.parseInt(request.getParameter("user_id"));
 		System.out.println("đẫ vào rôdi");
-		if (job_id > 0 && user_id > 0) {
+		if (com_id > 0 && user_id > 0) {
 			// Tham chiếu ngữ cảnh ứng dụng
 			ServletContext application = getServletConfig().getServletContext();
 
@@ -77,41 +77,40 @@ public class SaveJob extends HttpServlet {
 			ConnectionPool cp = (ConnectionPool) application.getAttribute("CPool");
 
 			// Tạo đối tượng thực thi chúc năng
-			JobControl uc = new JobControl(cp);
+			CompanyControl uc = new CompanyControl(cp);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
 			if (cp == null) {
 				application.setAttribute("CPool", uc.getCP());
 			}
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			boolean isExits = uc.isExits(job_id, user_id);
+			boolean isExits = uc.isExits(com_id, user_id);
 			if (isExits) {
-				boolean rs = uc.delJob(job_id, user_id);
+				boolean rs = uc.unFollow(com_id, user_id);
 				if (rs) {
 					// Thiết lập các tiêu đề HTTP và gửi phản hồi JSON
-					
 					response.setStatus(HttpServletResponse.SC_OK);
 					Gson gson = new Gson();
-					String jsonResponse = gson.toJson(new jsoft.home.user.Response("del"));
+					String jsonResponse = gson.toJson(new jsoft.home.user.Response("unfollow"));
 
 					response.getWriter().write(jsonResponse);
 
 				} else {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-					response.getWriter().write("delete job faill");
+					response.getWriter().write("un follow company is fail");
 				}
 			} else {
-				boolean rs = uc.saveJob(job_id, user_id);
+				boolean rs = uc.follow(com_id, user_id);
 				if (rs) {
 					// Thiết lập các tiêu đề HTTP và gửi phản hồi JSON
 					response.setStatus(HttpServletResponse.SC_OK);
 					Gson gson = new Gson();
-					String jsonResponse = gson.toJson(new jsoft.home.user.Response("save"));
+					String jsonResponse = gson.toJson(new jsoft.home.user.Response("follow"));
 
 					response.getWriter().write(jsonResponse);
 
 				} else {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-					response.getWriter().write("save job faill");
+					response.getWriter().write("follow company faill");
 				}
 			}
 			// Thực hiện đăng nhập

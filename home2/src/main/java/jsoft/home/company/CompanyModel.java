@@ -35,7 +35,35 @@ public class CompanyModel {
 	public void releaseConnection() {
 		this.c.releaseConnection();
 	}
-
+	public boolean follow(int com_id,int user_id) {
+		return this.c.follow(com_id, user_id);
+	}
+	public boolean unFollow(int com_id, int user_id) {
+		return this.c.unFollow(com_id, user_id);
+	}
+	public boolean isExits(int com_id, int user_id) {
+		return this.c.isExisting(com_id, user_id);
+	}
+	public ArrayList<CompanyObject> getCompanyFollow( int user_id) {
+		ArrayList<ResultSet> res = this.c.getCompanyFollow( user_id);
+		ArrayList<CompanyObject> listJob = new ArrayList<>();
+		CompanyObject com = null;
+		ResultSet rs = res.get(0);
+		if (rs != null) {
+			try {
+				while (rs.next()) {
+					com = new CompanyObject();
+					com.setCompany_id(rs.getInt("company_id"));
+					listJob.add(com);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return listJob;
+	}
 //	---------------------------------------
 
 //	----------------------------------------
@@ -70,6 +98,7 @@ public class CompanyModel {
 					company.setCompany_establish_date(rs.getString("company_establish_date"));
 					company.setCompany_logo(rs.getString("company_logo"));
 					company.setCompany_banner(rs.getString("company_banner"));
+					company.setCompany_subribe(getTotalFollow(rs.getInt("company_id")));
 					companies.add(company);
 				}
 				rs.close();
@@ -112,7 +141,7 @@ public class CompanyModel {
 				e.printStackTrace();
 			}
 		}
-
+		
 		return new Triplet<>(companies, total, listField);
 	}
 	
@@ -328,8 +357,36 @@ public Quartet<CompanyObject,HashMap<Integer, String>,ArrayList<JobObject>,Array
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}		
+		}	
+		 rs = res.get(4);
+			if (rs != null) {
+				try {
+					if (rs.next()) {
+						company.setCompany_subribe(rs.getInt("total"));
+					}
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		return new Quartet<>(company,skills,listJob,listArticle);
 	}
-	
+	public int getTotalFollow(int com_id) {
+		ArrayList<ResultSet> res = this.c.totalFollow(com_id);
+		ResultSet rs = res.get(0);
+	  int total = 0;;
+		if (rs != null) {
+			try {
+				if (rs.next()) {
+					total =  rs.getInt("total");
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return total;
+	}
 }

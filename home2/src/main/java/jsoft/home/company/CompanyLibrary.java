@@ -7,12 +7,25 @@ import com.google.gson.Gson;
 import jsoft.objects.AddressObject;
 import jsoft.objects.CompanyObject;
 import jsoft.objects.FieldObject;
+import jsoft.objects.JobObject;
 import jsoft.objects.ProvinceObject;
+import jsoft.objects.UserObject;
 
 public class CompanyLibrary {
 	
-
-	public static String viewListJob(ArrayList<CompanyObject> items,int page,int total,String url,byte pagesize) {
+	public static boolean isCheck(int d, ArrayList<CompanyObject> list) {
+		if (list == null) {
+			return false;
+		} else {
+			for (CompanyObject i : list) {
+			    if (i.getCompany_id() == d) {
+			        return true;
+			    }
+			}
+		}
+		return false;
+	}
+	public static String viewListJob(ArrayList<CompanyObject> items,int page,int total,String url,byte pagesize,UserObject user,ArrayList<CompanyObject> ListFollow) {
 		StringBuffer out = new StringBuffer();
 		out.append("<div class=\"grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px] mt-6\" data-aos=\"fade-up\" data-aos-duration=\"1000\">");
 		if(items.size()<=0) {
@@ -43,14 +56,14 @@ public class CompanyLibrary {
 	    	 out.append(item.getCompany_name());
 	    	 out.append("</a> ");
 	    	 out.append("<div>");
-	    	 out.append("<p class=\"text-slate-400\">"+item.getCompany_visited()+" lượt theo dõi</p>");
+	    	 out.append("<p class=\"text-slate-400\">"+item.getCompany_subribe()+" lượt theo dõi</p>");
 	    	 out.append("</div>");
 	    	 out.append("</div>");
-	    	 out.append("<a href=\"\" class=\"btn btn-icon px-2 py-2 rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white absolute top-[20%] end-0 m-3\">");
+	    	 out.append("<button type=\"button\" onclick=\"followCompanyV2("+item.getCompany_id()+","+(user!=null?user.getUser_id():null)+");\" id=\"follow-"+item.getCompany_id()+"\"  class=\"btn "+(isCheck(item.getCompany_id(), ListFollow)?"save-active":"")+ " btn-icon px-2 py-2 rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10  text-emerald-600 hover:text-white absolute top-[20%] end-0 m-3\">");
 	    	 out.append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-bookmark size-4\">");
 	    	 out.append("<path d=\"M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z\"></path>");
 	    	 out.append("</svg>");
-	    	 out.append("</a>");
+	    	 out.append("</button>");
 	    	 out.append("</div>");
 	    	 out.append("");
 	    	 

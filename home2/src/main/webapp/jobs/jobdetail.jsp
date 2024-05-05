@@ -110,7 +110,7 @@
                     
                      <div class="mt-5 flex justify-between items-center">
                      	<div class="flex justify-between items-center">
-                     <button type="button" onclick="saveJob(${job.job_id},${user })" class="btn ${isSave} save-job btn-icon px-3 py-2 flex justify-center items-center border-2 border-green-400 rounded bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 text-emerald-600 hover:text-white">
+                     <button type="button" onclick="saveJob(${job.job_id},${user })" class="btn ${isSave} save-job btn-icon px-3 py-2 flex justify-center items-center border-2 border-green-400 rounded bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 text-emerald-600 me-3 hover:text-white">
 					  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark size-4">
 					    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
 					  </svg>

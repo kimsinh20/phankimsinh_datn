@@ -385,6 +385,83 @@ async function saveJobv2(job_id, user_id) {
 	}
 }
 
+async function followCompany(com_id, user_id) {
+
+	if (user_id != null) {
+		try {
+			const response = await fetch(`http://localhost:8080/home/follow?com_id=${com_id}&user_id=${user_id}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ com_id, user_id })
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+				let listBtn = document.getElementsByClassName("follow-company");
+				console.log(listBtn)
+				if (data.type == 'unfollow') {
+					for (var i = 0; i < listBtn.length; i++) {
+						listBtn[i].classList.remove("save-active");
+					}
+					showToast("Hủy theo dõi");
+				} else {
+					for (var i = 0; i < listBtn.length; i++) {
+						listBtn[i].classList.add("save-active");
+					}
+					showToast("Đã theo dõi");
+				}
+
+				// Process the login response data
+			} else {
+				throw new Error('không có dữ liệu');
+			}
+		} catch (error) {
+			showToast("CÓ lỗi vui lòng thử lại");
+			console.error('Error:', error.message);
+			throw error;
+		}
+	} else {
+		showDialog();
+	}
+}
+
+async function followCompanyV2(com_id, user_id) {
+	if (user_id !== null) {
+		try {
+			const response = await fetch(`http://localhost:8080/home/follow?com_id=${com_id}&user_id=${user_id}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ com_id, user_id })
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+				let arr = document.getElementById("follow-" + com_id);
+				if (data.type == 'unfollow') {
+					arr.classList.remove("save-active");
+					showToast("Hủy theo dõi");
+				} else {
+					arr.classList.add("save-active");
+					showToast("Đã theo dõi");
+				}
+
+				// Process the login response data
+			} else {
+				throw new Error('không có dữ liệu');
+			}
+		} catch (error) {
+			showToast("CÓ lỗi vui lòng thử lại");
+			console.error('Error:', error.message);
+			throw error;
+		}
+	} else {
+		showDialog();
+	}
+}
 
 
 

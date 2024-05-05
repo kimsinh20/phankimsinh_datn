@@ -14,6 +14,11 @@ import jsoft.objects.UserObject;
 
 public interface company extends ShareControl {
 	
+	public boolean follow(int com_id,int user_id);
+	public boolean unFollow(int com_id,int user_id);
+	public boolean isExisting(int com_id,int user_id);
+	public ArrayList<ResultSet> getCompanyFollow(int user_id);
+	public ArrayList<ResultSet> totalFollow(int com_id);
 	// các chức năng lấy dữ liệu
 	public ArrayList<ResultSet> getCompany(short id);
 	public ArrayList<ResultSet> getCareerOfField();
