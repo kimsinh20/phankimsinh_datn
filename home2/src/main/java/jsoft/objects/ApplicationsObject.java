@@ -2,7 +2,8 @@ package jsoft.objects;
 
 public class ApplicationsObject {
 	    private int applications_id;
-	    private String applications_notes;
+	    private String applications_letter;
+	    private String applications_cv;
 	    private boolean applications_delete;
 	    private boolean applications_enable;
 	    private String applications_created_date;
@@ -31,11 +32,18 @@ public class ApplicationsObject {
 			this.applications_id = applications_id;
 		}
 		
-		public String getApplications_notes() {
-			return applications_notes;
+		public String getApplications_cv() {
+			return applications_cv;
 		}
-		public void setApplications_notes(String applications_notes) {
-			this.applications_notes = applications_notes;
+		public void setApplications_cv(String applications_cv) {
+			this.applications_cv = applications_cv;
+		}
+	
+		public String getApplications_letter() {
+			return applications_letter;
+		}
+		public void setApplications_letter(String applications_letter) {
+			this.applications_letter = applications_letter;
 		}
 		public boolean isApplications_delete() {
 			return applications_delete;

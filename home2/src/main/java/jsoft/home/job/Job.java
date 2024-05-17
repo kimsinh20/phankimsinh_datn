@@ -18,6 +18,7 @@ public interface Job extends ShareControl {
 	// các chức năng lấy dữ liệu
 	public ArrayList<ResultSet> getJob(short id);
 	public ArrayList<ResultSet> getJobSave(int user_id);
+	public ArrayList<ResultSet> getJobApply(int user_id);
 	public ArrayList<ResultSet> getCareerOfField();
 	public ArrayList<ResultSet> getJobs(Triplet<JobObject, Integer, Byte> infos,Pair<JOB_SOFT, ORDER> so);
 	

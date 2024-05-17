@@ -12,6 +12,7 @@ import org.javatuples.Triplet;
 
 import jsoft.ConnectionPool;
 import jsoft.library.ORDER;
+import jsoft.objects.ApplicationsObject;
 import jsoft.objects.ArticleObject;
 import jsoft.objects.CareerObject;
 import jsoft.objects.CompanyObject;
@@ -82,6 +83,54 @@ public class JobModel {
 			    	 }
 					job.setJob_expiration_date(date);
 					listJob.add(job);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return listJob;
+	}
+	
+	public ArrayList<ApplicationsObject> JobApply( int user_id) {
+		ArrayList<ResultSet> res = this.c.getJobApply( user_id);
+		ArrayList<ApplicationsObject> listJob = new ArrayList<>();
+		ApplicationsObject apply = null;
+		ResultSet rs = res.get(0);
+		if (rs != null) {
+			try {
+				while (rs.next()) {
+					apply = new ApplicationsObject();
+					JobObject job = new JobObject();
+					job.setJob_id(rs.getInt("job_id"));
+					job.setJob_title(rs.getString("job_title"));
+					CompanyObject com = new CompanyObject();
+					com.setCompany_id(rs.getInt("job_company_id"));
+					com.setCompany_name(rs.getString("company_name"));
+					com.setCompany_logo(rs.getString("company_logo"));
+					job.setCompany(com);
+					job.setJob_quantity(rs.getInt("job_quantity"));
+					job.setJob_status(rs.getInt("job_status"));
+					job.setJob_skills(rs.getString("job_skills"));
+					job.setJob_degree(rs.getInt("job_degree"));
+					job.setJob_work_time(rs.getByte("job_work_time"));
+					job.setJob_location(rs.getString("job_location"));
+					job.setJob_salary(rs.getByte("job_salary"));
+					String date = "";
+					long date_count = jsoft.library.Utilities_date.getminusDay(jsoft.library.Utilities_date.getDateForJs(rs.getString("job_expiration_date")));
+					 if(date_count<0) {
+			    		 date = "<span class=\"inline-block text-md text-false\">Hết hạn "+Math.abs(date_count)+" ngày</span>";
+			    	 } else if(date_count==0) {
+			    		 date = "<span class=\"inline-block text-md text-true\">Hôm nay</span>";
+			    	 }else {
+			    		 date = "<span class=\"inline-block text-md text-true\">Còn "+Math.abs(date_count)+" ngày</span>";
+			    	 }
+					job.setJob_expiration_date(date);
+					apply.setJob(job);
+					apply.setApplications_cv(rs.getString("applications_cv"));
+					apply.setApplications_created_date(rs.getString("applications_created_date"));
+					listJob.add(apply);
 				}
 				rs.close();
 			} catch (SQLException e) {

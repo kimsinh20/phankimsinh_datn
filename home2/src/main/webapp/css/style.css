@@ -153,6 +153,7 @@ main {
    #article_content p a {
     color: #155e75;
     font-size: 14px;
+    padding: 0px 5px;
    }
      #article_content p h2{
     font-size: 20px;

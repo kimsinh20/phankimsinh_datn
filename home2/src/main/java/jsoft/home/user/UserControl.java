@@ -8,6 +8,7 @@ import org.javatuples.Triplet;
 
 import jsoft.ConnectionPool;
 import jsoft.ConnectionPoolImpl;
+import jsoft.home.user.USER_EDIT_TYPE;
 import jsoft.library.ORDER;
 import jsoft.objects.CompanyObject;
 import jsoft.objects.UserObject;
@@ -25,6 +26,10 @@ public class UserControl {
 
 	public void releaseConnection() {
 		this.um.releaseConnection();
+	}
+	
+	public boolean editUser(UserObject item,USER_EDIT_TYPE et) {
+		return this.um.editUser(item,et);
 	}
 //	---------------------------------------------
 	public UserObject getUserObject(int id) {

@@ -6,19 +6,16 @@ import java.util.HashMap;
 import org.javatuples.Pair;
 import org.javatuples.Quartet;
 import org.javatuples.Quintet;
-import org.javatuples.Sextet;
 import org.javatuples.Triplet;
 
 import jsoft.ConnectionPool;
 import jsoft.library.ORDER;
+import jsoft.objects.ApplicationsObject;
 import jsoft.objects.ArticleObject;
 import jsoft.objects.CareerObject;
-import jsoft.objects.CompanyObject;
 import jsoft.objects.FieldObject;
 import jsoft.objects.JobObject;
 import jsoft.objects.ProvinceObject;
-import jsoft.objects.SectionObject;
-import jsoft.objects.SkillObject;
 import jsoft.objects.UserObject;
 
 public class JobControl {
@@ -56,6 +53,9 @@ public class JobControl {
 	}
 	public ArrayList<JobObject> JobSave( int user_id) {
 		return this.cm.JobSave(user_id);
+	}
+	public ArrayList<ApplicationsObject> JobApply( int user_id) {
+		return this.cm.JobApply(user_id);
 	}
 //	----------------------------------------------
 	public ArrayList<String> viewJobPage(Triplet<JobObject, Integer, Byte> infos,Pair<JOB_SOFT, ORDER> so,String url,int page,UserObject user) {

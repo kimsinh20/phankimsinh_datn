@@ -24,7 +24,7 @@ import jsoft.objects.UserObject;
 /**
  * Servlet implementation class Jobs
  */
-@WebServlet("/recruiter/dashboard")
+@WebServlet("/employer/dashboard")
 public class DashboardHome extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// định nghĩa kiểu nội dung xuất về trình khách
@@ -54,7 +54,7 @@ public class DashboardHome extends HttpServlet {
 
 		
 	
-		UserObject user = (UserObject) request.getSession().getAttribute("clientLogined");
+		UserObject user = (UserObject) request.getSession().getAttribute("employerLogined");
 		
 
 		// tìm bộ quản lý kết nối
@@ -70,7 +70,7 @@ public class DashboardHome extends HttpServlet {
 		// trả về kết nối
 		dc.releaseConnection();
 		request.setAttribute("user", user);
-		request.getRequestDispatcher("/recruiter/dashboard.jsp").forward(request, response);
+		request.getRequestDispatcher("/employer/dashboard.jsp").forward(request, response);
 
 	}
 

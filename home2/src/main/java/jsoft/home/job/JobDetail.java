@@ -1,36 +1,42 @@
 package jsoft.home.job;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
-import org.javatuples.Pair;
 import org.javatuples.Quartet;
-import org.javatuples.Quintet;
-import org.javatuples.Triplet;
 
 import com.google.gson.Gson;
 
 import jsoft.ConnectionPool;
+import jsoft.home.applications.AppControl;
 import jsoft.objects.AddressObject;
+import jsoft.objects.ApplicationsObject;
 import jsoft.objects.ArticleObject;
-import jsoft.objects.CareerObject;
 import jsoft.objects.CompanyObject;
-import jsoft.objects.FieldObject;
 import jsoft.objects.JobObject;
-import jsoft.objects.SkillObject;
 import jsoft.objects.UserObject;
 
 /**
  * Servlet implementation class JobFields
  */
 @WebServlet("/jobs/detail")
+@MultipartConfig(
+		fileSizeThreshold = 1024*1024*2,
+		maxFileSize = 1024*1024*10,
+		maxRequestSize = 1024*1024*11
+		)
 public class JobDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String CONTENT_TYPE = "text/html; charset=utf-8";
@@ -70,10 +76,16 @@ public class JobDetail extends HttpServlet {
 				getServletContext().setAttribute("CPool", cp);
 			}
 			// tạo đối tượng thực thi chức năng
-
+		    AppControl uc = new AppControl(cp);
+		    
+		   
 			JobControl jc = new JobControl(cp);
 			
 			UserObject user = (UserObject) request.getSession().getAttribute("clientLogined");
+			Boolean isExits = false;
+			if(user!=null) {
+				isExits = uc.isExits(id, user.getUser_id());
+			}
 			
 			String saveActive = "";
 			Quartet<JobObject, HashMap<Integer, String>,ArrayList<JobObject>,ArrayList<ArticleObject>> data = jc.getJobObject(id);
@@ -342,6 +354,8 @@ public class JobDetail extends HttpServlet {
 			request.setAttribute("job_status", job_status);
 			request.setAttribute("job_skills", job_skills);
 			request.setAttribute("job_degree", job_degree);
+			System.out.println(isExits);
+			request.setAttribute("isApp", isExits);
 			if(user!=null) {
 				request.setAttribute("user",user.getUser_id());
 			} else {
@@ -354,6 +368,7 @@ public class JobDetail extends HttpServlet {
 			// trả về kết nối
 			// trả về kết nối
 			jc.releaseConnection();
+			uc.releaseConnection();
 			request.getRequestDispatcher("/jobs/jobdetail.jsp").forward(request, response);
 		} else {
 			response.sendRedirect("/home/err");
@@ -368,7 +383,63 @@ public class JobDetail extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		short id = -1;
+		try {
+			if (jsoft.library.Utilities.getShortParam(request, "id") > 0) {
+				 id = jsoft.library.Utilities.getShortParam(request, "id");
+			} 
+		} catch (Exception e) {
+			response.sendRedirect("/home/err");
+		}
+		
+		UserObject user = (UserObject) request.getSession().getAttribute("clientLogined");
+		
+		if(id>0 && user!=null) {
+			String app_letter = request.getParameter("letter");
+			Part filePart = request.getPart("client_profiles");
+	     	String client_profiles = "";
+				String filename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+				InputStream io = filePart.getInputStream();
+				String path  = getServletContext().getRealPath("/")+"files" + File.separator + filename;
+	         if(jsoft.library.Utilities.saveFile(io, path)) {
+	         	client_profiles = "/home/files/"+filename;
+	         } 
+			ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("CPool");
+			AppControl uc = new AppControl(cp);
+			// add new user
+			if (cp != null) {
+				getServletContext().setAttribute("CPool", uc.getCP());
+			}
+			ApplicationsObject similar =  new ApplicationsObject();
+			JobObject j = new JobObject();
+			j.setJob_id(id);
+			similar.setJob(j);
+			similar.setUser(user);
+			similar.setApplications_created_date(jsoft.library.Utilities_date.getDate());
+			similar.setApplications_last_modified(jsoft.library.Utilities_date.getDate());
+			similar.setApplications_enable(false);
+			similar.setApplications_delete(false);
+			similar.setApplications_status(0);
+			similar.setApplications_cv(client_profiles);
+			similar.setApplications_letter(app_letter!=null?app_letter:"");
+			
+			boolean result = uc.addApp(similar);
+			// return connect
+			if (result) {
+				response.sendRedirect("/home");
+			} else {
+				response.sendRedirect("/home/err");
+			}
+			
+			// return connect
+			uc.releaseConnection();
+	         
+	         
+		} else {
+			response.sendRedirect("/home/jobs/detail?id="+id+"?err");
+		}
+		
+         
 	}
 
 }

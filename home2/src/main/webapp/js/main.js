@@ -139,6 +139,18 @@ function hideDialog() {
 	bg_dialog.classList.add("hidden");
 	dialog.classList.add("hidden");
 }
+function showDialogV2() {
+	let bg_dialog = document.getElementById("bg_dialog_apply");
+	let dialog = document.getElementById("dialog_apply");
+	bg_dialog.classList.remove("hidden");
+	dialog.classList.remove("hidden");
+}
+function hideDialogV2() {
+	let bg_dialog = document.getElementById("bg_dialog_apply");
+	let dialog = document.getElementById("dialog_apply");
+	bg_dialog.classList.add("hidden");
+	dialog.classList.add("hidden");
+}
 
 function checkValiLogin() {
 	// tham chieu lay du lieu

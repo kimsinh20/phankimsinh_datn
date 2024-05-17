@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import jsoft.ConnectionPool;
+import jsoft.home.user.USER_EDIT_TYPE;
 import jsoft.home.basic.BasicImpl;
 import jsoft.objects.UserObject;
 
@@ -16,19 +17,116 @@ public class UserImpl extends BasicImpl implements User {
 	}
 
 	
+	@Override
+	public boolean editUser(UserObject item, USER_EDIT_TYPE et) {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE tbluser SET ");
+		switch (et) {
+		case GENERAL:
+			sql.append("user_fullname=?, user_birthday=?, user_mobilephone=?, ");
+			sql.append("user_homephone=?, user_officephone=?, user_email=?, user_address=?, user_jobarea=?, ");
+			sql.append("user_job=?, user_position=?, user_applyyear=?, user_notes=?, user_gender=?, user_alias=?, ");
+			if (item.getUser_avatar() != null) {
+				sql.append("user_last_modified=?, user_actions=?, user_avatar= ? ");
+			} else {
+				sql.append("user_last_modified=?, user_actions=? ");
+			}
+
+			break;
+		case SETTING:
+			sql.append("user_roles=?, user_last_modified=?user_permission=? ");
+			break;
+		case PASS:
+			sql.append("user_pass=md5(?) ");
+			break;
+		case TRASH:
+			sql.append("user_deleted= 1, user_last_modified=? ");
+			break;
+		case RESTORE:
+			sql.append("user_deleted= 0, user_last_modified=? ");
+			break;
+		}
+
+		sql.append(" WHERE user_id=?;");
+		// bien dich
+		try {
+			PreparedStatement pre = this.con.prepareStatement(sql.toString());
+			switch (et) {
+			case GENERAL:
+				pre.setString(1, item.getUser_fullname());
+				pre.setString(2, item.getUser_birthday());
+				pre.setString(3, item.getUser_mobilephone());
+				pre.setString(4, item.getUser_homephone());
+				pre.setString(5, item.getUser_officephone());
+				pre.setString(6, item.getUser_email());
+				pre.setString(7, item.getUser_address());
+				pre.setString(8, item.getUser_jobarea());
+				pre.setString(9, item.getUser_job());
+				pre.setString(10, item.getUser_position());
+				pre.setShort(11, item.getUser_applyyear());
+				pre.setString(12, item.getUser_notes());
+				pre.setInt(13, item.getUser_gender());
+				pre.setString(14, item.getUser_alias());
+				pre.setString(15, item.getUser_last_modified());
+				pre.setByte(16, item.getUser_actions());
+				if (item.getUser_avatar() != null) {
+					pre.setString(17, item.getUser_avatar());
+					pre.setInt(18, item.getUser_id());
+				} else {
+					pre.setInt(17, item.getUser_id());
+				}
+				break;
+			case SETTING:
+				pre.setByte(1, item.getUser_permission());
+				pre.setString(2, item.getUser_roles());
+				pre.setInt(3, item.getUser_id());
+				break;
+			case PASS:
+				pre.setString(1, item.getUser_pass());
+				pre.setInt(2, item.getUser_id());
+				break;
+			case TRASH:
+				pre.setString(1, item.getUser_last_modified());
+				pre.setInt(2, item.getUser_id());
+				break;
+			case RESTORE:
+				pre.setString(1, item.getUser_last_modified());
+				pre.setInt(2, item.getUser_id());
+				break;
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + et);
+			}
+
+			return this.edit(pre);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+			// tro ve trang thai an toan cua ket noi
+			try {
+				this.con.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 
 	@Override
 	public ResultSet getUser(int id) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM tblUser WHERE (user_id = ?) AND (user_deleted=0)";
-		return this.get(sql, id);
+		String sql = "SELECT * FROM tblUser WHERE (user_id = "+id+") AND (user_deleted=0)";
+		return this.gets(sql);
 	}
 
 	@Override
 	public ResultSet getUser(String username, String userpass) {
 		// TODO Auto-generated method stub
 
-		String sqlSlc = "SELECT * FROM tblUser WHERE (user_name = ?) AND (user_pass = md5(?)) AND (user_deleted=0) AND (user_permission=1); ";
+		String sqlSlc = "SELECT * FROM tblUser WHERE (user_name = ?) AND (user_pass = md5(?)) AND (user_deleted=0); ";
 		String sqlUpd = "UPDATE tbluser SET user_logined = user_logined + 1  WHERE (user_name = ?) AND (user_pass = md5(?));";
 		ArrayList<String> sql = new ArrayList<String>();
 		sql.add(sqlSlc);

@@ -259,4 +259,9 @@ public class JobImpl extends BasicImpl implements Job {
 		String sql = "SELECT * FROM tblsavejob as s LEFT JOIN tbljob as j ON s.job_id = j.job_id LEFT JOIN tblcompany as c ON c.company_id = j.job_company_id WHERE (`user_id`='"+user_id+"');";
 		return this.getMR(sql.toString());
 	}
+	@Override
+	public ArrayList<ResultSet> getJobApply(int user_id) {
+		String sql = "SELECT * FROM tblapplications as s LEFT JOIN tbljob as j ON s.applications_job_id = j.job_id LEFT JOIN tblcompany as c ON c.company_id = j.job_company_id WHERE (`applications_user_id`='"+user_id+"');";
+		return this.getMR(sql.toString());
+	}
 }

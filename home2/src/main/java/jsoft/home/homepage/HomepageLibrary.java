@@ -77,7 +77,7 @@ public class HomepageLibrary {
 				job_work_time = "Fulltime";
 				break;
 			case 2:
-				job_work_time = "PartTime)";
+				job_work_time = "PartTime";
 				break;
 			case 3:
 				job_work_time = "Intern";

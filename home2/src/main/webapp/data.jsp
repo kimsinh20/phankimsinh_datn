@@ -33,6 +33,7 @@ CareerObject similar = new CareerObject();
 
 Triplet<CareerObject, Integer, Byte> incareer = new Triplet<>(similar, 0, (byte) 5);
 UserObject user = (UserObject) request.getSession().getAttribute("clientLogined");
+
 String FieldInFooter = cc.getFieldsInFooter();
 if (FieldInFooter != null && !FieldInFooter.equalsIgnoreCase("")) {
 	session.setAttribute("FieldsInFooter", FieldInFooter);

@@ -197,11 +197,15 @@
 							class="parent-menu text-gray-500 bg-slate-100 border rounded shadow transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
 							<li
 								class="rounded-sm px-3 py-1 hover:bg-emerald-600 hover:text-white">
+								<a href="/home/profile?act=apply">Việc đã ứng tuyển </a>
+							</li>
+							<li
+								class="rounded-sm px-3 py-1 hover:bg-emerald-600 hover:text-white">
 								<a href="/home/profile?act=savejob">Việc đã lưu </a>
 							</li>
 							<li
 								class="rounded-sm px-3 py-1 hover:bg-emerald-600 hover:text-white">
-								<a href="/home/profile">Việc đã ứng tuyển</a>
+								<a href="/home/profile">Cập nhật hồ sơ</a>
 							</li>
 							<li
 								class="rounded-sm px-3 py-1 hover:bg-emerald-600 hover:text-white">
@@ -238,7 +242,7 @@
 					</li>
 					<li>
 					
-					<a href="/home/recruiter"
+					<a href="/adv/employer"
 						class="text-sm ml-2 md:my-0 text-center md:text-sm rounded-md bg-emerald-600 md:py-2 md:px-1 px-2 py-1 text-white shadow-sm"><i
 						class="fa-solid fa-users me-1"></i> <fmt:message
 							key="menu.employer" /></a>
@@ -305,7 +309,7 @@
 								<div
 									class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
 									<div class="bg-white sm:p-0 sm:pb-4 h-screen">
-										<div class="">
+											<button onclick="hideDialog()" class="text-2xl text-false absolute top-0 right-0"><i class="fa-solid fa-xmark px-2 py-2"></i></button>
 											<section class="bg-gray-50">
 												<div
 													class="flex flex-col items-center justify-center px-4 py-4 mx-auto md:h-screen lg:py-0">
@@ -365,7 +369,6 @@
 													</div>
 												</div>
 											</section>
-										</div>
 									</div>
 								</div>
 							</div>

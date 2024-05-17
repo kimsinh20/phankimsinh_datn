@@ -303,7 +303,11 @@ public class BasicImpl implements Basic {
 		return res;
 	}
 
-	
+	@Override
+	public synchronized boolean edit(PreparedStatement pre) {
+		// TODO Auto-generated method stub
+		return this.exe(pre);
+	}
 
 	
 

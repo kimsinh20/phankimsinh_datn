@@ -22,6 +22,8 @@ public interface Basic extends ShareControl {
 	public boolean logined(PreparedStatement pre);
 	
 	public boolean add(PreparedStatement pre);
+	public boolean edit(PreparedStatement pre);
+
 	
 	public boolean del(PreparedStatement pre);
 	// thuc hien nhieu SELECT trong 1 lan bien dich
