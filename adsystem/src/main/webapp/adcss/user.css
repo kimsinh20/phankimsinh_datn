@@ -1,0 +1,35 @@
+﻿/*Các xử lý riêng cho login_V2*/
+
+
+/*Medias*/
+@media (max-width: 575.98px) {
+	.loginForm .col-sm-4 {
+		text-align: left !important;
+	}
+	
+	.providerForm .col-sm-2 {
+		text-align: left !important;
+	}
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+	
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+	
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+	#brand {
+	font-size: 16px;
+	}
+}
+
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+	
+}
+
+@media (min-width: 1400px) {
+	
+}
