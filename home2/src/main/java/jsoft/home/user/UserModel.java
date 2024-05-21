@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import jsoft.ConnectionPool;
-import jsoft.home.user.USER_EDIT_TYPE;
+import jsoft.objects.ClientObject;
 import jsoft.objects.UserObject;
 
 public class UserModel {
@@ -20,19 +20,22 @@ public class UserModel {
 	public void releaseConnection() {
 		this.u.releaseConnection();
 	}
+	public boolean signup(UserObject item) {
+		return this.u.signup(item);
+	}
 	
 	public boolean editUser(UserObject item,USER_EDIT_TYPE et) {
 		return this.u.editUser(item,et);
 	}
 	
 //	-------------------------------------------
-	public UserObject getUserObject(int id) {
-		UserObject item = null;
+	public ClientObject getUserObject(int id) {
+		ClientObject item = null;
 		ResultSet rs = this.u.getUser(id);
 		if(rs!=null) {
 			try {
 				if(rs.next()) {
-					item = new UserObject();
+					item = new ClientObject();
 					item.setUser_id(rs.getInt("user_id"));
 					item.setUser_pass(rs.getString("user_pass"));
 					item.setUser_name(rs.getString("user_name"));
@@ -55,6 +58,7 @@ public class UserModel {
 					item.setUser_mobilephone(rs.getString("user_mobilephone"));
 					item.setUser_permission(rs.getByte("user_permission"));
 					item.setUser_alias(rs.getString("user_alias"));
+					item.setClient_profiles(rs.getString("client_profiles"));
 				}
 				rs.close();
 			} catch (SQLException e) {

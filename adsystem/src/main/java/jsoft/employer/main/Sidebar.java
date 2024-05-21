@@ -82,11 +82,9 @@ public class Sidebar extends HttpServlet {
 		out.append("</a>");
 		out.append("<ul id=\"user-nav\" class=\"nav-content collapse show \" data-bs-parent=\"#user-nav\">");
 		out.append("<li><a href=\"/adv/employer/apply\"><i class=\"fas fa-users-cog\"></i><span>Hồ sơ ứng tuyển</span></a></li>");
-		out.append("<li><a href=\"/home/recruiter/list\"><i class=\"fas fa-user-tie\"></i><span>Hồ sơ đã lưu</span></a></li>");
-		out.append("<li><a href=\"/home/client/list\"><i class=\"fas fa-users\"></i><span>Tìm kiếm ứng viên");
+		out.append("<li><a href=\"/adv/employer/comingsoon\"><i class=\"fas fa-user-tie\"></i><span>Hồ sơ đã lưu</span></a></li>");
+		out.append("<li><a href=\"/adv/employer/comingsoon\"><i class=\"fas fa-users\"></i><span>Tìm kiếm ứng viên");
 		out.append("</span></a></li>");
-		out.append("<li><a href=\"/home/user/list?trash\"><i");
-		out.append("class=\"fas fa-trash-restore\"></i><span>Thùng rác</span></a></li>");
 		out.append("</ul></li>");
 		out.append("<!-- End Components Nav -->");
 		out.append("<!-- End Components Nav -->");
@@ -96,10 +94,10 @@ public class Sidebar extends HttpServlet {
 		out.append("class=\"bi bi-chevron-down ms-auto\"></i></a>");
 		out.append("<ul id=\"service-nav\" class=\"nav-content collapse show \"");
 		out.append("data-bs-parent=\"#service-nav\">");
-		out.append("<li><a href=\"/home/service/list\"><i class=\"fas fa-list\"></i><span>Lịch sử mua hàng</span></a></li>");
-		out.append("<li><a href=\"/home/service/list\"><i class=\"fas fa-list\"></i><span>Dịch vụ đang kích hoạt</span></a></li>");
+		out.append("<li><a href=\"/adv/employer/comingsoon\"><i class=\"fas fa-list\"></i><span>Lịch sử mua hàng</span></a></li>");
+		out.append("<li><a href=\"/adv/employer/comingsoon\"><i class=\"fas fa-list\"></i><span>Dịch vụ đang kích hoạt</span></a></li>");
 		out.append("<li></li>");
-		out.append("<li><a href=\"/home/service/list\"><i class=\"fas fa-list\"></i><span>Dịch vụ đã hết hạn</span></a></li>");
+		out.append("<li><a href=\"/adv/employer/comingsoon\"><i class=\"fas fa-list\"></i><span>Dịch vụ đã hết hạn</span></a></li>");
 		out.append("<li></li>");
 		out.append("</ul>");
 		out.append("<!-- End Components Nav -->");
@@ -107,7 +105,7 @@ public class Sidebar extends HttpServlet {
 		out.append("<li class=\"nav-heading\">Pages</li>");
 
 		out.append("<li class=\"nav-item\">");
-		out.append("<a class=\"nav-link collapsed\" href=\"/adv/user/profiles?id=" + user.getUser_id() + "\">");
+		out.append("<a class=\"nav-link collapsed\" href=\"/adv/employer/profiles?id=" + user.getUser_id() + "\">");
 		out.append("<i class=\"bi bi-person\"></i>");
 		out.append("<span>Profile</span>");
 		out.append("</a>");

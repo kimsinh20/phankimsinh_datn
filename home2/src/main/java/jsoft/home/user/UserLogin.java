@@ -106,15 +106,13 @@ public class UserLogin extends HttpServlet {
 				uc.releaseConnection();
 
 				if (user != null) {
-					if(user.getUser_permission()>10) {
-						
-					} else {
+					
 						// Tham chiếu phiên làm việc
 						HttpSession session = request.getSession(true);
 //						Boolean checkUpdateLogined = uc.getUpdateLogined(user);
 						// Đưa thông tin đăng nhập vào phiên
 						 session.setAttribute("clientLogined", user);
-				            String u = gson.toJson(user);
+				          String u = gson.toJson(user);
 
 				            // Thiết lập các tiêu đề HTTP và gửi phản hồi JSON
 				            response.setContentType("application/json");
@@ -122,7 +120,6 @@ public class UserLogin extends HttpServlet {
 				            response.setStatus(HttpServletResponse.SC_OK);
 				            response.getWriter().write(u);
 				            
-					}
 					
 				} else {
 					   response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

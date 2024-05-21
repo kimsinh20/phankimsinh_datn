@@ -678,8 +678,8 @@
 										</div>
 										<div>
 											<input type="radio" id="html" name="fav_language"
-												value="HTML"> <label for="html">cv.pdf</label><br>
-											<input type="radio" id="css" name="fav_language" value="CSS">
+												value="b"> <label for="html">${client.client_profiles }<a class="text-true ms-3" target="_blank" href="${client.client_profiles }">Xem CV</a></label><br>
+											<input type="radio" id="css" name="fav_language" value="a">
 											<label for="css"><input type="file" id="file"
 												name="client_profiles"></label><br>
 										</div>

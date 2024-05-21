@@ -1,16 +1,10 @@
 package jsoft.home.user;
 
-import java.util.ArrayList;
-
-import org.javatuples.Pair;
-import org.javatuples.Quartet;
 import org.javatuples.Triplet;
 
 import jsoft.ConnectionPool;
 import jsoft.ConnectionPoolImpl;
-import jsoft.home.user.USER_EDIT_TYPE;
-import jsoft.library.ORDER;
-import jsoft.objects.CompanyObject;
+import jsoft.objects.ClientObject;
 import jsoft.objects.UserObject;
 
 public class UserControl {
@@ -28,11 +22,15 @@ public class UserControl {
 		this.um.releaseConnection();
 	}
 	
+	public boolean signup(UserObject item) {
+		return this.um.signup(item);
+	}
+	
 	public boolean editUser(UserObject item,USER_EDIT_TYPE et) {
 		return this.um.editUser(item,et);
 	}
 //	---------------------------------------------
-	public UserObject getUserObject(int id) {
+	public ClientObject getUserObject(int id) {
 		return this.um.getUserObject(id);
 	}
 

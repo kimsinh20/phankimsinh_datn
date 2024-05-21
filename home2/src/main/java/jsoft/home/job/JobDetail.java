@@ -21,9 +21,11 @@ import com.google.gson.Gson;
 
 import jsoft.ConnectionPool;
 import jsoft.home.applications.AppControl;
+import jsoft.home.user.UserControl;
 import jsoft.objects.AddressObject;
 import jsoft.objects.ApplicationsObject;
 import jsoft.objects.ArticleObject;
+import jsoft.objects.ClientObject;
 import jsoft.objects.CompanyObject;
 import jsoft.objects.JobObject;
 import jsoft.objects.UserObject;
@@ -358,6 +360,9 @@ public class JobDetail extends HttpServlet {
 			request.setAttribute("isApp", isExits);
 			if(user!=null) {
 				request.setAttribute("user",user.getUser_id());
+				UserControl ac = new UserControl(cp);
+				ClientObject client = ac.getUserObject(user.getUser_id());
+				request.setAttribute("client",client);
 			} else {
 				request.setAttribute("user","null");	
 			}

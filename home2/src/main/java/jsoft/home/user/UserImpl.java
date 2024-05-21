@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import jsoft.ConnectionPool;
-import jsoft.home.user.USER_EDIT_TYPE;
 import jsoft.home.basic.BasicImpl;
+import jsoft.objects.ClientObject;
 import jsoft.objects.UserObject;
 
 public class UserImpl extends BasicImpl implements User {
@@ -16,7 +16,84 @@ public class UserImpl extends BasicImpl implements User {
 		super(cp, "User");
 	}
 
-	
+	private boolean isExisting(UserObject item) {
+		boolean flag = false;
+		String sql = "SELECT user_id FROM tblUser WHERE user_name = '" + item.getUser_name() + "'";
+		ResultSet rs = this.get(sql, 0);
+		if (rs != null) {
+			try {
+				if (rs.next()) {
+					flag = true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return flag;
+	}
+
+	@Override
+	public boolean signup(UserObject item) {
+		// TODO Auto-generated method stub
+		if (this.isExisting(item)) {
+			return false;
+		}
+		StringBuffer sql = new StringBuffer();
+		sql.append("INSERT INTO tbluser(");
+		sql.append("user_name, user_pass, user_fullname, user_birthday, user_mobilephone, ");
+		sql.append("user_homephone, user_officephone, user_email, user_address, user_jobarea, ");
+		sql.append("user_job, user_position, user_applyyear, user_permission, user_notes, ");
+		sql.append("user_roles, user_logined, user_created_date, user_last_modified,");
+		sql.append("user_last_logined, user_parent_id, user_actions , user_avatar ");
+		sql.append(")");
+		sql.append("VALUE(?,md5(?),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+		// bien dich
+		try {
+			PreparedStatement pre = this.con.prepareStatement(sql.toString());
+			pre.setString(1, item.getUser_name());
+			pre.setString(2, item.getUser_pass());
+			pre.setString(3, item.getUser_fullname());
+			pre.setString(4, item.getUser_birthday());
+			pre.setString(5, item.getUser_mobilephone());
+			pre.setString(6, item.getUser_homephone());
+			pre.setString(7, item.getUser_officephone());
+			pre.setString(8, item.getUser_email());
+			pre.setString(9, item.getUser_address());
+			pre.setString(10, item.getUser_jobarea());
+			pre.setString(11, item.getUser_job());
+			pre.setString(12, item.getUser_position());
+			pre.setShort(13, item.getUser_applyyear());
+			pre.setByte(14, item.getUser_permission());
+			pre.setString(15, item.getUser_notes());
+			pre.setString(16, item.getUser_roles());
+			pre.setShort(17, item.getUser_logined());
+			pre.setString(18, item.getUser_created_date());
+			pre.setString(19, item.getUser_last_modified());
+			pre.setString(20, item.getUser_last_logined());
+			pre.setInt(21, item.getUser_parent_id());
+			pre.setByte(22, item.getUser_actions());
+			pre.setString(23, item.getUser_avatar());
+			boolean isInsert = this.add(pre);
+		    return isInsert;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+			// tro ve trang thai an toan cua ket noi
+			try {
+				this.con.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+		return false;
+	}
+
 	@Override
 	public boolean editUser(UserObject item, USER_EDIT_TYPE et) {
 		// TODO Auto-generated method stub
@@ -70,7 +147,7 @@ public class UserImpl extends BasicImpl implements User {
 				pre.setString(14, item.getUser_alias());
 				pre.setString(15, item.getUser_last_modified());
 				pre.setByte(16, item.getUser_actions());
-				if (item.getUser_avatar() != null) {
+				if (item.getUser_avatar() != null && !item.getUser_avatar().equalsIgnoreCase("")) {
 					pre.setString(17, item.getUser_avatar());
 					pre.setInt(18, item.getUser_id());
 				} else {
@@ -97,8 +174,23 @@ public class UserImpl extends BasicImpl implements User {
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + et);
 			}
-
-			return this.edit(pre);
+			if(item instanceof ClientObject) {
+				ClientObject client = (ClientObject) item;
+				StringBuilder sql2 = new StringBuilder();
+				if (item != null && !client.getClient_profiles().equalsIgnoreCase("")) {
+					sql2.append("UPDATE tblclient SET ");
+					sql2.append("`client_profiles` = '"+client.getClient_profiles()+"'");
+					sql2.append(" where user_id = "+client.getUser_id()+";");
+					PreparedStatement pre2 = this.con.prepareStatement(sql2.toString());
+					return this.edit(pre) && this.edit(pre2);
+				} else {
+					return this.edit(pre);
+				}
+				
+			} else {
+				return this.edit(pre);
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,11 +206,12 @@ public class UserImpl extends BasicImpl implements User {
 		return false;
 	}
 
-
+	
+	
 	@Override
 	public ResultSet getUser(int id) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM tblUser WHERE (user_id = "+id+") AND (user_deleted=0)";
+		String sql = "SELECT * FROM tblclient as c left join tblUser as u on u.user_id=c.user_id WHERE (u.user_id = " + id + ") AND (user_deleted=0)";
 		return this.gets(sql);
 	}
 
@@ -230,8 +323,5 @@ public class UserImpl extends BasicImpl implements User {
 //			}
 //		}
 	}
-
-
-
 
 }

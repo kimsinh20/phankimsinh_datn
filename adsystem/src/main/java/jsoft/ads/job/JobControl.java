@@ -13,6 +13,7 @@ import jsoft.library.ORDER;
 import jsoft.objects.CareerObject;
 import jsoft.objects.CompanyObject;
 import jsoft.objects.JobObject;
+import jsoft.objects.ServiceObject;
 import jsoft.objects.SkillObject;
 import jsoft.objects.UserObject;
 
@@ -30,7 +31,9 @@ public class JobControl {
 	public void releaseConnection() {
 		this.cm.releaseConnection();
 	}
-	
+	public ArrayList<ServiceObject> getServiceByEmployer(JobObject job) {
+		return this.cm.getServiceByEmployer(job);
+	}
 //	------------------------------------------
 	public boolean addJob(JobObject item) {
 		return this.cm.addJob(item);

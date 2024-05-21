@@ -337,4 +337,12 @@ public class JobImpl extends BasicImpl implements Job {
 
 	}
 
+	@Override
+	public ArrayList<ResultSet> CheckPermiss(JobObject item) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM tbl_order_detail as d left join tbl_order as o on d.order_id = o.order_id where user_id="+item.getJob_author_id()+";");
+		System.out.println(sql);
+		return this.getMR(sql.toString());
+	}
+
 }

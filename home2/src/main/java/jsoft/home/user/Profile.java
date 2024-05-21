@@ -12,11 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import jsoft.ConnectionPool;
 import jsoft.home.job.JobControl;
 import jsoft.objects.ApplicationsObject;
+import jsoft.objects.ClientObject;
 import jsoft.objects.JobObject;
 import jsoft.objects.UserObject;
 
@@ -63,8 +65,8 @@ public class Profile extends HttpServlet {
 			// tạo đối tượng thực thi chức năng
 			JobControl jc = new JobControl(cp);
 			UserControl uc = new UserControl(cp);
-			UserObject getUser = uc.getUserObject(88);
-		
+			ClientObject getUser = uc.getUserObject(user.getUser_id());
+	
 		ArrayList<JobObject> jobsave = jc.JobSave(user.getUser_id());
 		ArrayList<ApplicationsObject> jobapply = jc.JobApply(user.getUser_id());
 		request.setAttribute("jobsave", jobsave);
@@ -113,16 +115,32 @@ public class Profile extends HttpServlet {
 				String avatar = "";
 				String filename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 				InputStream io = filePart.getInputStream();
-				  String path  = getServletContext().getRealPath("/")+"adimgs" + File.separator + filename;
-				  
-                if(jsoft.library.Utilities.saveFile(io, path)) {
-                	avatar = "/adv/adimgs/"+filename;
-                } 
-
+				  String path  = getServletContext().getRealPath("/")+"upload" + File.separator + filename;
+				if(filename.equalsIgnoreCase("")) {
+					avatar = "";
+				} else {
+					  if(jsoft.library.Utilities.saveFile(io, path)) {
+		                	avatar = "/home/upload/"+filename;
+		                } 
+				}
+				Part filePart2 = request.getPart("txtCV");
+				String cv = "";
+				String filename2 = Paths.get(filePart2.getSubmittedFileName()).getFileName().toString();
+				  String path2  = getServletContext().getRealPath("/")+"upload" + File.separator + filename2;
+				  InputStream io2 = filePart2.getInputStream();
+				  if(filename2.equalsIgnoreCase("")) {
+					cv = "";
+				} else {
+					  if(jsoft.library.Utilities.saveFile(io2, path2)) {
+		                	cv = "/home/upload/"+filename2;
+		                } 
+				}
+				 
+              
 				if (fullname != null && !fullname.equalsIgnoreCase("") && email != null && !email.equalsIgnoreCase("")
 						) {
 					// Tạo đối tượng UserObject
-					UserObject eUser = new UserObject();
+					ClientObject eUser = new ClientObject();
 					eUser.setUser_id(id);
 					eUser.setUser_fullname(jsoft.library.Utilities.encode(fullname));
 					eUser.setUser_alias(alias);
@@ -132,9 +150,12 @@ public class Profile extends HttpServlet {
 					eUser.setUser_homephone(home);
 					eUser.setUser_officephone(office);
 					eUser.setUser_gender(gender);
+					eUser.setClient_profiles(cv);
 					eUser.setUser_mobilephone(mobile);
 					if (avatar != null && !avatar.equalsIgnoreCase("")) {
 						eUser.setUser_avatar(avatar);
+					} else {
+						eUser.setUser_avatar("/adv/adimgs/default.jpg");
 					}
 					eUser.setUser_last_logined(jsoft.library.Utilities_date.getDate());
 					eUser.setUser_birthday(birthaday);
@@ -153,9 +174,12 @@ public class Profile extends HttpServlet {
 
 					// tra ve ket noi
 					uc.releaseConnection();
-
+					HttpSession session = request.getSession(true);
+					
 					//
 					if (result) {
+						UserObject u = uc.getUserObject(id);
+						session.setAttribute("clientLogined",u );
 						response.sendRedirect("/home/profile");
 					} else {
 						response.sendRedirect("/home/profile?err=edit");
@@ -196,6 +220,7 @@ public class Profile extends HttpServlet {
 //								boolean result =true;
 							// trả về kết nối
 							uc.releaseConnection();
+							
 							if (result) {
 								response.sendRedirect("/home/user/list");
 							} else {

@@ -25,7 +25,7 @@ public class JobLibrary {
 		tmp.append("<th scope=\"col\"></th>");
 		tmp.append("<th scope=\"col\">Công ty</th>");
 		tmp.append("<th scope=\"col\">Thời gian</th>");
-		if(user.getUser_permission()>=3) {
+		if(user.getUser_permission()>=2) {
 			tmp.append("<th scope=\"col\">Trạng thái</th>");
 		}
 		
@@ -56,6 +56,31 @@ public class JobLibrary {
 			tmp.append("<option value=\"5\" "+(item.getJob_status()==5?"selected":"")+">Ðã hủy</option>");
 			tmp.append("</select >");
 			tmp.append("</td>");
+			} 
+			else if(user.getUser_permission()==2) {
+				tmp.append("<td>");
+				switch (item.getJob_status()) {
+				case 0: 
+					tmp.append("<p class=\"text-warning\">Ðang chờ phê duyệt</p>");
+					break;
+				case 1: 
+					tmp.append("<p class=\"text-success\">Ðang tuyển dụng</p>");
+					break;
+				case 2: 
+					tmp.append("<p class=\"text-danger\">Ðã hết hạn</p>");
+					break;
+				case 3: 
+					tmp.append("<p class=\"text-danger\">Ðã tuyển dụng</p>");
+					break;
+				case 4: 
+					tmp.append("<p class=\"text-danger\">Tạm ngưng tuyển dụng</p>");
+					break;
+				case 5: 
+					tmp.append("<p class=\"text-danger\">Ðã hủy</p>");
+					break;
+				default:
+				}
+				tmp.append("</td>");
 			}
 			
 			

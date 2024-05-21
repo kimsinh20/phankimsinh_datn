@@ -80,7 +80,10 @@
 							<input name="txtJob" type="text" class="w-full py-2 mt-3 border border-2" id="Job"
 								value="${user.user_job }">
 						</div>
-						<label for="Country" class="text-xl font-bold">Lĩnh
+					
+					</div>
+					<div class="">
+							<label for="Country" class="text-xl font-bold">Lĩnh
 							vực</label>
 						<div class="">
 							<input name="txtJobArea" type="text" class="w-full py-2 mt-3 border border-2"
@@ -114,7 +117,14 @@
 							thư</label>
 						<div class="">
 							<input name="txtEmail" type="email" class="w-full py-2 mt-3 border border-2"
-								id="Email" value="phankimsinh20@gmail.com">
+								id="Email" value="${user.user_email }">
+						</div>
+					</div>
+					<div class="">
+						<label for="Email" class="text-xl font-bold">CV <a class="text-true" target="_blank" href="${user.client_profiles}">${user.client_profiles}</a></label>
+						<div class="">
+							<input name="txtCV" type="file" class="w-full py-2 mt-3 border border-2"
+								id="cv" >
 						</div>
 					</div>
 					</div>
@@ -135,7 +145,7 @@
 				<h4 class="font-bold mt-9 mb-4 text-2xl">Tin tuyển dụng ứng
 					tuyển</h4>
 				<c:if test="${jobapply.size() <= 0}">
-					<h1>Không có tin tuyển dụng nào</h1>
+					<h1>Bạn chưa ứng tuyển tin tuyển dụng nào</h1>
 				</c:if>
 				<c:forEach items="${jobapply}" var="i" varStatus="loop">
 					<div
@@ -152,6 +162,28 @@
 									<span class="inline-block text-sm text-true">${i.job.job_expiration_date }</span>
 									<div>
 										<p class="text-slate-400">${i.job.company.company_name }</p>
+									</div>
+									<div>
+									 <c:choose>
+									  <c:when test="${i.applications_status eq 0}">
+									    <p style="color: #f5ce42;">Trạng thái : Chưa xem</p>
+									  </c:when>
+									  <c:when test="${i.applications_status eq 1}">
+									    <p style="color: green;">Trạng thái : Lọc hồ sơ</p>
+									  </c:when>
+									  <c:when test="${i.applications_status eq 2}">
+									    <p style="color: green;">Trạng thái : Phỏng vấn</p>
+									  </c:when>
+									  <c:when test="${i.applications_status eq 3}">
+									    <p style="color: green;">Trạng thái : Đã chọn</p>
+									  </c:when>
+									  <c:when test="${i.applications_status eq 4}">
+									    <p style="color: red;">Trạng thái : Đã từ chối</p>
+									  </c:when>
+									  <c:when test="${i.applications_status eq 5}">
+									    <p style="color: red;">Trạng thái : Không thành công</p>
+									  </c:when>
+									</c:choose>
 									</div>
 								</div>
 							</div>
@@ -199,10 +231,7 @@
 			</div>
 			<div id="tab4"
 				class="${act eq 'setting' ? '' : 'hidden'} tab-content text-gray-700">
-				<h4 class="font-bold mt-9 mb-4 text-2xl">Contact Info</h4>
-				<p class="text-xl">
-					Phone no : 0987654321 <br>Address : Netherland
-				</p>
+				<a class="font-bold mt-9 mb-4 text-2xl text-false" href="/home/logout">Đăng xuất</a>
 			</div>
 		</div>
 	</div>

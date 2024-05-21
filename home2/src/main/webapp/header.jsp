@@ -258,7 +258,7 @@
 					<li
 						class="ml-2 flex relative cursor-pointer items-center pe-0 show" onclick="toggle()" id="nav_login">
 						 <img
-						src="/adv/adimgs/WIN_20220924_14_32_07_Pro.jpg" alt="Profile"
+						src="<%=user.getUser_avatar() %>" alt="Profile"
 						class="rounded-full size-8"> <span
 						class="hidden md:block dropdown-toggle ms-2"><%=user.getUser_name()%><i class="fa-solid fa-caret-down ms-1"></i></span>
 						
@@ -360,7 +360,7 @@
 																</div>
 																<p
 																	class="text-sm font-light text-gray-500  mt-3 dark:text-gray-400">
-																	Bạn chưa có tài khoản? <a href="#"
+																	Bạn chưa có tài khoản? <a href="/home/client/signup"
 																		class="font-medium text-primary-600 hover:underline dark:text-primary-500">Đăng
 																		ký ngay</a>
 																</p>

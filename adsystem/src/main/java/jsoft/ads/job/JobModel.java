@@ -16,6 +16,7 @@ import jsoft.library.ORDER;
 import jsoft.objects.CareerObject;
 import jsoft.objects.CompanyObject;
 import jsoft.objects.JobObject;
+import jsoft.objects.ServiceObject;
 import jsoft.objects.SkillObject;
 import jsoft.objects.UserObject;
 
@@ -326,5 +327,26 @@ public class JobModel {
 			}
 		}
 		return new Quintet<>(jobs,total,author,companys,skills);
+	}
+	public ArrayList<ServiceObject> getServiceByEmployer(JobObject job) {
+		ArrayList<ResultSet> res = this.c.CheckPermiss(job);
+		ArrayList<ServiceObject> services = new ArrayList<>();
+		ServiceObject sv = null;
+		ResultSet rs = res.get(0);
+		if(rs!=null) {
+			try {
+				while(rs.next()) {
+					sv = new ServiceObject();
+				    sv.setService_id(rs.getInt("service_id"));
+				    sv.setService_created_date(rs.getString("order_exporation_date"));
+					services.add(sv);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return services;
 	}
 }

@@ -3,6 +3,8 @@ package jsoft.ads.user;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.javatuples.Pair;
@@ -618,7 +620,19 @@ public class UserImpl extends BasicImpl implements User {
 			pre.setInt(1, order_id);
 			pre.setString(2, jsoft.library.Utilities_date.getDate());
 			pre.setInt(3, u.getUser_id());
-			pre.setString(4, jsoft.library.Utilities_date.getDate());
+			if(sv.getService_id()==56) {
+				String dateString = jsoft.library.Utilities_date.getDate();
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		        LocalDate date = LocalDate.parse(dateString, formatter);
+
+		        LocalDate newDate = date.plusDays(90);
+
+		        String result = newDate.format(formatter);
+				pre.setString(4, result);
+			} else {
+				pre.setString(4, jsoft.library.Utilities_date.getDate());
+			}
+			
 			pre.setInt(5, 0);
 			pre.setInt(6, 0);
 			boolean isInsert = this.add(pre);

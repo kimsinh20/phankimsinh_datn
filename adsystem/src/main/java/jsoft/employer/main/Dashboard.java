@@ -56,7 +56,7 @@ public class Dashboard extends HttpServlet {
 		if (user != null) {
 			view(request, response, user);
 		} else {
-			response.sendRedirect("/adv/employer");
+			response.sendRedirect("/adv/employer/login");
 		}
 
 	}
@@ -116,8 +116,7 @@ public class Dashboard extends HttpServlet {
 						accounts.append(",");
 					}
 			    }
-			 System.out.println(accounts);
-			 System.out.println(values);
+			
 		uc.releaseConnection();
 		
 		// tham chiếu tìm header

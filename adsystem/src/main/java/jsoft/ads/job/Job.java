@@ -18,6 +18,8 @@ public interface Job extends ShareControl {
 	public boolean editJob(JobObject item,JOB_EDIT_TYPE et);
 
 	public boolean delJob(JobObject item);
+	
+	public ArrayList<ResultSet> CheckPermiss(JobObject item);
 
 	public ResultSet getLocationByCompany(short company_id);
 	

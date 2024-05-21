@@ -117,10 +117,12 @@ public class AppLibrary {
 					+ "\" class=\"btn btn-primary btn-sm\"><i class=\"fas fa-trash-restore-alt\"></i></a></td>");
 			}
 			tmp.append("<td><a target=\"_blank\" href=\""+item.getApplications_cv()+"\" class=\"btn btn-primary btn-sm\"><i class=\"bi bi-eye-fill me-2\"></i>Xem CV</a></td>");
-		
-			tmp.append("<td class=\"text-center\"><a href=\"#\" class=\"btn btn-warning btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#delCareer"
+			tmp.append("<td><a href=\"#\" class=\"btn btn-success btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#sendmail"+item.getApplications_id()+"\"><i class=\"bi bi-envelope  me-2\"></i>Gửi mail</a></td>");
+			tmp.append("<td class=\"text-center\"><a href=\"#\" class=\"btn btn-warning btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#delApp"
 						+ item.getApplications_id() + "\"><i class=\"bi bi-archive\"></i></a></td>");
+			tmp.append(AppLibrary.ViewSendMail(item, page));
 			tmp.append(AppLibrary.ViewDellApp(item, page));
+			
 			tmp.append("<th scope=\"row\">"+item.getApplications_id()+"</th>");
 			tmp.append("</tr>");			
 		});
@@ -244,7 +246,7 @@ public class AppLibrary {
 			title = "Xóa đơn ứng tuyển";
 		}
 
-		tmp.append("<div class=\"modal modal-fullscreen-sm-down fade\" id=\"delCareer" + item.getApplications_id()
+		tmp.append("<div class=\"modal modal-fullscreen-sm-down fade\" id=\"delApp" + item.getApplications_id()
 				+ "\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">");
 		tmp.append("<div class=\"modal-dialog\">");
 		tmp.append("<div class=\"modal-content\">");
@@ -274,6 +276,34 @@ public class AppLibrary {
 		tmp.append(
 				"<button type=\"button\" class=\"btn btn-secondary px-5 py-2\" data-bs-dismiss=\"modal\">Hủy</button>");
 		tmp.append("</div>");
+		tmp.append("</div>");
+		tmp.append("</div>");
+		tmp.append("</div>");
+		return tmp;
+	}
+	
+	private static StringBuilder ViewSendMail(ApplicationsObject item, int page) {
+		StringBuilder tmp = new StringBuilder();
+
+		
+
+		tmp.append("<div class=\"modal modal-fullscreen-sm-down fade\" id=\"sendmail" + item.getApplications_id()
+				+ "\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">");
+		tmp.append("<div class=\"modal-dialog\">");
+		tmp.append("<div class=\"modal-content\">");
+		tmp.append("<form method=\"POST\">");
+		tmp.append("<div class=\"modal-header\">");
+		tmp.append("<h1 class=\"modal-title fs-5\" id=\"exampleModalLabel\">" +"Gửi mail" + "</h1>");
+		tmp.append("<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>");
+		tmp.append("</div>");
+		tmp.append("<div class=\"modal-body\">");
+		
+		tmp.append("</div>");
+		tmp.append("<div class=\"modal-footer\">");
+		tmp.append("<button type=\"submit\" class=\"btn btn-primary px-5 py-2\">Gửi</button>");
+		tmp.append("<button type=\"button\" class=\"btn btn-secondary px-5 py-2\" data-bs-dismiss=\"modal\">Hủy</button>");
+		tmp.append("</div>");
+		tmp.append("</form>");
 		tmp.append("</div>");
 		tmp.append("</div>");
 		tmp.append("</div>");

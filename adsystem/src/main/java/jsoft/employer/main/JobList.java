@@ -3,6 +3,8 @@ package jsoft.employer.main;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -19,12 +21,12 @@ import jsoft.ConnectionPool;
 import jsoft.ads.job.JOB_EDIT_TYPE;
 import jsoft.ads.job.JOB_SOFT;
 import jsoft.ads.job.JobControl;
-import jsoft.ads.job.JobLibrary;
 import jsoft.library.ORDER;
 import jsoft.objects.CareerObject;
 import jsoft.objects.CompanyObject;
 import jsoft.objects.JobObject;
 import jsoft.objects.RecruiterObject;
+import jsoft.objects.ServiceObject;
 import jsoft.objects.UserObject;
 
 /**
@@ -47,6 +49,20 @@ public class JobList extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    public boolean isCheck(int d, ArrayList<ServiceObject> id) {
+		if (id.size()<=0) {
+			return false;
+		} else {
+			for (int i = 0; i < id.size(); i++) {
+				long date =  jsoft.library.Utilities_date.getminusDay(jsoft.library.Utilities_date.getDateForJs(id.get(i).getService_created_date()));
+				System.out.println("date"+date);
+				if (id.get(i).getService_id() == d && date>0) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -64,7 +80,7 @@ public class JobList extends HttpServlet {
 		if (user != null) {
 			view(request, response, user,page);
 		} else {
-			response.sendRedirect("/adv/employer");
+			response.sendRedirect("/adv/employer/login");
 		}
 
 	}
@@ -119,7 +135,12 @@ public class JobList extends HttpServlet {
 		
 		
 		ArrayList<String> viewList = jc.viewJob(infos, new Pair<>(JOB_SOFT.GENERAL, ORDER.ASC),page,saveKey,isTrash);
+		ArrayList<ServiceObject> serviceByEmployer = jc.getServiceByEmployer(similar);
+		boolean isServiceExits = isCheck(56, serviceByEmployer);
 		
+		
+      
+	
 		// trả về kết nối
 		jc.releaseConnection();
 
@@ -166,6 +187,7 @@ public class JobList extends HttpServlet {
 			
 		out.append("<div class=\"d-flex justify-content-between\">");
 		out.append("<button type=\"button\" onclick=\"getCareerByCompanyV2("+user.getCompany_id()+")\" class=\"btn btn-primary my-4 \" data-bs-toggle=\"modal\" data-bs-target=\"#addEditJob\"><i class=\"fa-solid fa-plus me-2\"></i>Thêm mới</button>");
+		
 		out.append("<a href=\"/adv/job/list?trash\" class=\"btn btn-danger my-4 \" ><i class=\"fas fa-trash-restore\"></i>Thùng rác</a>");
 		out.append("</div><!-- End div -->");
 		
@@ -180,7 +202,9 @@ public class JobList extends HttpServlet {
 
 		out.append("<div class=\"modal-body\">");
 		out.append("<div class=\"container\">");
-		
+		if(!isServiceExits) {
+		out.append("<p class=\"text-center fs-2 mt-2\">Vui lòng đăng ký dịch vụ để tham gia đăng tuyển</>");
+		} else {
 		out.append("<div class=\"row\">");
 		out.append("<div class=\"text-center my-3\">");
 		out.append("<span class=\"step\"></span>");
@@ -397,7 +421,7 @@ public class JobList extends HttpServlet {
 		out.append("</div>"); //end col
 		out.append("</div>"); //end row
 		out.append("</form>");
-		
+		}
 		out.append("</div>"); // end container
 		out.append("</div>"); // end model body
 		
