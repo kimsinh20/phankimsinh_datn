@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.javatuples.Pair;
 import org.javatuples.Quartet;
 import org.javatuples.Quintet;
+import org.javatuples.Sextet;
 import org.javatuples.Triplet;
 
 import jsoft.ConnectionPool;
@@ -62,14 +63,14 @@ public class JobControl {
 	
 //	----------------------------------------------
 	public ArrayList<String> viewJob(Quartet<JobObject, Integer, Byte,UserObject> infos, Pair<JOB_SOFT, ORDER> so,int page,String saveKey,boolean trash) {
-	Quintet<ArrayList<JobObject>, Short,HashMap<Integer,String>,ArrayList<CompanyObject>,ArrayList<SkillObject>> datas = this.cm.getJobObjects(infos, so);
+	Sextet<ArrayList<JobObject>, Short,HashMap<Integer,String>,ArrayList<CompanyObject>,ArrayList<SkillObject>,HashMap<Integer, Integer>> datas = this.cm.getJobObjects(infos, so);
 		ArrayList<String> views = new ArrayList<>();
 		views.add(JobLibrary.viewJob(datas.getValue0(), datas.getValue1(),datas.getValue2(),page,infos.getValue3()));
 		String view2= JobLibrary.pagination(datas.getValue1(), infos.getValue2(),page,saveKey,trash).toString();
         views.add(view2);
 		views.add(JobLibrary.viewCompanyOptions(datas.getValue3()));
 		views.add(JobLibrary.viewSkillOptions(datas.getValue4()));
-//        views.add(CategoryLibrary.createdChart(datas.getValue4()).toString());
+        views.add(JobLibrary.createdChart(datas.getValue5()).toString());
 //		views.add(CategoryLibrary.viewSectionOptions(datas.getValue5(), infos.getValue3().getUser_id()));
 		return views;
 	}

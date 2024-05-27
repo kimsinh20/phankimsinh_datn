@@ -9,6 +9,7 @@ import java.util.HashMap;
 import org.javatuples.Pair;
 import org.javatuples.Quartet;
 import org.javatuples.Quintet;
+import org.javatuples.Sextet;
 import org.javatuples.Triplet;
 
 import jsoft.ConnectionPool;
@@ -234,7 +235,7 @@ public class JobModel {
 		return new Quartet<>(Job, author,skills,clients);
 	}
 	
-	public Quintet<ArrayList<JobObject>, Short, HashMap<Integer,String>,ArrayList<CompanyObject>,ArrayList<SkillObject>> getJobObjects
+	public Sextet<ArrayList<JobObject>, Short, HashMap<Integer,String>,ArrayList<CompanyObject>,ArrayList<SkillObject>,HashMap<Integer, Integer>> getJobObjects
 	(Quartet<JobObject, Integer, Byte,UserObject> infos, Pair<JOB_SOFT, ORDER> so) {
 		
 		ArrayList<ResultSet> res = this.c.getJobs(infos, so);
@@ -326,7 +327,39 @@ public class JobModel {
 				e.printStackTrace();
 			}
 		}
-		return new Quintet<>(jobs,total,author,companys,skills);
+		
+		HashMap<Integer, Integer> chart_data = new HashMap<>();
+		rs = res.get(4);
+		
+		if(rs!=null) {
+			try {
+				while(rs.next()) {
+					chart_data.put(rs.getInt("job_status"), rs.getInt("total"));
+					if(!chart_data.containsKey(0)) {
+						chart_data.put(0, 0);
+					}
+					if(!chart_data.containsKey(1)) {
+						chart_data.put(1, 0);
+					}
+					if(!chart_data.containsKey(2)) {
+						chart_data.put(2, 0);
+					}
+					if(!chart_data.containsKey(3)) {
+						chart_data.put(3, 0);
+					}
+					if(!chart_data.containsKey(4)) {
+						chart_data.put(4, 0);
+					}
+					if(!chart_data.containsKey(5)) {
+						chart_data.put(5, 0);
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new Sextet<>(jobs,total,author,companys,skills,chart_data);
 	}
 	public ArrayList<ServiceObject> getServiceByEmployer(JobObject job) {
 		ArrayList<ResultSet> res = this.c.CheckPermiss(job);

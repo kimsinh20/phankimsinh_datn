@@ -9,6 +9,7 @@ import org.javatuples.Triplet;
 
 import jsoft.ShareControl;
 import jsoft.library.ORDER;
+import jsoft.objects.ContactObject;
 import jsoft.objects.ServiceObject;
 import jsoft.objects.UserObject;
 
@@ -21,6 +22,8 @@ public interface User extends ShareControl {
 	public boolean delUser(UserObject item);
 	
 	public ResultSet getService(int id);
+	
+	public boolean addContact(ContactObject c);
 	
 	public ArrayList<ResultSet> getDashboard();
 	public ArrayList<ResultSet> getDashboardEmployer(int user_id);

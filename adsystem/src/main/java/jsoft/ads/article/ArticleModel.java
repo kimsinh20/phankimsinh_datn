@@ -4,19 +4,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.javatuples.Pair;
 import org.javatuples.Quartet;
-import org.javatuples.Quintet;
 import org.javatuples.Sextet;
 
 import jsoft.ConnectionPool;
-import jsoft.ads.category.CATEGORY_EDIT_TYPE;
 import jsoft.ads.category.CATEGORY_SOFT;
 import jsoft.library.ORDER;
 import jsoft.objects.ArticleObject;
 import jsoft.objects.CategoryObject;
-import jsoft.objects.SectionObject;
 import jsoft.objects.UserObject;
 
 public class ArticleModel {
@@ -144,14 +142,14 @@ public class ArticleModel {
 		}
 		return items;
 	}
-	public Sextet<ArrayList<ArticleObject>, Short,HashMap<Integer, String>,ArrayList<UserObject>,HashMap<String, Integer>,ArrayList<CategoryObject>> getArticleObjects
+	public Sextet<ArrayList<ArticleObject>, Short,HashMap<Integer, String>,ArrayList<UserObject>,LinkedHashMap<String, Integer>,ArrayList<CategoryObject>> getArticleObjects
 	(Quartet<ArticleObject, Integer, Byte, UserObject> infos) {
 		ArrayList<ArticleObject> items = new ArrayList<>();
 		ArticleObject item = null;
 		
         HashMap<Integer, String> manager_name = new HashMap<>();
 		
-		HashMap<String, Integer> datas = new HashMap<>();
+        LinkedHashMap<String, Integer> datas = new LinkedHashMap<>();
 		
 		ArrayList<ResultSet> res = this.a.getArticles(infos);
 		
@@ -225,6 +223,7 @@ public class ArticleModel {
 					int month = rs.getInt("month");
 					String time = month+"-"+year;
 					datas.put(time,rs.getInt("totalview"));
+					System.out.println("t : "+time);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

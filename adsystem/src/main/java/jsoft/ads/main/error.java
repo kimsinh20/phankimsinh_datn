@@ -72,6 +72,9 @@ public class error extends HttpServlet {
 			case "profiles":
 				out.append("Lỗi chỉnh sủa người dùng");
 				break;
+			case "exfail":
+				out.append("xuất file không thành công");
+				break;
 			case "del":
 				out.append("lỗi thực hiện khi xóa");
 				break;

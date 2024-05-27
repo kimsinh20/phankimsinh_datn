@@ -424,15 +424,20 @@ public class JobView extends HttpServlet {
 	    String[] skillIdArray = job.getJob_skills().split(",");
 	    // Tạo mảng chứa tên các skill có id trùng khớp
         List<String> skillNames = new ArrayList<>();
-        for (String skillId : skillIdArray) {
-            int skill_id = Integer.parseInt(skillId);
-            for (SkillObject skill : skills) {
-                if (skill.getSkill_id() == skill_id) {
-                    skillNames.add(skill.getSkill_name());
-                    break;
-                }
+        if(skillIdArray.length>0) {
+        	for (String skillId : skillIdArray) {
+        		if(skillId!=null && !skillId.equalsIgnoreCase("")) {
+        			 int skill_id = Integer.parseInt(skillId);
+        			  for (SkillObject skill : skills) {
+                          if (skill.getSkill_id() == skill_id) {
+                              skillNames.add(skill.getSkill_name());
+                              break;
+                          }
+                      }
+        		}
             }
         }
+        
 		
 		out.append("<div class=\"row\">");
 		out.append("<div class=\"col-lg-3 col-md-4 label\">Kĩ năng</div>");
@@ -513,7 +518,7 @@ public class JobView extends HttpServlet {
 		out.append("<div class=\"card-body\">");
 		out.append("<div class=\"d-flex flex-column align-items-center pt-4\">");
 		out.append("<img class=\"shadow rounded-circle\" src=\""+client.getUser_avatar()+"\" width=\"80\" height=\"80\" alt=\"\" />");
-		out.append("<a href=\"/adv/user/profiles?id="+client.getUser_id()+"&view\" class=\"card-title font-weight-bold text-decoration-none me-3\">"+client.getUser_fullname()+"</a>");
+		out.append("<a href=\"/adv/client/profiles?id="+client.getUser_id()+"&view\" class=\"card-title font-weight-bold text-decoration-none me-3\">"+client.getUser_fullname()+"</a>");
 		out.append("</div>");
 		
 		out.append("</div>");

@@ -263,6 +263,9 @@ public class JobImpl extends BasicImpl implements Job {
 		
 		sql.append("SELECT * FROM tblskill WHERE skill_delete = 0;");
         
+		sql.append("SELECT job_status,count(*) as total FROM tbljob ");
+		sql.append(createConditions(similar));
+		sql.append(" group by job_status;");
 		
 		System.out.println(sql.toString());
 

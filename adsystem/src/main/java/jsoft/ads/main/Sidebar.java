@@ -194,6 +194,7 @@ public class Sidebar extends HttpServlet {
 			}
 			case "sv": {
 				collapsed.put("service", "");
+				
 				show.put("service", "show");
 				switch (act) {
 				case "list":
@@ -201,6 +202,18 @@ public class Sidebar extends HttpServlet {
 					break;
 				case "trash":
 					actives.put("svtrash", "class=\"active\" ");
+					break;
+				}
+
+				break;
+			}
+			
+			case "ct": {
+				collapsed.put("contact", "");
+				show.put("contact", "show");
+				switch (act) {
+				case "list":
+					actives.put("listct", "class=\"active\" ");
 					break;
 				}
 
@@ -383,12 +396,12 @@ public class Sidebar extends HttpServlet {
 
 		// dich vu
 		out.append("<li class=\"nav-item\">");
-		out.append("<a class=\"nav-link  " + collapsed.getOrDefault("service", "collapsed")
+		out.append("<a class=\"nav-link " + collapsed.getOrDefault("service", "collapsed")
 				+ "\" data-bs-target=\"#service-nav\" data-bs-toggle=\"collapse\" href=\"#\">");
 		out.append(
 				"<i class=\"bi bi-bag-check-fill\"></i><span>Dịch vụ</span><i class=\"bi bi-chevron-down ms-auto\"></i>");
 		out.append("</a>");
-		out.append("<ul id=\"service-nav\" class=\"nav-content collapse " + show.getOrDefault("collapsed", "")
+		out.append("<ul id=\"service-nav\" class=\"nav-content collapse " + show.getOrDefault("service", "")
 				+ " \" data-bs-parent=\"#service-nav\">");
 		out.append("<li>");
 		out.append("<a href=\"/adv/service/list\"" + actives.getOrDefault("listsv", "") + ">");
@@ -396,57 +409,47 @@ public class Sidebar extends HttpServlet {
 		out.append("</a>");
 		out.append("</li>");
 		out.append("<li>");
-		out.append("<li>");
-		out.append("<a href=\"/adv/service/list?trash\" " + actives.getOrDefault("svtrash", "") + ">");
-		out.append("<i class=\"fas fa-trash-restore\"></i><span>Thùng rác</span>");
-		out.append("</a>");
-		out.append("</li>");
 		out.append("</ul>");
 		out.append("</li><!-- End Components Nav -->");
+		
+		out.append("<li class=\"nav-item\">");
+		out.append("<a class=\"nav-link "+collapsed.getOrDefault("contact", "collapsed")+"\" href=\"/adv/contact/list\">");
+		out.append("<i class=\"bi bi-envelope\"></i>");
+		out.append("<span>Liên hệ</span>");
+		out.append("</a>");
+		out.append("</li><!-- End Contact Page Nav -->");
 
-		out.append("<li class=\"nav-heading\">Pages</li>");
+		out.append("<li class=\"nav-heading\">Tài khoản</li>");
 
 		out.append("<li class=\"nav-item\">");
 //		out.append("<a class=\"nav-link collapsed\" href=\"/adv/user/profiles?id=" + user.getUser_id() + "\">");
 		out.append("<i class=\"bi bi-person\"></i>");
-		out.append("<span>Profile</span>");
+		out.append("<span>Hồ sơ cá nhân</span>");
 		out.append("</a>");
 		out.append("</li><!-- End Profile Page Nav -->");
 
+
 		out.append("<li class=\"nav-item\">");
-		out.append("<a class=\"nav-link collapsed\" href=\"pages-faq.html\">");
+		out.append("<a class=\"nav-link collapsed\" href=\"/adv/user/profiles?id="+user.getUser_id()+"\">");
 		out.append("<i class=\"bi bi-question-circle\"></i>");
-		out.append("<span>F.A.Q</span>");
+		out.append("<span>Tài khoản của tôi</span>");
 		out.append("</a>");
 		out.append("</li><!-- End F.A.Q Page Nav -->");
-
+		
 		out.append("<li class=\"nav-item\">");
-		out.append("<a class=\"nav-link collapsed\" href=\"pages-contact.html\">");
-		out.append("<i class=\"bi bi-envelope\"></i>");
-		out.append("<span>Contact</span>");
+		out.append("<a class=\"nav-link collapsed\" href=\"/adv/user/setting?id="+user.getUser_id()+"\">");
+		out.append("<i class=\"bi bi-gear\"></i>");
+		out.append("<span>Cài đặt</span>");
 		out.append("</a>");
-		out.append("</li><!-- End Contact Page Nav -->");
-
+		out.append("</li><!-- End F.A.Q Page Nav -->");
+		
 		out.append("<li class=\"nav-item\">");
-		out.append("<a class=\"nav-link collapsed\" href=\"pages-register.html\">");
-		out.append("<i class=\"bi bi-card-list\"></i>");
-		out.append("<span>Register</span>");
-		out.append("</a>");
-		out.append("</li><!-- End Register Page Nav -->");
-
-		out.append("<li class=\"nav-item\">");
-		out.append("<a class=\"nav-link collapsed\" href=\"pages-login.html\">");
+		out.append("<a class=\"nav-link collapsed\" href=\"/adv/user/logout\">");
 		out.append("<i class=\"bi bi-box-arrow-in-right\"></i>");
-		out.append("<span>Login</span>");
+		out.append("<span>Đăng nhập</span>");
 		out.append("</a>");
 		out.append("</li><!-- End Login Page Nav -->");
 
-		out.append("<li class=\"nav-item\">");
-		out.append("<a class=\"nav-link collapsed\" href=\"pages-error-404.html\">");
-		out.append("<i class=\"bi bi-dash-circle\"></i>");
-		out.append("<span>Error 404</span>");
-		out.append("</a>");
-		out.append("</li><!-- End Error 404 Page Nav -->");
 
 		out.append("</ul>");
 

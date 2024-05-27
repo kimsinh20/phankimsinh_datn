@@ -69,7 +69,6 @@ public class Sidebar extends HttpServlet {
 		out.append("</a>");
 		out.append("<ul id=\"job-nav\" class=\"nav-content collapse show\" data-bs-parent=\"#job-nav\">");
 		out.append("<li><a href=\"/adv/employer/job\"><i class=\"fas fa-list\"></i><span>Tạo tin tuyển dụng</span></a></li>");
-		out.append("<li><a href=\"/adv/employer/job\"><i class=\"fas fa-list\"></i><span>Danh sách</span></a></li>");
 		out.append("<li><a href=\"/adv/employer/job?trash\"><i class=\"fas fa-trash-restore\"></i><span>Thùng rác</span></a></li>");
 		out.append("</ul>");
 		out.append("</li>");

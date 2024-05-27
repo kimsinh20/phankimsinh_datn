@@ -118,7 +118,7 @@ public class UserLogin extends HttpServlet {
 				out.append("Tên đăng nhập chưa đúng yêu cầu. Vui lòng nhập lại!");
 				break;
 			case "loginfail":
-				out.append("Có lỗi trong quá trình đăng nhập!");
+				out.append("Tên đăng nhập hoặc mật khẩu sau!");
 				break;
 			case "nopermiss":
 				out.append("Tài khoản của bạn không có quyền đăng nhập hệ thống!");
@@ -254,7 +254,7 @@ public class UserLogin extends HttpServlet {
 				HttpSession session = request.getSession(true);
 				if (user != null) {
 					if(user.getUser_permission()<3) {
-						
+						response.sendRedirect("/adv/user/login?err=nopermiss");
 					} else {
 						
 //						Boolean checkUpdateLogined = uc.getUpdateLogined(user);

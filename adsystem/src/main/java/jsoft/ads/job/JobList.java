@@ -415,7 +415,7 @@ public class JobList extends HttpServlet {
 		// charts
 		out.append("<div class=\"row\">");
 		out.append("<div class=\"col-lg-12\">");
-//		out.append(viewList.get(3));
+		out.append(viewList.get(4));
 		out.append("</div>");
 		out.append("</div>");
 		out.append("</main><!-- End #main -->");

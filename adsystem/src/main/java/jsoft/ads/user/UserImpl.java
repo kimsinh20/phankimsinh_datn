@@ -14,6 +14,7 @@ import jsoft.ConnectionPool;
 import jsoft.ads.basic.BasicImpl;
 import jsoft.library.ORDER;
 import jsoft.objects.ClientObject;
+import jsoft.objects.ContactObject;
 import jsoft.objects.RecruiterObject;
 import jsoft.objects.SectionObject;
 import jsoft.objects.ServiceObject;
@@ -667,6 +668,40 @@ public class UserImpl extends BasicImpl implements User {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean addContact(ContactObject c) {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer();
+		sql.append("INSERT INTO tblcontact(");
+		sql.append(" contact_title, contact_email, contact_fullname, contact_enable, contact_created_date, contact_content ) ");
+		sql.append("VALUE(?, ?, ?, ?, ?, ?)");
+
+		try {
+			PreparedStatement pre = this.con.prepareStatement(sql.toString());
+
+			pre.setString(1, c.getContact_title());
+			pre.setString(2, c.getContact_email());
+			pre.setString(3, c.getContact_fullname());
+			pre.setBoolean(4, c.isContact_enable());
+			pre.setString(5, c.getContact_created_date());
+			pre.setString(6, c.getContact_content());
+
+			return this.add(pre);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			try {
+				this.con.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
 		}
 
 		return false;

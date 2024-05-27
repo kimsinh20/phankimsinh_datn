@@ -31,6 +31,9 @@ public class UserModel {
 	public boolean addUser(UserObject item,USER_TYPE ut) {
 		return this.u.addUser(item,ut);
 	}
+	public boolean addContact(ContactObject c) {
+		return this.u.addContact(c);
+	}
 	
 	public boolean addOrder(int order_id,ServiceObject sv , UserObject u) {
 		return this.u.addOrder(order_id,sv,u);

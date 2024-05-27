@@ -285,8 +285,6 @@ public class AppLibrary {
 	private static StringBuilder ViewSendMail(ApplicationsObject item, int page) {
 		StringBuilder tmp = new StringBuilder();
 
-		
-
 		tmp.append("<div class=\"modal modal-fullscreen-sm-down fade\" id=\"sendmail" + item.getApplications_id()
 				+ "\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">");
 		tmp.append("<div class=\"modal-dialog\">");
@@ -297,6 +295,19 @@ public class AppLibrary {
 		tmp.append("<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>");
 		tmp.append("</div>");
 		tmp.append("<div class=\"modal-body\">");
+		
+		tmp.append("<label for=\"email\" class=\"form-label mt-3\"><i class=\"fas fa-envelope-open me-2\"></i>Hộp thư</label>");
+		tmp.append("<input type=\"email\" class=\"form-control\" placeholder=\"...\" name=\"txtemail\" value=\""+item.getUser().getUser_email()+"\" id=\"email\" required >");
+		
+		tmp.append("<label for=\"title\" class=\"form-label mt-3\"><i class=\"fas fa-file-signature me-2\"></i>Tiêu đề</label>");
+		tmp.append("<input type=\"text\" class=\"form-control\" placeholder=\"...\" name=\"txttitle\" id=\"title\" required>");
+		
+		tmp.append("<label for=\"content\" class=\"form-label mt-3\"><i class=\"fas fa-file-signature me-2\"></i>Nội dung</label>");
+		tmp.append("<textarea name=\"txtcontent\" class=\"form-control\" id=\"Emailcontent\" style=\"height: 100px\"></textarea>");
+		tmp.append("<script>");
+		tmp.append("var editor = CKEDITOR.replace(\"Emailcontent\");");
+		tmp.append("CKFinder.setupCKEditor(editor,\"/adv/ckfinder/\")");
+		tmp.append("</script>");
 		
 		tmp.append("</div>");
 		tmp.append("<div class=\"modal-footer\">");

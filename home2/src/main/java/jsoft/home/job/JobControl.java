@@ -76,6 +76,7 @@ public class JobControl {
 		}
 		rs.add(JobLibrary.countJob(data.getValue2(),infos.getValue0().getJob_title()));
 		rs.add(JobLibrary.sortView(url));
+	
 		rs.add(JobLibrary.SearchInput(infos.getValue0().getJob_title()));
 		rs.add(JobLibrary.getTotal(data.getValue2()));
 		return rs;

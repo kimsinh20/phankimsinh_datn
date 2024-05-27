@@ -302,14 +302,16 @@ public class JobLibrary {
 		return out.toString();
 	}
 	public static String SearchInput(String key) {
+		System.out.println(key);
 		StringBuilder out = new StringBuilder();
-		out.append("<input onblur=\"submitForm()\" name=\"key\" id=\"searchname\" value=\""+key+"\" type=\"text\" class=\"form-input w-full border border-slate-100 dark:border-slate-800 ps-10\" placeholder=\"Search\">");
+		out.append("<input onblur=\"submitForm()\" name=\"key\" id=\"searchname\" value=\""+jsoft.library.Utilities.decode(key)+"\" type=\"text\" class=\"form-input w-full border border-slate-100 dark:border-slate-800 ps-10\" placeholder=\"Search\">");
 		return out.toString();
 	}
 	public static String countJob(int count,String key) {
+		System.out.println(key);
 		String str = "Tuyển dụng <span class=\"text-xl font-bold\">"+count+"</span> vị trí việc làm ";
 		if(key!=null && !key.equalsIgnoreCase("")) {
-			str+="với từ khóa <span class=\"text-true text-lg\">"+key+"</span><i class=\"fa-solid fa-magnifying-glass ms-1\"></i>";
+			str+="với từ khóa <span class=\"text-true text-lg\">"+jsoft.library.Utilities.decode(key)+"</span><i class=\"fa-solid fa-magnifying-glass ms-1\"></i>";
 		}
 		return str;
 	}

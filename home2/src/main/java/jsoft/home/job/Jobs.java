@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
+import com.google.gson.JsonObject;
+
 import jsoft.ConnectionPool;
 import jsoft.library.ORDER;
 import jsoft.objects.CareerObject;
@@ -184,6 +186,8 @@ public class Jobs extends HttpServlet {
 
 		String key = request.getParameter("key");
 		String saveKey = (key != null && !key.equalsIgnoreCase("")) ? jsoft.library.Utilities.encode(key.trim()) : "";
+	    System.out.println(saveKey);
+	    System.out.println(jsoft.library.Utilities.decode(saveKey));
 		String lc = request.getParameter("lc");
 		lc = (lc != null && !lc.equalsIgnoreCase("")) ? lc : "";
 		// tìm bộ quản lý kết nối

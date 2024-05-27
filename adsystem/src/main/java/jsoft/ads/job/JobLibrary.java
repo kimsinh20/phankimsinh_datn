@@ -59,26 +59,18 @@ public class JobLibrary {
 			} 
 			else if(user.getUser_permission()==2) {
 				tmp.append("<td>");
-				switch (item.getJob_status()) {
-				case 0: 
+				if(item.getJob_status()<=0) {
 					tmp.append("<p class=\"text-warning\">Ðang chờ phê duyệt</p>");
-					break;
-				case 1: 
-					tmp.append("<p class=\"text-success\">Ðang tuyển dụng</p>");
-					break;
-				case 2: 
-					tmp.append("<p class=\"text-danger\">Ðã hết hạn</p>");
-					break;
-				case 3: 
-					tmp.append("<p class=\"text-danger\">Ðã tuyển dụng</p>");
-					break;
-				case 4: 
-					tmp.append("<p class=\"text-danger\">Tạm ngưng tuyển dụng</p>");
-					break;
-				case 5: 
-					tmp.append("<p class=\"text-danger\">Ðã hủy</p>");
-					break;
-				default:
+				} else if(item.getJob_status()>5) {
+					tmp.append("<p class=\"text-danger\">Lỗi</p>");
+				} else {
+				tmp.append("<select onchange=\"fetchUpdateStatusJob("+item.getJob_id()+",this.value);\" id=\"slcStatus\" class=\"form-control\">");
+				tmp.append("<option value=\"1\" "+(item.getJob_status()==1?"selected":"")+">Ðang tuyển dụng</option>");
+				tmp.append("<option value=\"2\" "+(item.getJob_status()==2?"selected":"")+">Ðã hết hạn</option>");
+				tmp.append("<option value=\"3\" "+(item.getJob_status()==3?"selected":"")+">Ðã tuyển dụng</option>");
+				tmp.append("<option value=\"4\" "+(item.getJob_status()==4?"selected":"")+">Tạm ngưng tuyển dụng</option>");
+				tmp.append("<option value=\"5\" "+(item.getJob_status()==5?"selected":"")+">Ðã hủy</option>");
+				tmp.append("</select >");
 				}
 				tmp.append("</td>");
 			}
@@ -173,7 +165,7 @@ public class JobLibrary {
 		return tmp.toString();
 	}
 	public static StringBuilder pagination(int total, Byte pageSize,int page,String saveKey,boolean trash) {
-//		System.out.println(total);
+//		System.tmp.println(total);
 		 page =(page<=1)? 1 : page;
 		 
 		 String urlkey = "",url = "/adv/job/list?page=";
@@ -191,22 +183,22 @@ public class JobLibrary {
 		}
 
 		
-		StringBuilder out = new StringBuilder();
+		StringBuilder tmp = new StringBuilder();
 		//phan trang
 		if(total>0) {
-		out.append("<nav aria-label=\"Page navigation example\">");
-		out.append("<ul class=\"pagination justify-content-center\">");
+		tmp.append("<nav aria-label=\"Page navigation example\">");
+		tmp.append("<ul class=\"pagination justify-content-center\">");
 		
 		String isPrevious = (page<=1)?"disabled":"";
 		String isNext = (page==totalPage)?"disabled":"";
 		
-		out.append("<li class=\"page-item "+isPrevious+"\">");
-		out.append("<a class=\"page-link\" href=\""+url+(page > 1 ? page - 1 : 1)+urlkey+"\" tabindex=\"-1\" aria-disabled=\"true\"><span aria-hidden=\"true\">&laquo;</span></a></a>");
-		out.append("</li>");
+		tmp.append("<li class=\"page-item "+isPrevious+"\">");
+		tmp.append("<a class=\"page-link\" href=\""+url+(page > 1 ? page - 1 : 1)+urlkey+"\" tabindex=\"-1\" aria-disabled=\"true\"><span aria-hidden=\"true\">&laquo;</span></a></a>");
+		tmp.append("</li>");
 		if(page>=4) {
-		out.append("<li class=\"page-item\">");
-		out.append("<a class=\"page-link\" href=\""+url+"1"+urlkey+"\" tabindex=\"-1\" aria-disabled=\"true\"><span aria-hidden=\"true\">1</span></a></a>");
-		out.append("</li>");
+		tmp.append("<li class=\"page-item\">");
+		tmp.append("<a class=\"page-link\" href=\""+url+"1"+urlkey+"\" tabindex=\"-1\" aria-disabled=\"true\"><span aria-hidden=\"true\">1</span></a></a>");
+		tmp.append("</li>");
 		}
 		//left current
 		String leftCurrent = "";
@@ -221,11 +213,11 @@ public class JobLibrary {
 		if(page>=4) {
 			leftCurrent = "<li class=\"page-item disabled\"><a class=\"page-link\" href=\"#\">....</a></li>"+leftCurrent;
 		}
-		out.append(leftCurrent);
+		tmp.append(leftCurrent);
 		
-		out.append(" <li class=\"page-item active\" aria-current=\"page\">");
-		out.append("<a class=\"page-link\" href=\""+url+page+urlkey+"\">"+page+"</a>");
-		out.append("</li>");
+		tmp.append(" <li class=\"page-item active\" aria-current=\"page\">");
+		tmp.append("<a class=\"page-link\" href=\""+url+page+urlkey+"\">"+page+"</a>");
+		tmp.append("</li>");
 		
 		String rightCurrent ="";
 		 count = 0;
@@ -239,20 +231,20 @@ public class JobLibrary {
 		if(totalPage>page+2) {
 			rightCurrent += "<li class=\"page-item disabled\"><a class=\"page-link\" href=\"#\">....</a></li>";
 		}
-		out.append(rightCurrent);
-//		out.append(" <li class=\"page-item\"><a class=\"page-link\" href=\"/adv/user/list?page="+totalPage+"\">"+totalPage+"</a></li>");
+		tmp.append(rightCurrent);
+//		tmp.append(" <li class=\"page-item\"><a class=\"page-link\" href=\"/adv/user/list?page="+totalPage+"\">"+totalPage+"</a></li>");
 		if(page<totalPage-2) {
-		out.append("<li class=\"page-item\" >");
-		out.append("<a class=\"page-link\"  href=\""+url+totalPage+urlkey+"\"><span aria-hidden=\"true\">"+totalPage+"</span></a></a>");
-		out.append("</li>");
+		tmp.append("<li class=\"page-item\" >");
+		tmp.append("<a class=\"page-link\"  href=\""+url+totalPage+urlkey+"\"><span aria-hidden=\"true\">"+totalPage+"</span></a></a>");
+		tmp.append("</li>");
 		}
-		out.append("<li class=\"page-item "+isNext+"\" >");
-		out.append("<a class=\"page-link\"  href=\""+url+(page < totalPage ? page + 1 : totalPage)+urlkey+"\"><span aria-hidden=\"true\">&raquo;</span></a></a>");
-		out.append("</li>");
-		out.append("</ul>");
-		out.append("</nav><!-- End Disabled and active states -->");
+		tmp.append("<li class=\"page-item "+isNext+"\" >");
+		tmp.append("<a class=\"page-link\"  href=\""+url+(page < totalPage ? page + 1 : totalPage)+urlkey+"\"><span aria-hidden=\"true\">&raquo;</span></a></a>");
+		tmp.append("</li>");
+		tmp.append("</ul>");
+		tmp.append("</nav><!-- End Disabled and active states -->");
 		}
-		return out;
+		return tmp;
 	}
 	private static StringBuilder ViewDellJob(JobObject item, int page) {
 		StringBuilder tmp = new StringBuilder();
@@ -345,36 +337,59 @@ public class JobLibrary {
 		return tmp;
 	}
 	
-	public static StringBuilder createdChart(HashMap<Integer, String> datas) {
-		StringBuilder data = new StringBuilder();
-		StringBuilder sections = new StringBuilder();
-		 for (int i : datas.keySet()) {
-			    data.append(i);
-			    sections.append("'" + Utilities.decode(datas.get(i))).append("'");
-				if (i < datas.size()) {
-					data.append(",");
-					sections.append(",");
-				}
-		    }
+	public static StringBuilder createdChart(HashMap<Integer, Integer> data_chart) {
+		 StringBuilder values = new StringBuilder();
+			StringBuilder accounts = new StringBuilder();
+			 for (int i : data_chart.keySet()) {
+				    switch (i) {
+					case 0:
+						 accounts.append("'Đang chờ phê duyệt'");
+						break;
+					case 1:
+						 accounts.append("'Đang tuyển dụng'");
+						break;
+					case 2:
+						 accounts.append("'Đã hết hạn'");
+						break;
+					case 3:
+						 accounts.append("'Đã tuyển dụng'");
+						break;
+					case 4:
+						 accounts.append("'Tạm ngưng tuyển dụng'");
+						break;
+					case 5:
+						 accounts.append("'Đã hủy'");
+						break;
+					default:
+						 accounts.append("'Trạng thái không hợp lệ'");
+					}
+				    values.append("'" + (data_chart.get(i))).append("'");
+					if (i < data_chart.size()) {
+						values.append(",");
+						accounts.append(",");
+					}
+			    }
 		StringBuilder tmp = new StringBuilder();
 		tmp.append("<div class=\"card\">");
+
+		tmp.append("<div class=\"card\">");
 		tmp.append("<div class=\"card-body\">");
-		tmp.append("<h5 class=\"card-title\">Biểu đồ thống kê công ty theo chuyên mục</h5>");
-		tmp.append("");
+		tmp.append("<h5 class=\"card-title\">Biểu đồ trạng thái các tin tuyển dụng</h5>");
+	
 		tmp.append("<!-- Bar Chart -->");
 		tmp.append("<div id=\"barChart\"></div>");
-		tmp.append("");
+		
 		tmp.append("<script>");
 		tmp.append("document.addEventListener(\"DOMContentLoaded\", () => {");
 		tmp.append("new ApexCharts(document.querySelector(\"#barChart\"), {");
 		tmp.append("series: [{");
-		tmp.append("data: [" + data.toString() + "]");
+		tmp.append("data: [" + values.toString() + "]");
 		tmp.append("}],");
 		tmp.append("chart: {");
 		tmp.append("type: 'bar',");
-		if(datas.size()<=15) {
+		if(data_chart.size()<=15) {
 			tmp.append("height: 350,");
-		} else if(datas.size()<=30) {
+		} else if(data_chart.size()<=30) {
 			tmp.append("height: 600,");
 		} else {
 			tmp.append("height: 750,");
@@ -391,7 +406,7 @@ public class JobLibrary {
 		tmp.append("enabled: false");
 		tmp.append("},");
 		tmp.append("xaxis: {");
-		tmp.append("categories: [" + sections.toString() + "],");
+		tmp.append("categories: [" + accounts.toString() + "],");
 		tmp.append("}, ");
 		tmp.append("yaxis: {");
 		tmp.append("show: true,");
@@ -408,8 +423,10 @@ public class JobLibrary {
 		tmp.append("});");
 		tmp.append("</script>");
 		tmp.append("<!-- End Bar Chart -->");
-		tmp.append("");
+	
 		tmp.append("</div>");
+		tmp.append("</div>");
+
 		tmp.append("</div>");
 		return tmp;
 	}

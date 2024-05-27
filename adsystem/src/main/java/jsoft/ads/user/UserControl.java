@@ -14,6 +14,7 @@ import jsoft.ConnectionPoolImpl;
 import jsoft.library.ORDER;
 import jsoft.objects.ArticleObject;
 import jsoft.objects.CompanyObject;
+import jsoft.objects.ContactObject;
 import jsoft.objects.JobObject;
 import jsoft.objects.RecruiterObject;
 import jsoft.objects.ServiceObject;
@@ -46,6 +47,10 @@ public class UserControl {
 
 	public boolean addOrder(int order_id,ServiceObject sv , UserObject u) {
 		return this.um.addOrder(order_id,sv,u);
+	}
+	
+	public boolean addContact(ContactObject c) {
+		return this.um.addContact(c);
 	}
 	
 	public boolean editUser(UserObject item,USER_EDIT_TYPE et) {

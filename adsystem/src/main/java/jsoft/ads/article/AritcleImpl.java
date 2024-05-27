@@ -234,9 +234,7 @@ public class AritcleImpl extends BasicImpl implements Article {
 		sql.append(";");
 		
 		// thong ke
-		sql.append("select YEAR(str_to_date(article_last_modified,'%d/%m/%y')) as 'year', MONTH(str_to_date(article_last_modified,'%d/%m/%y')) as 'month',sum(article_visited) as 'totalview' ");
-		sql.append("from tblarticle group by YEAR(str_to_date(article_last_modified,'%d/%m/%y')), MONTH(str_to_date(article_last_modified,'%d/%m/%y')) ");
-		sql.append("order by YEAR(str_to_date(article_last_modified,'%d/%m/%y')), MONTH(str_to_date(article_last_modified,'%d/%m/%y')) asc;");
+		sql.append("select YEAR(str_to_date(article_last_modified,'%d/%m/%Y')) as 'year', MONTH(str_to_date(article_last_modified,'%d/%m/%Y')) as 'month',sum(article_visited) as 'totalview' from tblarticle group by YEAR(str_to_date(article_last_modified,'%d/%m/%y')), MONTH(str_to_date(article_last_modified,'%d/%m/%Y')) order by YEAR(str_to_date(article_last_modified,'%d/%m/%Y')), MONTH(str_to_date(article_last_modified,'%d/%m/%Y')) asc;");
 		
 		System.out.println(sql);
 		return this.getMR(sql.toString());

@@ -140,6 +140,17 @@ public class Header extends HttpServlet {
 					break;
 				}
 			}
+			if (pos.contains("sv")) {
+				String func = pos.substring(2);
+				switch (func) {
+				case "list":
+					url = "/adv/service/list";
+					break;
+				case "trash":
+					url = "/adv/service/list?trash";
+					break;
+				}
+			}
 
 		}
 		// lay tu khoa tim kiem

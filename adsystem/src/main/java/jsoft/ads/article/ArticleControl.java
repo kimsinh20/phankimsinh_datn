@@ -2,19 +2,17 @@ package jsoft.ads.article;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.javatuples.Pair;
 import org.javatuples.Quartet;
-import org.javatuples.Quintet;
 import org.javatuples.Sextet;
 
 import jsoft.ConnectionPool;
 import jsoft.ads.category.CATEGORY_SOFT;
-import jsoft.ads.section.SectionLibrary;
 import jsoft.library.ORDER;
 import jsoft.objects.ArticleObject;
 import jsoft.objects.CategoryObject;
-import jsoft.objects.SectionObject;
 import jsoft.objects.UserObject;
 
 public class ArticleControl {
@@ -55,7 +53,7 @@ public class ArticleControl {
 		return this.am.getCategories(infos, so);
 	}
 	public ArrayList<String> viewArticle(Quartet<ArticleObject, Integer, Byte,UserObject> infos, Pair<ARTICLE_SOFT, ORDER> so,int page,String saveKey,boolean trash) {
-		Sextet<ArrayList<ArticleObject>, Short,HashMap<Integer, String>,ArrayList<UserObject>,HashMap<String,Integer >,ArrayList<CategoryObject>> datas = this.am.getArticleObjects(infos);
+		Sextet<ArrayList<ArticleObject>, Short,HashMap<Integer, String>,ArrayList<UserObject>,LinkedHashMap<String,Integer >,ArrayList<CategoryObject>> datas = this.am.getArticleObjects(infos);
 		ArrayList<String> views = new ArrayList<>();
 		views.add(ArticleLibrary.viewArticles(datas.getValue0(), datas.getValue1(),datas.getValue2(), page,infos.getValue3() ));
 		views.add(ArticleLibrary.viewManagerOptions(datas.getValue3(), infos.getValue3().getUser_id()));

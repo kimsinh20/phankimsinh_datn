@@ -2,13 +2,11 @@ package jsoft.ads.article;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import jsoft.ads.section.SectionLibrary;
-import jsoft.library.Utilities;
 import jsoft.objects.ArticleObject;
-import jsoft.objects.CategoryObject;
 import jsoft.objects.SectionObject;
 import jsoft.objects.UserObject;
 
@@ -235,21 +233,21 @@ public class ArticleLibrary {
 		return tmp;
 	}
 	
-	public static StringBuilder createdChart(HashMap<String,Integer > datas) {
+	public static StringBuilder createdChart(LinkedHashMap<String,Integer > datas) {
 		StringBuilder data = new StringBuilder();
 		StringBuilder time = new StringBuilder();
 		int index = 0;
 		for(Entry<String, Integer> entry:datas.entrySet()) {
 			time.append("'" +entry.getKey()).append("'");
 			data.append(entry.getValue());
+			System.out.println(entry.getKey());
 			index++;
 			if (index < datas.size()) {
 				data.append(",");
 				time.append(",");
 			}
 		}
-//		System.out.println(data);
-//		System.out.println(time);
+		
 		
 		StringBuilder tmp = new StringBuilder();
 		tmp.append("<div class=\"card\">");

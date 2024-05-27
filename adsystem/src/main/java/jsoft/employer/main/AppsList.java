@@ -4,7 +4,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +29,8 @@ import jsoft.ads.applications.APP_SOFT;
 import jsoft.ads.applications.AppControl;
 import jsoft.ads.job.JOB_EDIT_TYPE;
 import jsoft.ads.job.JobControl;
+import jsoft.ads.user.USER_EDIT_TYPE;
+import jsoft.ads.user.UserControl;
 import jsoft.library.ORDER;
 import jsoft.objects.ApplicationsObject;
 import jsoft.objects.CareerObject;
@@ -141,6 +152,32 @@ public class AppsList extends HttpServlet {
 		if (error != null) {
 			error.include(request, response);
 		}
+		
+		String success = request.getParameter("success");
+		if (success != null) {
+			out.append("<div class=\"toast-container position-fixed top-1 end-0 ps-3 pe-5 mb-3\">");
+			out.append(
+					"<div id=\"liveToast\" class=\"toast\" role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\">");
+			out.append("<div class=\"toast-header\">");
+			// out.append("<img src=\"...\" class=\"rounded me-2\" alt=\"...\">");
+			out.append("<strong class=\"me-auto text-success\">Thông báo</strong>");
+			out.append("<small>10 giây</small>");
+			out.append(
+					"<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"toast\" aria-label=\"Close\"></button>");
+			out.append("</div>");
+			out.append("<div class=\"toast-body\">");
+			out.append("xuất file thành công");
+			out.append("</div>");
+			out.append("</div>");
+			out.append("</div>");
+
+			// script
+			out.append("<script language=\"javascript\" >");
+			out.append("const viewToast = document.getElementById('liveToast');");
+			out.append("const toast = new bootstrap.Toast(viewToast);");
+			out.append("toast.show();");
+			out.append("</script>");
+		}
 
 		out.append("<div class=\"pagetitle d-flex\">");
 		out.append("<h1>"+title+"</h1>");
@@ -165,7 +202,8 @@ public class AppsList extends HttpServlet {
 		// add user modal
 			
 		out.append("<div class=\"d-flex justify-content-between\">");
-		out.append("<a href=\"/adv/job/list?trash\" class=\"btn btn-danger my-4 \" ><i class=\"fas fa-trash-restore\"></i>Thùng rác</a>");
+		out.append("<a href=\"/adv/employer/apply/export\" class=\"btn btn-warning my-4 text-white\" ><i class=\"fa-solid fa-file-export me-2\"></i>Xuất file</a>");
+		out.append("<a href=\"/adv/employer/apply?trash\" class=\"btn btn-danger my-4 \" ><i class=\"fas fa-trash-restore me-2\"></i>Thùng rác</a>");
 		out.append("</div><!-- End div -->");
 		
 		
@@ -214,9 +252,71 @@ public class AppsList extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		RecruiterObject userR = (RecruiterObject) request.getSession().getAttribute("employerLogined");
+		String email = request.getParameter("txtemail");
+		String title = request.getParameter("txttitle");
+		String content = request.getParameter("txtcontent");
+		System.out.println(email);
+		System.out.println(title);
+		System.out.println(content);
+		final String senderEmail = "sinhkimphan20@gmail.com";
+		final String senderPassword = "foctyundbhlygtts"; // Replace with your password
 		
-		System.out.println("absdsad");
-		doGet(request, response);
+		// Recipient's email address
+		if(checkValidString(title) && checkValidString(content) && checkValidString(email)) {
+			
+		// Email properties
+		Properties properties = new Properties();
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+
+		// Create a session with the sender's credentials
+		Session session = Session.getInstance(properties, new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(senderEmail, senderPassword);
+			}
+		});
+
+		try {
+			// tìm bộ quản lý kết nối
+			ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("CPool");
+			// tạo đối tượng thực thi chức năng
+			UserControl uc = new UserControl(cp);
+			
+			// thuc hien doi mat khau
+			if (cp == null) {
+				getServletContext().setAttribute("CPool", cp);
+			}
+			
+			boolean result = true;
+//			boolean result =true;
+			// trả về kết nối
+			uc.releaseConnection();
+			// Create a new email message
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(senderEmail));
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			message.setSubject(title);
+			message.setText(content);
+
+			// Send the message
+			Transport.send(message);
+			response.getWriter().write("Email sent successfully.");
+			if (result) {
+				response.sendRedirect("/adv/employer/apply?page=");
+			} else {
+				response.sendRedirect("/adv/employer/apply?err=sendmail?page=");
+			}
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			response.getWriter().write("Email sending failed.");
+			response.sendRedirect("/adv/employer/apply?err=failed?page=");
+		}
+		} else {
+			response.sendRedirect("/adv/employer/apply?err=notvalid");
+		}
 	}
 
 }
