@@ -253,7 +253,7 @@ public class UserProfiles extends HttpServlet {
 		out.append("<div class=\"tab-pane fade profile-edit pt-3\" id=\"edit\">");
 
 		out.append("<!-- Profile Edit Form -->");
-		out.append("<form method=\"POST\" action=\"/adv/user/profiles\" enctype=\"multipart/form-data\">");
+		out.append("<form method=\"POST\" action=\"/adv/employer/profiles\" enctype=\"multipart/form-data\">");
 		out.append("<div class=\"row mb-3 align-items-center\">");
 		out.append("<label for=\"profileImage\" class=\"col-md-3 col-lg-2 col-form-label\">Hình Ảnh</label>");
 		out.append("<div class=\"col-md-9 col-lg-10\">");
@@ -354,9 +354,8 @@ public class UserProfiles extends HttpServlet {
 		out.append("</div>");
 
 		// truyen id theo co che bien trong an de thuc hien edit
-		if (id > 0 && isEdit && page>0) {
+		if (id > 0 && isEdit) {
 			out.append("<input type=\"hidden\" name=\"idForPost\" value=\"" + id + "\">");
-			out.append("<input type=\"hidden\" name=\"page\" value=\"" + page + "\">");
 			out.append("<input type=\"hidden\" name=\"act\" value=\"edit\">");
 		}
 		out.append("<div class=\"text-center\">");
@@ -412,7 +411,7 @@ public class UserProfiles extends HttpServlet {
 		// tab passowrd
 		out.append("<div class=\"tab-pane fade pt-3\" id=\"profile-change-password\">");
 		out.append("<!-- Change Password Form -->");
-		out.append("<form method=\"POST\" action=\"/adv/user/profiles\">");
+		out.append("<form method=\"POST\" action=\"/adv/employer/profiles\">");
 		out.append("<div class=\"row mb-3\">");
 		out.append(
 				"<label for=\"currentPassword\" class=\"col-md-4 col-lg-3 col-form-label\">Mật khẩu hiện tại</label>");
@@ -482,7 +481,7 @@ public class UserProfiles extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		UserObject user = (UserObject) request.getSession().getAttribute("userLogined");
+		UserObject user = (UserObject) request.getSession().getAttribute("employerLogined");
 
 		// thiết lập tập ký tự cần lấy
 		request.setCharacterEncoding("utf-8");
@@ -557,13 +556,13 @@ public class UserProfiles extends HttpServlet {
 
 					//
 					if (result) {
-						response.sendRedirect("/adv/user/list?page="+page);
+						response.sendRedirect("/adv/employer/profiles?id="+id);
 					} else {
-						response.sendRedirect("/adv/user/list?err=edit&page="+page);
+						response.sendRedirect("/adv/employer/dashboard?err=edit");
 					}
 
 				} else {
-					response.sendRedirect("/adv/user/list?err=valueeadd&page="+page);
+					response.sendRedirect("/adv/employer/dashboard?err=valueeadd");
 				}
 			} else if (action != null && action.equalsIgnoreCase("changePass")) {
 				// sua mat khau
@@ -600,21 +599,21 @@ public class UserProfiles extends HttpServlet {
 							if (result) {
 								response.sendRedirect("/adv/employer/dashboard");
 							} else {
-								response.sendRedirect("/adv/employer/dashboard?err=changepass&page="+page);
+								response.sendRedirect("/adv/employer/dashboard?err=changepass");
 							}
 
 						} else {
-							response.sendRedirect("/adv/employer/dashboard?err=valuepass&page="+page);
+							response.sendRedirect("/adv/employer/dashboard?err=valuepass");
 						}
 					} else {
-						response.sendRedirect("/adv/employer/dashboardt?err=passnotmatch&page="+page);
+						response.sendRedirect("/adv/employer/dashboardt?err=passnotmatch");
 					}
 				} else {
-					response.sendRedirect("/adv/employer/dashboard?err=valuepass&page="+page);
+					response.sendRedirect("/adv/employer/dashboard?err=valuepass");
 				}
 			}
 		} else {
-			response.sendRedirect("/adv/employer/dashboard?err=profiles&page="+page);
+			response.sendRedirect("/adv/employer/dashboard?err=profiles");
 		}
 	}
 

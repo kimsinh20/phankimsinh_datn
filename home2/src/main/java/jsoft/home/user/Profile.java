@@ -51,6 +51,8 @@ public class Profile extends HttpServlet {
 		response.setContentType(CONTENT_TYPE);
 		request.setCharacterEncoding("UTF-8");
 		String act = request.getParameter("act");
+		String apply = request.getParameter("sucsess");
+		boolean isApply = (apply!=null)?true:false;
 		if(act==null || act.equalsIgnoreCase("")) {
 			act = "home";
 		}
@@ -73,6 +75,7 @@ public class Profile extends HttpServlet {
 		request.setAttribute("jobapply", jobapply);
 		request.setAttribute("user", getUser);
 		request.setAttribute("act", act);
+		request.setAttribute("isApply", isApply);
 		request.getRequestDispatcher("/profile/index.jsp").forward(request, response);
 		} else {
 			response.sendRedirect("/home/err?e=login");

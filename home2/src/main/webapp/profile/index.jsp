@@ -240,3 +240,8 @@
 
 
 <jsp:include page="../footer.jsp" flush="true"></jsp:include>
+<c:if test="${isApply }">
+<script>
+ showToast('Ứng tuyển thành công!!!!!');
+</script>
+</c:if>

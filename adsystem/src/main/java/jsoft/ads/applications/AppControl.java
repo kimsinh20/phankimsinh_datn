@@ -51,8 +51,8 @@ public class AppControl {
 		Pair<ArrayList<ApplicationsObject>, Short> datas = this.cm.getAppObjects(infos, so);
 		ArrayList<String> views = new ArrayList<>();
 		views.add(AppLibrary.viewApp(datas.getValue0(), datas.getValue1(), page,infos.getValue3() ));
-//		String view2= AppLibrary.pagination(datas.getValue1(), infos.getValue2(),page,saveKey,trash).toString();
-//        views.add(view2);
+		String view2= AppLibrary.pagination(datas.getValue1(), infos.getValue2(),page,saveKey,trash).toString();
+        views.add(view2);
 //      views.add(AppLibrary.viewFieldOptions(datas.getValue3(), infos.getValue3().getUser_id()));
 //        views.add(AppLibrary.createdChart(datas.getValue4()).toString());
 //		views.add(AppLibrary.viewSectionOptions(datas.getValue5(), infos.getValue3().getUser_id()));
@@ -62,8 +62,8 @@ public class AppControl {
 		Pair<ArrayList<ApplicationsObject>, Short> datas = this.cm.getAppObjects(infos, so);
 		ArrayList<String> views = new ArrayList<>();
 		views.add(AppLibrary.viewApp2(datas.getValue0(), datas.getValue1(), page,infos.getValue3() ));
-//		String view2= AppLibrary.pagination(datas.getValue1(), infos.getValue2(),page,saveKey,trash).toString();
-//        views.add(view2);
+		String view2= AppLibrary.pagination(datas.getValue1(), infos.getValue2(),page,saveKey,trash).toString();
+        views.add(view2);
 //      views.add(AppLibrary.viewFieldOptions(datas.getValue3(), infos.getValue3().getUser_id()));
 //        views.add(AppLibrary.createdChart(datas.getValue4()).toString());
 //		views.add(AppLibrary.viewSectionOptions(datas.getValue5(), infos.getValue3().getUser_id()));

@@ -35,7 +35,7 @@ public class Footer extends HttpServlet {
 		out.append("<!-- ======= Footer ======= -->");
 		out.append("<footer id=\"footer\" class=\"footer\">");
 		out.append("<div class=\"copyright\">");
-		out.append("&copy; Copyright <strong><span>JP255</span></strong>. All Rights Reserved");
+		out.append("&copy; Copyright <strong><span>Phan Kim Sinh</span></strong>. All Rights Reserved");
 		out.append("</div>");
 		out.append("<div class=\"credits\">");
 		out.append("<!-- All the links in the footer should remain intact. -->");

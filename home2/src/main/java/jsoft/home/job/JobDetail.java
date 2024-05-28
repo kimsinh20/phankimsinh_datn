@@ -401,14 +401,24 @@ public class JobDetail extends HttpServlet {
 		
 		if(id>0 && user!=null) {
 			String app_letter = request.getParameter("letter");
-			Part filePart = request.getPart("client_profiles");
-	     	String client_profiles = "";
-				String filename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-				InputStream io = filePart.getInputStream();
-				String path  = getServletContext().getRealPath("/")+"files" + File.separator + filename;
-	         if(jsoft.library.Utilities.saveFile(io, path)) {
-	         	client_profiles = "/home/files/"+filename;
-	         } 
+			String option = request.getParameter("option");
+			System.out.println(option);
+			String client_profiles = "";
+			if(!option.equalsIgnoreCase("a")) {
+				   client_profiles = option;
+				   System.out.println("sdas");
+			} else {
+				 System.out.println("sdsdwww");
+				Part filePart = request.getPart("client_profiles");
+					String filename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+					InputStream io = filePart.getInputStream();
+					String path  = getServletContext().getRealPath("/")+"files" + File.separator + filename;
+		        
+					if(jsoft.library.Utilities.saveFile(io, path)) {
+		         	client_profiles = "/home/files/"+filename;
+		         } 
+			}
+			
 			ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("CPool");
 			AppControl uc = new AppControl(cp);
 			// add new user
@@ -431,9 +441,9 @@ public class JobDetail extends HttpServlet {
 			boolean result = uc.addApp(similar);
 			// return connect
 			if (result) {
-				response.sendRedirect("/home");
+				response.sendRedirect("/home/profile?act=apply&sucsess");
 			} else {
-				response.sendRedirect("/home/err");
+				response.sendRedirect("/home/jobs/detail?id="+id+"?err");
 			}
 			
 			// return connect

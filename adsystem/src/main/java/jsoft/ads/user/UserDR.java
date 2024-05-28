@@ -52,7 +52,15 @@ public class UserDR extends HttpServlet {
 							// tim tham so
 							String trash =request.getParameter("t");
 							String restore =request.getParameter("r");
-							String url = "/adv/user/list?page="+page;
+							String usertype = "";
+							if(user.getUser_permission()==1) {
+								usertype = "client";
+							} else if(user.getUser_permission()==2) {
+								usertype = "recruiter";
+							} else {
+								usertype = "user";
+							}
+							String url = "/adv/"+usertype+"/list?page="+page;
 							boolean delResult;
 							if(trash == null) {
 								delResult = uc.delUser(dUser);	

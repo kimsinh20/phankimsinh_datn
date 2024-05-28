@@ -677,10 +677,10 @@
 												để ứng tuyển</span>
 										</div>
 										<div>
-											<input type="radio" id="html" name="fav_language"
-												value="b"> <label for="html">${client.client_profiles }<a class="text-true ms-3" target="_blank" href="${client.client_profiles }">Xem CV</a></label><br>
-											<input type="radio" id="css" name="fav_language" value="a">
-											<label for="css"><input type="file" id="file"
+											<input type="radio" id="option1" name="option"
+												value="${client.client_profiles}" checked="true"> <label for="html">${client.client_profiles }<a class="text-true ms-3" target="_blank" href="${client.client_profiles }">Xem CV</a></label><br>
+											<input type="radio" id="option2" name="option" value="a">
+											<label for="css"><input type="file" onchange="changeFile()" id="file_cv"
 												name="client_profiles"></label><br>
 										</div>
 									</div>

@@ -212,7 +212,7 @@ public class AppsList extends HttpServlet {
 		// list section
 		out.append(viewList.get(0));
 		// phan trang
-//		out.append(viewList.get(1));
+		out.append(viewList.get(1));
 		
 		out.append("</div>"); // end card-body
 		out.append("</div>"); // end card

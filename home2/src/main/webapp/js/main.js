@@ -294,6 +294,22 @@ function showToast(title) {
 		onClick: function() { } // Callback after click
 	}).showToast();
 }
+function showToast2(title) {
+	Toastify({
+		text: title,
+		duration: 3000,
+		destination: "http://localhost:8080/home/",
+		newWindow: true,
+		close: true,
+		gravity: "bottom", // `top` or `bottom`
+		position: "right", // `left`, `center` or `right`
+		stopOnFocus: true, // Prevents dismissing of toast on hover
+		style: {
+			background: "linear-gradient(to right, #00b09b, #96c93d)",
+		},
+		onClick: function() { } // Callback after click
+	}).showToast();
+}
 function toggle() {
 	if (document.getElementById("nav_profile") != null) {
 		document.getElementById("nav_profile").classList.toggle("hidden");
@@ -473,6 +489,10 @@ async function followCompanyV2(com_id, user_id) {
 	} else {
 		showDialog();
 	}
+}
+
+function changeFile() {
+	 document.getElementById("option2").checked = true;
 }
 
 
